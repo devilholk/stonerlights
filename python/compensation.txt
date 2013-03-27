@@ -1,0 +1,6 @@
+Compensation for cheap and crappy LED stripe from ebay
+
+rcomp, gcomp, bcomp
+(1.0, 0.8, 0.65)
+
+
