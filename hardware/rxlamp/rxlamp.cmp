@@ -1,0 +1,290 @@
+Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Fri 29 Mar 2013 07:53:49 AM CET
+
+BeginCmp
+TimeStamp = /5115C4FD;
+Reference = C1;
+ValeurCmp = 22 µF;
+IdModule  = c_tant_D;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A13CD9;
+Reference = C2;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A12C1F;
+Reference = C3;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A12C19;
+Reference = C4;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A12C13;
+Reference = C5;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A12AFF;
+Reference = C6;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A10BE6;
+Reference = C7;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C535;
+Reference = C8;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C521;
+Reference = C9;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /51553AB8;
+Reference = P1;
+ValeurCmp = CONN_5;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115CB7A;
+Reference = P2;
+ValeurCmp = CONN_2;
+IdModule  = PIN_ARRAY_2X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /51553AC7;
+Reference = P3;
+ValeurCmp = CONN_4;
+IdModule  = PIN_ARRAY_4x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C407;
+Reference = Q1;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT23GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C84A;
+Reference = Q2;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT23GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C85F;
+Reference = Q3;
+ValeurCmp = MOSFET_N;
+IdModule  = SOT23GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A0F5F7;
+Reference = R1;
+ValeurCmp = 4.7 kΩ;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A0F6CF;
+Reference = R2;
+ValeurCmp = 4.7 kΩ;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A1086D;
+Reference = R3;
+ValeurCmp = 4.7 kΩ;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C539;
+Reference = R4;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C546;
+Reference = R5;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C54C;
+Reference = R6;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C63D;
+Reference = R7;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C643;
+Reference = R8;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C649;
+Reference = R9;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C664;
+Reference = R10;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C66A;
+Reference = R11;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C670;
+Reference = R12;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115CD2F;
+Reference = R13;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115CE11;
+Reference = R14;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115CE17;
+Reference = R15;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /50A09271;
+Reference = U1;
+ValeurCmp = STM32F100;
+IdModule  = lqfp48;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C4E2;
+Reference = U2;
+ValeurCmp = VREG;
+IdModule  = sot223;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C3F8;
+Reference = U3;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C62B;
+Reference = U4;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C652;
+Reference = U5;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C428;
+Reference = U6;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C631;
+Reference = U7;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C658;
+Reference = U8;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C42E;
+Reference = U9;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C637;
+Reference = U10;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /5115C65E;
+Reference = U11;
+ValeurCmp = PLCC6XRGBCT;
+IdModule  = PLCC6XRGBCT;
+EndCmp
+
+EndListe

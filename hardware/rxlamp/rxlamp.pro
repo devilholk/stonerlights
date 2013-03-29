@@ -1,4 +1,4 @@
-update=Fri 29 Mar 2013 04:18:31 AM CET
+update=Fri 29 Mar 2013 08:32:26 AM CET
 version=1
 last_client=pcbnew
 [cvpcb]
@@ -53,8 +53,7 @@ LibName33=resistor-nets
 LibName34=plcc6xrgbct
 [pcbnew]
 version=1
-LastNetListRead=
-UseCmpFile=1
+LastNetListRead=rxlamp.net
 PadDrill=0
 PadSizeH=0.0005
 PadSizeV=0.0005
@@ -82,3 +81,5 @@ LibName8=led
 LibName9=dip_sockets
 LibName10=pga_sockets
 LibName11=valves
+LibName12=logo/oshwlogo
+LibName13=OSHW-logo
