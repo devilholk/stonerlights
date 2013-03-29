@@ -1,6 +1,6 @@
-PCBNEW-BOARD Version 2 date Fri 29 Mar 2013 02:03:15 PM CET
+PCBNEW-BOARD Version 2 date Fri 29 Mar 2013 02:15:21 PM CET
 
-# Created by Pcbnew(2012-oct-18)-stable
+# Created by Pcbnew(2013-mar-13)-testing
 
 $GENERAL
 encoding utf-8
@@ -2857,13 +2857,13 @@ Ro 0 0 0
 $EndSHAPE3D
 $EndMODULE r_0603
 $MODULE OSHW-logo_silkscreen-back_5mm
-Po 51.6 51.2 -0 0 00000000 5155A568 ~~
+Po 51.6 51.2 0 0 00000000 5155A568 ~~
 Li OSHW-logo_silkscreen-back_5mm
 Sc 5155A568
 AR 
 Op 0 0 0
-T0 0 -2.65176 0.22606 0.22606 -0 0.04318 M I 20 N "G***"
-T1 0 2.65176 0.22606 0.22606 -0 0.04318 M I 20 N "OSHW-logo_silkscreen-back_5mm"
+T0 0 -2.65176 0.22606 0.22606 0 0.04318 M I 20 N "G***"
+T1 0 2.65176 0.22606 0.22606 0 0.04318 M I 20 N "OSHW-logo_silkscreen-back_5mm"
 DP 0 0 0 0 277 0.00254 20
 Dl 1.51384 2.24536
 Dl 1.48844 2.23012
@@ -3156,7 +3156,7 @@ De 21 1 0 Normal
 $EndTEXTPCB
 $TEXTPCB
 Te "CC-BY-SA-3.0"
-nl "Rev: 1.1"
+nl "Rev: 2.0"
 Po 62.2 50.2 1 1 0.2 0
 De 20 0 0 Normal
 $EndTEXTPCB
@@ -5877,7 +5877,7 @@ $POLYSCORNERS
 $endPOLYSCORNERS
 $endCZONE_OUTLINE
 $CZONE_OUTLINE
-ZInfo 51558A9F 10 "/RF_CSN"
+ZInfo 51558A9F 0 ""
 ZLayer 0
 ZAux 8 E
 ZClearance 0.508 T
@@ -5895,7 +5895,7 @@ ZCorner 79.2 61.6 0
 ZCorner 79.2 75.8 1
 $endCZONE_OUTLINE
 $CZONE_OUTLINE
-ZInfo 51558B53 10 "/RF_CSN"
+ZInfo 51558B53 0 ""
 ZLayer 15
 ZAux 7 E
 ZClearance 0.508 T

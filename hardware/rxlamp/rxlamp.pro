@@ -1,4 +1,4 @@
-update=Fri 29 Mar 2013 12:23:59 PM CET
+update=Fri 29 Mar 2013 02:17:13 PM CET
 version=1
 last_client=pcbnew
 [general]
@@ -55,6 +55,7 @@ EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=rxlamp.net
+UseCmpFile=1
 PadDrill=0
 PadSizeH=0.0005
 PadSizeV=0.0005
@@ -70,7 +71,7 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=modules
+LibDir=/usr/share/kicad/modules/walter
 LibName1=sockets
 LibName2=connect
 LibName3=discret
