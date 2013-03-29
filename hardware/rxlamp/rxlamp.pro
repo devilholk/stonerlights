@@ -1,11 +1,6 @@
-update=Fri 29 Mar 2013 08:32:26 AM CET
+update=Fri 29 Mar 2013 12:23:59 PM CET
 version=1
 last_client=pcbnew
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [general]
 version=1
 [eeschema]
@@ -51,6 +46,12 @@ LibName31=vreg
 LibName32=stm32f100
 LibName33=resistor-nets
 LibName34=plcc6xrgbct
+LibName35=crf
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=rxlamp.net
@@ -69,7 +70,7 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=/usr/share/kicad/modules/walter
+LibDir=modules
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -83,3 +84,6 @@ LibName10=pga_sockets
 LibName11=valves
 LibName12=logo/oshwlogo
 LibName13=OSHW-logo
+LibName14=crf
+LibName15=/home/devilholk/Projects/Software/Applications/Kicad/Libraries/Assorted/downloaded/w_smd_cap
+LibName16=/home/devilholk/Projects/Software/Applications/Kicad/Libraries/Assorted/downloaded/w_smd_resistors

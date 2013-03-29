@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Fri 29 Mar 2013 07:53:49 AM CET
+Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Fri 29 Mar 2013 12:58:52 PM CET
 
 BeginCmp
 TimeStamp = /5115C4FD;
@@ -61,6 +61,27 @@ TimeStamp = /5115C521;
 Reference = C9;
 ValeurCmp = 100 nF;
 IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /51557820;
+Reference = C10;
+ValeurCmp = 1 µF;
+IdModule  = c_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5155781A;
+Reference = C11;
+ValeurCmp = 100 nF;
+IdModule  = c_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /51557BCC;
+Reference = J1;
+ValeurCmp = SMA;
+IdModule  = SMA_SMD_Straight;
 EndCmp
 
 BeginCmp
@@ -211,6 +232,27 @@ IdModule  = r_0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /5155818C;
+Reference = R16;
+ValeurCmp = 0 Ω;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /515583F4;
+Reference = R17;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /515583FA;
+Reference = R18;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /50A09271;
 Reference = U1;
 ValeurCmp = STM32F100;
@@ -285,6 +327,13 @@ TimeStamp = /5115C65E;
 Reference = U11;
 ValeurCmp = PLCC6XRGBCT;
 IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /51556B9E;
+Reference = U12;
+ValeurCmp = RF2400-NANO;
+IdModule  = RF2400-NANO;
 EndCmp
 
 EndListe

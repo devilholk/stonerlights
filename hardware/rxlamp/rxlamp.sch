@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 29 Mar 2013 07:50:25 AM CET
+EESchema Schematic File Version 2  date Fri 29 Mar 2013 01:24:56 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -33,6 +33,8 @@ LIBS:vreg
 LIBS:stm32f100
 LIBS:resistor-nets
 LIBS:plcc6xrgbct
+LIBS:crf
+LIBS:rxlamp-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
@@ -57,23 +59,23 @@ F 1 "4.7 kΩ" V 5900 1800 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR4
+L GND #PWR7
 U 1 1 50A10939
 P 6200 1850
-F 0 "#PWR4" H 6200 1850 30  0001 C CNN
+F 0 "#PWR7" H 6200 1850 30  0001 C CNN
 F 1 "GND" H 6200 1780 30  0001 C CNN
 	1    6200 1850
 	1    0    0    -1  
 $EndComp
-Text Label 3150 2650 2    60   ~ 0
+Text Label 3700 2650 2    60   ~ 0
 MCU_TX
-Text Label 3150 2550 2    60   ~ 0
+Text Label 3700 2550 2    60   ~ 0
 MCU_RX
 $Comp
-L GND #PWR2
+L GND #PWR4
 U 1 1 50A11382
 P 3600 4350
-F 0 "#PWR2" H 3600 4350 30  0001 C CNN
+F 0 "#PWR4" H 3600 4350 30  0001 C CNN
 F 1 "GND" H 3600 4280 30  0001 C CNN
 	1    3600 4350
 	1    0    0    -1  
@@ -146,10 +148,10 @@ $EndComp
 Text Label 4750 4850 2    60   ~ 0
 VCC 3V3
 $Comp
-L GND #PWR3
+L GND #PWR6
 U 1 1 50A10542
 P 5400 5500
-F 0 "#PWR3" H 5400 5500 30  0001 C CNN
+F 0 "#PWR6" H 5400 5500 30  0001 C CNN
 F 1 "GND" H 5400 5430 30  0001 C CNN
 	1    5400 5500
 	1    0    0    -1  
@@ -164,34 +166,25 @@ F 1 "100 nF" H 5300 5100 50  0000 L CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L STM32F100 U1
-U 1 1 50A09271
-P 4450 2900
-F 0 "U1" H 4400 4400 60  0000 C CNN
-F 1 "STM32F100" H 4150 1350 60  0000 C CNN
-	1    4450 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR1
+L GND #PWR2
 U 1 1 5115C18A
-P 2900 2100
-F 0 "#PWR1" H 2900 2100 30  0001 C CNN
-F 1 "GND" H 2900 2030 30  0001 C CNN
-	1    2900 2100
+P 2400 1700
+F 0 "#PWR2" H 2400 1700 30  0001 C CNN
+F 1 "GND" H 2400 1630 30  0001 C CNN
+	1    2400 1700
 	1    0    0    -1  
 $EndComp
 Text Label 5550 3900 0    60   ~ 0
 BOOT
 Text Label 5550 4000 0    60   ~ 0
 NRST
-Text Label 2850 1700 0    60   ~ 0
+Text Label 2350 1300 0    60   ~ 0
 BOOT
-Text Label 2850 1800 0    60   ~ 0
+Text Label 2350 1400 0    60   ~ 0
 NRST
-Text Label 2850 1500 0    60   ~ 0
+Text Label 2350 1100 0    60   ~ 0
 MCU_RX
-Text Label 2850 1600 0    60   ~ 0
+Text Label 2350 1200 0    60   ~ 0
 MCU_TX
 $Comp
 L PLCC6XRGBCT U3
@@ -383,10 +376,10 @@ F 1 "MOSFET_N" H 10960 4150 60  0000 R CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR6
+L GND #PWR10
 U 1 1 5115CC5E
 P 10150 5500
-F 0 "#PWR6" H 10150 5500 30  0001 C CNN
+F 0 "#PWR10" H 10150 5500 30  0001 C CNN
 F 1 "GND" H 10150 5430 30  0001 C CNN
 	1    10150 5500
 	1    0    0    -1  
@@ -508,15 +501,11 @@ Wire Wire Line
 	5550 4050 5550 4000
 Connection ~ 5250 4050
 Wire Wire Line
-	3150 2650 3700 2650
+	2350 1500 2400 1500
 Wire Wire Line
-	3700 2550 3150 2550
+	2400 1500 2400 1700
 Wire Wire Line
-	2850 1900 2900 1900
-Wire Wire Line
-	2900 1900 2900 2100
-Wire Wire Line
-	7050 2000 6850 2000
+	6850 2000 7050 2000
 Wire Wire Line
 	6850 1150 6850 3750
 Wire Wire Line
@@ -544,7 +533,7 @@ Connection ~ 6850 2900
 Connection ~ 6850 3250
 Connection ~ 6850 3500
 Wire Wire Line
-	9750 4200 9750 1500
+	9750 1500 9750 4200
 Wire Wire Line
 	9650 1500 10200 1500
 Wire Wire Line
@@ -612,9 +601,9 @@ Wire Wire Line
 	10950 4700 9600 4700
 Text Label 5250 1600 0    60   ~ 0
 R
-Text Label 3700 2300 2    60   ~ 0
+Text Label 3700 1800 2    60   ~ 0
 G
-Text Label 3700 2200 2    60   ~ 0
+Text Label 3700 1700 2    60   ~ 0
 B
 Text Label 6850 1150 2    60   ~ 0
 VDD
@@ -632,10 +621,10 @@ VDD
 Text Label 8000 4900 0    60   ~ 0
 VCC 3V3
 $Comp
-L GND #PWR5
+L GND #PWR8
 U 1 1 5115C4F1
 P 7300 5550
-F 0 "#PWR5" H 7300 5550 30  0001 C CNN
+F 0 "#PWR8" H 7300 5550 30  0001 C CNN
 F 1 "GND" H 7300 5480 30  0001 C CNN
 	1    7300 5550
 	1    0    0    -1  
@@ -697,7 +686,7 @@ NoConn ~ 5250 3650
 NoConn ~ 5250 3500
 NoConn ~ 5250 3400
 NoConn ~ 5250 3300
-NoConn ~ 5250 3150
+NoConn ~ 3700 2850
 NoConn ~ 5250 3050
 NoConn ~ 5250 2950
 NoConn ~ 5250 2850
@@ -707,8 +696,6 @@ NoConn ~ 5250 2550
 NoConn ~ 3700 3150
 NoConn ~ 3700 3050
 NoConn ~ 3700 2950
-NoConn ~ 3700 2850
-NoConn ~ 3700 2750
 NoConn ~ 5250 2450
 NoConn ~ 5250 2300
 NoConn ~ 5250 2200
@@ -716,12 +703,7 @@ NoConn ~ 5250 2100
 NoConn ~ 5250 2000
 NoConn ~ 5250 1900
 NoConn ~ 5250 1700
-NoConn ~ 3700 1600
-NoConn ~ 3700 1700
-NoConn ~ 3700 1800
 NoConn ~ 3700 1900
-NoConn ~ 3700 2000
-NoConn ~ 3700 2100
 NoConn ~ 3700 2450
 $Comp
 L CONN_2 P2
@@ -736,19 +718,19 @@ Connection ~ 6400 5500
 Wire Wire Line
 	6200 4900 6200 5650
 $Comp
-L CONN_5 P?
+L CONN_5 P1
 U 1 1 51553AB8
-P 2450 1700
-F 0 "P?" V 2400 1700 50  0000 C CNN
-F 1 "CONN_5" V 2500 1700 50  0000 C CNN
-	1    2450 1700
+P 1950 1300
+F 0 "P1" V 1900 1300 50  0000 C CNN
+F 1 "CONN_5" V 2000 1300 50  0000 C CNN
+	1    1950 1300
 	-1   0    0    1   
 $EndComp
 $Comp
-L CONN_4 P?
+L CONN_4 P3
 U 1 1 51553AC7
 P 10250 700
-F 0 "P?" V 10200 700 50  0000 C CNN
+F 0 "P3" V 10200 700 50  0000 C CNN
 F 1 "CONN_4" V 10300 700 50  0000 C CNN
 	1    10250 700 
 	0    -1   -1   0   
@@ -771,4 +753,204 @@ Wire Wire Line
 Wire Wire Line
 	10100 1200 6850 1200
 Connection ~ 6850 1200
+$Comp
+L RF2400-NANO U12
+U 1 1 51556B9E
+P 3500 5900
+F 0 "U12" H 3200 6400 60  0000 C CNN
+F 1 "RF2400-NANO" H 3500 5350 60  0000 C CNN
+F 2 "~" H 3500 5900 60  0000 C CNN
+F 3 "~" H 3500 5900 60  0000 C CNN
+	1    3500 5900
+	1    0    0    -1  
+$EndComp
+Text Label 2800 6250 2    60   ~ 0
+RF_IRQ
+Text Label 2800 6150 2    60   ~ 0
+RF_MISO
+Text Label 2800 6050 2    60   ~ 0
+RF_MOSI
+Text Label 2800 5950 2    60   ~ 0
+RF_SCK
+Text Label 2800 5850 2    60   ~ 0
+RF_CSN
+Text Label 2800 5750 2    60   ~ 0
+RF_CE
+Text Label 3700 2000 2    60   ~ 0
+RF_CSN
+Text Label 3700 2100 2    60   ~ 0
+RF_SCK
+Text Label 3700 2300 2    60   ~ 0
+RF_MOSI
+Text Label 3700 2200 2    60   ~ 0
+RF_MISO
+Text Label 5250 3150 0    60   ~ 0
+RF_IRQ
+Text Label 3700 2750 2    60   ~ 0
+RF_CE
+Text Label 3700 1600 2    60   ~ 0
+POWER_SENSE
+$Comp
+L STM32F100 U1
+U 1 1 50A09271
+P 4450 2900
+F 0 "U1" H 4400 4400 60  0000 C CNN
+F 1 "STM32F100" H 4150 1350 60  0000 C CNN
+	1    4450 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C11
+U 1 1 5155781A
+P 1800 5400
+F 0 "C11" H 1850 5500 50  0000 L CNN
+F 1 "100 nF" H 1850 5300 50  0000 L CNN
+	1    1800 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C10
+U 1 1 51557820
+P 1400 5400
+F 0 "C10" H 1450 5500 50  0000 L CNN
+F 1 "1 µF" H 1450 5300 50  0000 L CNN
+	1    1400 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR1
+U 1 1 51557841
+P 1400 5750
+F 0 "#PWR1" H 1400 5750 30  0001 C CNN
+F 1 "GND" H 1400 5680 30  0001 C CNN
+	1    1400 5750
+	1    0    0    -1  
+$EndComp
+Text Label 1300 5050 2    60   ~ 0
+VCC 3V3
+Wire Wire Line
+	1300 5050 1300 5150
+Wire Wire Line
+	1300 5150 2050 5150
+Wire Wire Line
+	1400 5150 1400 5200
+Wire Wire Line
+	1800 5150 1800 5200
+Connection ~ 1400 5150
+Wire Wire Line
+	2800 5650 2050 5650
+Wire Wire Line
+	2050 5650 2050 5150
+Connection ~ 1800 5150
+Wire Wire Line
+	1400 5600 1400 5750
+Wire Wire Line
+	1400 5650 1800 5650
+Wire Wire Line
+	1800 5650 1800 5600
+Connection ~ 1400 5650
+$Comp
+L GND #PWR3
+U 1 1 51557B24
+P 2450 5500
+F 0 "#PWR3" H 2450 5500 30  0001 C CNN
+F 1 "GND" H 2450 5430 30  0001 C CNN
+	1    2450 5500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 5550 2800 5400
+Wire Wire Line
+	2800 5400 2450 5400
+Wire Wire Line
+	2450 5400 2450 5500
+$Comp
+L SMA J1
+U 1 1 51557BCC
+P 4000 4750
+F 0 "J1" H 4175 4865 60  0000 C CNN
+F 1 "SMA" H 4240 4790 60  0000 C CNN
+F 2 "SMA" H 4225 4720 50  0000 C CNN
+F 3 "~" H 4000 4750 60  0000 C CNN
+	1    4000 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR5
+U 1 1 51557BE3
+P 4000 5250
+F 0 "#PWR5" H 4000 5250 30  0001 C CNN
+F 1 "GND" H 4000 5180 30  0001 C CNN
+	1    4000 5250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 5150 4150 5150
+Wire Wire Line
+	4000 4850 4000 5250
+Wire Wire Line
+	3600 5150 3600 4550
+Wire Wire Line
+	3600 4550 4150 4550
+Wire Wire Line
+	4150 4550 4150 5150
+Connection ~ 4000 5150
+Wire Wire Line
+	4100 4850 4100 5150
+Connection ~ 4100 5150
+Wire Wire Line
+	4050 4850 4050 5150
+Connection ~ 4050 5150
+Wire Wire Line
+	3950 4850 3950 5150
+Connection ~ 3950 5150
+$Comp
+L R R16
+U 1 1 5155818C
+P 3700 4900
+F 0 "R16" V 3780 4900 50  0000 C CNN
+F 1 "0 Ω" V 3700 4900 50  0000 C CNN
+	1    3700 4900
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3900 4650 3700 4650
+Text Label 6750 4350 2    60   ~ 0
+POWER_SENSE
+$Comp
+L R R17
+U 1 1 515583F4
+P 6850 4000
+F 0 "R17" V 6930 4000 50  0000 C CNN
+F 1 "R" V 6850 4000 50  0000 C CNN
+	1    6850 4000
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R18
+U 1 1 515583FA
+P 7200 4350
+F 0 "R18" V 7280 4350 50  0000 C CNN
+F 1 "R" V 7200 4350 50  0000 C CNN
+	1    7200 4350
+	0    1    1    0   
+$EndComp
+$Comp
+L GND #PWR9
+U 1 1 51558400
+P 7500 4450
+F 0 "#PWR9" H 7500 4450 30  0001 C CNN
+F 1 "GND" H 7500 4380 30  0001 C CNN
+	1    7500 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7450 4350 7500 4350
+Wire Wire Line
+	7500 4350 7500 4450
+Wire Wire Line
+	6750 4350 6950 4350
+Wire Wire Line
+	6850 4350 6850 4250
+Connection ~ 6850 4350
 $EndSCHEMATC
