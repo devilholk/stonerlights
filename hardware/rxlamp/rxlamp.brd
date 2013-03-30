@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 2 date Sat 30 Mar 2013 05:57:41 AM CET
+PCBNEW-BOARD Version 2 date Sat 30 Mar 2013 06:01:00 AM CET
 
 # Created by Pcbnew(2012-oct-18)-stable
 
@@ -34,7 +34,7 @@ $SETUP
 Layers 2
 Layer[0] Back signal
 Layer[15] Front signal
-TrackWidth 0.3
+TrackWidth 0.254
 TrackWidthList 0.3
 TrackWidthList 0.4
 TrackWidthList 0.5
@@ -68,7 +68,7 @@ Pad2MaskClearance 0.1
 SolderMaskMinWidth 0
 AuxiliaryAxisOrg 0 0
 VisibleElements FFFF7FBF
-PcbPlotParams (pcbplotparams (layerselection 32769) (usegerberextensions false) (excludeedgelayer true) (linewidth 152400) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 2) (psnegative false) (psa4output false) (plotreference true) (plotvalue true) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 5) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory ""))
+PcbPlotParams (pcbplotparams (layerselection 32769) (usegerberextensions false) (excludeedgelayer true) (linewidth 152400) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 2) (psnegative false) (psa4output false) (plotreference true) (plotvalue true) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 5) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory pictures/))
 $EndSETUP
 
 $EQUIPOT
@@ -3444,7 +3444,7 @@ De 0 0 14 515589DA 0
 Po 0 68.48 68.52 69 68 0.3 -1
 De 0 0 14 515589D9 0
 Po 0 73 60.99974 73 60.6 0.3 -1
-De 0 0 15 0 C00000
+De 0 0 15 0 0
 Po 3 73.4 59.6 73.4 59.6 1 -1
 De 15 1 15 0 0
 Po 0 74.2 59.6 73.4 59.6 0.3 -1
@@ -3470,7 +3470,7 @@ De 15 0 15 515670AA 0
 Po 3 72.4 60 72.4 60 1 -1
 De 15 1 15 0 0
 Po 0 73 60.6 72.4 60 0.3 -1
-De 0 0 15 515670A4 400000
+De 0 0 15 515670A4 0
 Po 0 66.84 72.33 68.37 72.33 0.4 -1
 De 0 0 15 0 0
 Po 0 69.6 64.39974 73 60.99974 0.4 -1
@@ -3918,15 +3918,15 @@ De 15 0 32 0 0
 Po 0 52.31994 78.46822 51.53 79.25816 0.6 -1
 De 15 0 32 5115CF02 0
 Po 0 71.85 56.9849 71.85 57.35 0.6 -1
-De 15 0 33 0 C00000
+De 15 0 33 0 0
 Po 0 71.85 61.65 71.85 62.3951 0.6 -1
-De 15 0 33 51566FD7 800000
+De 15 0 33 51566FD7 0
 Po 0 71 60.8 71.85 61.65 0.6 -1
 De 15 0 33 51566FD6 0
 Po 0 71 58.2 71 60.8 0.6 -1
 De 15 0 33 51566FD5 0
 Po 0 71.85 57.35 71 58.2 0.6 -1
-De 15 0 33 51566FD3 400000
+De 15 0 33 51566FD3 0
 Po 0 73.60006 77.3049 73.60006 78.46822 0.6 -1
 De 15 0 34 0 0
 Po 0 73.60006 78.46822 74.39 79.25816 0.6 -1
@@ -3938,11 +3938,11 @@ De 15 0 36 0 0
 Po 0 70.09994 78.46822 69.31 79.25816 0.6 -1
 De 15 0 36 5115CF15 0
 Po 0 73.60006 56.9849 74.7849 56.9849 0.6 -1
-De 15 0 37 0 400000
+De 15 0 37 0 0
 Po 0 74.0049 62.3951 73.60006 62.3951 0.6 -1
-De 15 0 37 51566FDE C00000
+De 15 0 37 51566FDE 0
 Po 0 75.6 60.8 74.0049 62.3951 0.6 -1
-De 15 0 37 51566FDD 800000
+De 15 0 37 51566FDD 0
 Po 0 75.6 57.8 75.6 60.8 0.6 -1
 De 15 0 37 51566FDC 0
 Po 0 74.7849 56.9849 75.6 57.8 0.6 -1
