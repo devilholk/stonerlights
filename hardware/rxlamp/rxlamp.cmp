@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Fri 29 Mar 2013 12:58:52 PM CET
+Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Sun 31 Mar 2013 05:15:46 AM CEST
 
 BeginCmp
 TimeStamp = /5115C4FD;
@@ -78,6 +78,27 @@ IdModule  = c_0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /51579165;
+Reference = D1;
+ValeurCmp = DIODE;
+IdModule  = DO-214AC(SMA);
+EndCmp
+
+BeginCmp
+TimeStamp = /51579156;
+Reference = D2;
+ValeurCmp = ZENER;
+IdModule  = ~;
+EndCmp
+
+BeginCmp
+TimeStamp = /51579174;
+Reference = F1;
+ValeurCmp = FUSE;
+IdModule  = ~;
+EndCmp
+
+BeginCmp
 TimeStamp = /51557BCC;
 Reference = J1;
 ValeurCmp = SMA;
@@ -85,10 +106,10 @@ IdModule  = SMA_SMD_Straight;
 EndCmp
 
 BeginCmp
-TimeStamp = /51553AB8;
+TimeStamp = /5157AA14;
 Reference = P1;
-ValeurCmp = CONN_5;
-IdModule  = PIN_ARRAY_5x1;
+ValeurCmp = CONN_6;
+IdModule  = PIN_ARRAY-6X1;
 EndCmp
 
 BeginCmp

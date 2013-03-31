@@ -1,6 +1,6 @@
-update=Fri 29 Mar 2013 02:17:13 PM CET
+update=Sun 31 Mar 2013 05:28:48 AM CEST
 version=1
-last_client=pcbnew
+last_client=cvpcb
 [general]
 version=1
 [eeschema]
@@ -47,11 +47,6 @@ LibName32=stm32f100
 LibName33=resistor-nets
 LibName34=plcc6xrgbct
 LibName35=crf
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [pcbnew]
 version=1
 LastNetListRead=rxlamp.net
@@ -71,7 +66,6 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=/usr/share/kicad/modules/walter
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -83,8 +77,19 @@ LibName8=led
 LibName9=dip_sockets
 LibName10=pga_sockets
 LibName11=valves
-LibName12=logo/oshwlogo
-LibName13=OSHW-logo
-LibName14=crf
-LibName15=/home/devilholk/Projects/Software/Applications/Kicad/Libraries/Assorted/downloaded/w_smd_cap
-LibName16=/home/devilholk/Projects/Software/Applications/Kicad/Libraries/Assorted/downloaded/w_smd_resistors
+LibName12=OSHW-logo
+LibName13=crf
+LibName14=modules/crf
+LibName15=w_smd_cap
+LibName16=w_smd_diode
+LibName17=w_smd_lqfp
+LibName18=w_smd_resistors
+LibName19=w_pin_strip
+LibName20=Mini2-F3-B
+LibName21=Schurter_diode_3.2x1.6x1.6
+LibDir=/usr/share/kicad/modules/walter;modules
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
