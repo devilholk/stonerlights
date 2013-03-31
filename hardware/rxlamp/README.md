@@ -22,4 +22,4 @@ Suggestions:
 
 crowbar       http://www.mouser.com/ds/2/315/DZ2W036_DED-24169.pdf
 fools diode   http://www.mouser.com/ds/2/149/RS1G-192003.pdf
-fuse          http://www.mouser.com/ds/2/358/typ_USFF_1206-217695.pdf    50 mA
+fuse          http://www.mouser.com/ds/2/358/typ_USFF_1206-217695.pdf    50 mA (will actually trip on 200 mA)
