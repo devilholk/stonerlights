@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sun 31 Mar 2013 07:33:03 AM CEST
+EESchema Schematic File Version 2  date Sun 31 Mar 2013 08:27:36 AM CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -34,6 +34,7 @@ LIBS:stm32f100
 LIBS:resistor-nets
 LIBS:plcc6xrgbct
 LIBS:crf
+LIBS:rxlamp-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
@@ -695,7 +696,7 @@ F 3 "" H 7300 4950 60  0001 C CNN
 $EndComp
 Text Label 6350 4900 2    60   ~ 0
 VDD
-Text Label 8000 4900 0    60   ~ 0
+Text Label 8000 4800 0    60   ~ 0
 VCC 3V3
 $Comp
 L GND #PWR9
@@ -752,7 +753,7 @@ Connection ~ 6650 4900
 Wire Wire Line
 	7300 5400 7300 5550
 Wire Wire Line
-	6400 5500 7950 5500
+	6400 5500 8400 5500
 Connection ~ 7300 5500
 Wire Wire Line
 	6650 5350 6650 5500
@@ -760,9 +761,9 @@ Connection ~ 6650 5500
 Wire Wire Line
 	7950 5500 7950 5350
 Wire Wire Line
-	7950 4950 7950 4900
+	7950 4800 7950 4950
 Wire Wire Line
-	7900 4900 8000 4900
+	7900 4900 8400 4900
 Connection ~ 7950 4900
 NoConn ~ 5250 3750
 NoConn ~ 5250 3650
@@ -1051,12 +1052,12 @@ Connection ~ 6850 4350
 $Comp
 L ZENER D2
 U 1 1 51579156
-P 6000 6150
-F 0 "D2" H 6000 6250 50  0000 C CNN
-F 1 "ZENER" H 6000 6050 40  0000 C CNN
-F 2 "~" H 6000 5950 60  0000 C CNN
-F 3 "~" H 6000 6150 60  0000 C CNN
-	1    6000 6150
+P 8400 5200
+F 0 "D2" H 8400 5300 50  0000 C CNN
+F 1 "ZENER" H 8400 5100 40  0000 C CNN
+F 2 "~" H 8400 5000 60  0000 C CNN
+F 3 "~" H 8400 5200 60  0000 C CNN
+	1    8400 5200
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -1097,19 +1098,9 @@ $EndComp
 Text Label 6050 5900 0    60   ~ 0
 VDD
 Wire Wire Line
-	5950 5900 6050 5900
-Wire Wire Line
-	6000 5950 6000 5900
-Connection ~ 6000 5900
-Wire Wire Line
 	4850 6100 5100 6100
 Wire Wire Line
 	5100 6100 5100 6450
-Wire Wire Line
-	6000 6350 6000 6400
-Wire Wire Line
-	6000 6400 5100 6400
-Connection ~ 5100 6400
 $Comp
 L CONN_6 P1
 U 1 1 5157AA14
@@ -1132,4 +1123,13 @@ VDD_UNFUSED
 Wire Wire Line
 	4900 5800 4900 5900
 Connection ~ 4900 5900
+Wire Wire Line
+	5950 5900 6050 5900
+Wire Wire Line
+	8000 4800 7950 4800
+Wire Wire Line
+	8400 4900 8400 5000
+Wire Wire Line
+	8400 5500 8400 5400
+Connection ~ 7950 5500
 $EndSCHEMATC
