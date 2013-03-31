@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2012-oct-18)-stable date = Sun 31 Mar 2013 05:15:46 AM CEST
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Sun 31 Mar 2013 07:21:57 AM CEST
 
 BeginCmp
 TimeStamp = /5115C4FD;
@@ -88,14 +88,14 @@ BeginCmp
 TimeStamp = /51579156;
 Reference = D2;
 ValeurCmp = ZENER;
-IdModule  = ~;
+IdModule  = Mini2-F3-B;
 EndCmp
 
 BeginCmp
 TimeStamp = /51579174;
 Reference = F1;
 ValeurCmp = FUSE;
-IdModule  = ~;
+IdModule  = fuse_schurter_3.2x1.6x1.6;
 EndCmp
 
 BeginCmp
@@ -109,21 +109,21 @@ BeginCmp
 TimeStamp = /5157AA14;
 Reference = P1;
 ValeurCmp = CONN_6;
-IdModule  = PIN_ARRAY-6X1;
+IdModule  = pin_strip_6;
 EndCmp
 
 BeginCmp
 TimeStamp = /5115CB7A;
 Reference = P2;
 ValeurCmp = CONN_2;
-IdModule  = PIN_ARRAY_2X1;
+IdModule  = pin_strip_2;
 EndCmp
 
 BeginCmp
 TimeStamp = /51553AC7;
 Reference = P3;
 ValeurCmp = CONN_4;
-IdModule  = PIN_ARRAY_4x1;
+IdModule  = pin_strip_4;
 EndCmp
 
 BeginCmp
@@ -284,7 +284,7 @@ BeginCmp
 TimeStamp = /5115C4E2;
 Reference = U2;
 ValeurCmp = VREG;
-IdModule  = sot223;
+IdModule  = SOT223;
 EndCmp
 
 BeginCmp
