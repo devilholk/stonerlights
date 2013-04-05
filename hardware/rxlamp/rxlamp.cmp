@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Sun 31 Mar 2013 07:21:57 AM CEST
+Cmp-Mod V01 Created by CvPcb (2013-feb-26)-stable date = Fri 05 Apr 2013 08:06:03 AM CEST
 
 BeginCmp
 TimeStamp = /5115C4FD;
@@ -78,10 +78,10 @@ IdModule  = c_0603;
 EndCmp
 
 BeginCmp
-TimeStamp = /51579165;
+TimeStamp = /515E651A;
 Reference = D1;
 ValeurCmp = DIODE;
-IdModule  = DO-214AC(SMA);
+IdModule  = sod80c;
 EndCmp
 
 BeginCmp
@@ -89,6 +89,41 @@ TimeStamp = /51579156;
 Reference = D2;
 ValeurCmp = ZENER;
 IdModule  = Mini2-F3-B;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E6527;
+Reference = D3;
+ValeurCmp = DIODE;
+IdModule  = sod80c;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E652D;
+Reference = D4;
+ValeurCmp = DIODE;
+IdModule  = sod80c;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E6533;
+Reference = D5;
+ValeurCmp = DIODE;
+IdModule  = sod80c;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E71E0;
+Reference = D6;
+ValeurCmp = DIODESCH;
+IdModule  = sod523;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E71C9;
+Reference = D7;
+ValeurCmp = DIODESCH;
+IdModule  = sod523;
 EndCmp
 
 BeginCmp
@@ -269,6 +304,13 @@ EndCmp
 BeginCmp
 TimeStamp = /515583FA;
 Reference = R18;
+ValeurCmp = R;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /515E71BA;
+Reference = R19;
 ValeurCmp = R;
 IdModule  = r_0603;
 EndCmp
