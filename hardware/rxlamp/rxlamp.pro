@@ -1,4 +1,4 @@
-update=Sun 31 Mar 2013 07:31:37 AM CEST
+update=Thu 02 May 2013 12:37:35 AM CEST
 version=1
 last_client=pcbnew
 [general]
@@ -62,14 +62,14 @@ PadSizeV=0.0005
 PcbTextSizeV=1.5
 PcbTextSizeH=1.5
 PcbTextThickness=0.3
-ModuleTextSizeV=1.5
-ModuleTextSizeH=1.5
-ModuleTextSizeThickness=0.15
+ModuleTextSizeV=0.5
+ModuleTextSizeH=0.5
+ModuleTextSizeThickness=0.1
 SolderMaskClearance=0.1
 SolderMaskMinWidth=0
 DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
-ModuleOutlineThickness=0.15
+ModuleOutlineThickness=0.1
 [pcbnew/libraries]
 LibDir=modules;/usr/share/kicad/modules/walter;/usr/share/kicad/modules/packages3d/walter;modules/mini2-f3-b.pretty;modules/fuses.pretty
 LibName1=w_smd_cap
@@ -89,7 +89,6 @@ LibName14=led
 LibName15=dip_sockets
 LibName16=pga_sockets
 LibName17=valves
-LibName18=OSHW-logo
-LibName19=PLCC6XRGBCT
-LibName20=mini2-f3-b
-LibName21=fuse_schurter3-2x1-6x1-6
+LibName18=PLCC6XRGBCT
+LibName19=mini2-f3-b
+LibName20=fuse_schurter3-2x1-6x1-6
