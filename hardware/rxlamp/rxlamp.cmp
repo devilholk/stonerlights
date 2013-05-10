@@ -1,10 +1,10 @@
-Cmp-Mod V01 Created by CvPcb (2013-feb-26)-stable date = Fri 05 Apr 2013 08:06:03 AM CEST
+Cmp-Mod V01 Created by CvPcb (2013-mar-30)-stable date = Fri 10 May 2013 09:03:13 AM CEST
 
 BeginCmp
 TimeStamp = /5115C4FD;
 Reference = C1;
 ValeurCmp = 22 µF;
-IdModule  = c_tant_D;
+IdModule  = c_tant_B;
 EndCmp
 
 BeginCmp
