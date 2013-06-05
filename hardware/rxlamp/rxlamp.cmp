@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-mar-30)-stable date = Fri 10 May 2013 09:03:13 AM CEST
+Cmp-Mod V01 Created by CvPcb (2013-mar-30)-stable date = Wed 05 Jun 2013 10:05:32 PM CEST
 
 BeginCmp
 TimeStamp = /5115C4FD;
@@ -113,10 +113,10 @@ IdModule  = sod80c;
 EndCmp
 
 BeginCmp
-TimeStamp = /515E71E0;
+TimeStamp = /51AF98D1;
 Reference = D6;
-ValeurCmp = DIODESCH;
-IdModule  = sod523;
+ValeurCmp = ZENER;
+IdModule  = sod80c;
 EndCmp
 
 BeginCmp

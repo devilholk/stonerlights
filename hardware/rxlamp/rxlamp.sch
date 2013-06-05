@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 05 Apr 2013 08:05:48 AM CEST
+EESchema Schematic File Version 2  date Wed 05 Jun 2013 10:00:54 PM CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -34,13 +34,14 @@ LIBS:stm32f100
 LIBS:resistor-nets
 LIBS:plcc6xrgbct
 LIBS:crf
+LIBS:rxlamp-cache
 EELAYER 27 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "5 apr 2013"
+Date "5 jun 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1172,7 +1173,7 @@ Wire Wire Line
 Wire Wire Line
 	4700 7150 4700 7450
 Wire Wire Line
-	4650 7400 5850 7400
+	4650 7400 6100 7400
 Connection ~ 4700 7400
 Connection ~ 4700 6650
 Wire Wire Line
@@ -1191,7 +1192,7 @@ Wire Wire Line
 	4250 6900 4050 6900
 Connection ~ 4050 7100
 Connection ~ 4150 6650
-Text Label 5950 6700 0    60   ~ 0
+Text Label 6400 6700 0    60   ~ 0
 PWR_DATA
 $Comp
 L R R19
@@ -1215,33 +1216,36 @@ F 3 "" H 5850 7000 60  0000 C CNN
 	1    5850 7000
 	0    -1   -1   0   
 $EndComp
-$Comp
-L DIODESCH D6
-U 1 1 515E71E0
-P 5850 6400
-F 0 "D6" H 5850 6500 40  0000 C CNN
-F 1 "DIODESCH" H 5850 6300 40  0000 C CNN
-F 2 "" H 5850 6400 60  0000 C CNN
-F 3 "" H 5850 6400 60  0000 C CNN
-	1    5850 6400
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	4000 6650 4000 6900
 Wire Wire Line
-	5950 6700 5750 6700
-Wire Wire Line
-	5850 6600 5850 6800
-Connection ~ 5850 6700
-Wire Wire Line
 	5850 7400 5850 7200
-Wire Wire Line
-	5850 6200 5850 5900
-Connection ~ 5850 5900
 Wire Wire Line
 	5250 6700 5000 6700
 Wire Wire Line
 	5000 6700 5000 6500
 Wire Wire Line
 	5000 6500 4150 6500
+$Comp
+L ZENER D?
+U 1 1 51AF98D1
+P 6100 7000
+F 0 "D?" H 6100 7100 50  0000 C CNN
+F 1 "ZENER" H 6100 6900 40  0000 C CNN
+F 2 "~" H 6100 6800 60  0000 C CNN
+F 3 "~" H 6100 7000 60  0000 C CNN
+	1    6100 7000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6100 7400 6100 7200
+Connection ~ 5850 7400
+Wire Wire Line
+	5750 6700 6400 6700
+Wire Wire Line
+	6100 6700 6100 6800
+Wire Wire Line
+	5850 6800 5850 6700
+Connection ~ 5850 6700
+Connection ~ 6100 6700
 $EndSCHEMATC
