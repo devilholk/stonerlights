@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Sun 16 Jun 2013 09:42:48 AM CEST
+Cmp-Mod V01 Created by CvPcb (2013-may-18)-stable date = Sun 16 Jun 2013 11:22:59 AM CEST
 
 BeginCmp
 TimeStamp = /51B23923;
@@ -159,6 +159,13 @@ TimeStamp = /51BCE0A4;
 Reference = H1;
 ValeurCmp = DRV8833;
 IdModule  = SSOP17_W;
+EndCmp
+
+BeginCmp
+TimeStamp = /51BE1AC4;
+Reference = J1;
+ValeurCmp = SMA;
+IdModule  = SMA_SMD_Straight;
 EndCmp
 
 BeginCmp
@@ -617,6 +624,13 @@ IdModule  = r_0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /51BE30FD;
+Reference = R39;
+ValeurCmp = 0 Ω;
+IdModule  = r_0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /51B22648;
 Reference = U1;
 ValeurCmp = FT232R;
@@ -656,6 +670,13 @@ TimeStamp = /51B2A046/51B29101;
 Reference = U6;
 ValeurCmp = PLCC6XRGBCT;
 IdModule  = PLCC6XRGBCT;
+EndCmp
+
+BeginCmp
+TimeStamp = /51BDE8AC;
+Reference = U7;
+ValeurCmp = RF2400-NANO;
+IdModule  = RF2400-NANO;
 EndCmp
 
 EndListe

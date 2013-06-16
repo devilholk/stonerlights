@@ -1,4 +1,4 @@
-update=Sun 16 Jun 2013 09:13:48 AM CEST
+update=Sun 16 Jun 2013 11:22:24 AM CEST
 version=1
 last_client=cvpcb
 [general]
@@ -129,6 +129,9 @@ LibName57=walter/w_vacuum
 LibName58=/home/devilholk/Projekt/stonerlights/hardware/rxlamp/modules/crf
 LibName59=/home/devilholk/Projekt/stonerlights/hardware/rxlamp/modules/PLCC6XRGBCT
 LibName60=modules/micro_usb_b
+LibName61=/home/devilholk/Projekt/stonerlights/hardware/rxlamp/modules/oshw-logo-kicad-copper-10mm
+LibName62=/home/devilholk/Projekt/stonerlights/hardware/rxlamp/modules/mini2-f3-b
+LibName63=/home/devilholk/Projekt/stonerlights/hardware/rxlamp/modules/fuse_schurter3-2x1-6x1-6
 LibDir=
 [cvpcb]
 version=1
