@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 08 Jun 2013 01:37:28 AM CEST
+EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,6 +35,7 @@ LIBS:plcc6xrgbct
 LIBS:vreg
 LIBS:usb_micro-b
 LIBS:microphone
+LIBS:crf
 LIBS:playboard1-cache
 EELAYER 27 0
 EELAYER END
@@ -42,7 +43,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 7
 Title ""
-Date "7 jun 2013"
+Date "16 jun 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -51,10 +52,13 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L PLCC6XRGBCT U?
+L PLCC6XRGBCT U4
 U 1 1 51B29101
 P 4350 3200
-F 0 "U?" H 4350 3650 60  0000 C CNN
+AR Path="/51B29079/51B29101" Ref="U4"  Part="1" 
+AR Path="/51B29C83/51B29101" Ref="U5"  Part="1" 
+AR Path="/51B2A046/51B29101" Ref="U6"  Part="1" 
+F 0 "U6" H 4350 3650 60  0000 C CNN
 F 1 "PLCC6XRGBCT" H 4350 2700 60  0000 C CNN
 F 2 "" H 4350 3200 60  0000 C CNN
 F 3 "" H 4350 3200 60  0000 C CNN
@@ -62,10 +66,13 @@ F 3 "" H 4350 3200 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L R R?
+L R R28
 U 1 1 51B29110
 P 3750 2900
-F 0 "R?" V 3830 2900 40  0000 C CNN
+AR Path="/51B29079/51B29110" Ref="R28"  Part="1" 
+AR Path="/51B29C83/51B29110" Ref="R31"  Part="1" 
+AR Path="/51B2A046/51B29110" Ref="R34"  Part="1" 
+F 0 "R34" V 3830 2900 40  0000 C CNN
 F 1 "R" V 3757 2901 40  0000 C CNN
 F 2 "~" V 3680 2900 30  0000 C CNN
 F 3 "~" H 3750 2900 30  0000 C CNN
@@ -73,10 +80,13 @@ F 3 "~" H 3750 2900 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R?
+L R R29
 U 1 1 51B29140
 P 3750 3150
-F 0 "R?" V 3830 3150 40  0000 C CNN
+AR Path="/51B29079/51B29140" Ref="R29"  Part="1" 
+AR Path="/51B29C83/51B29140" Ref="R32"  Part="1" 
+AR Path="/51B2A046/51B29140" Ref="R35"  Part="1" 
+F 0 "R35" V 3830 3150 40  0000 C CNN
 F 1 "R" V 3757 3151 40  0000 C CNN
 F 2 "~" V 3680 3150 30  0000 C CNN
 F 3 "~" H 3750 3150 30  0000 C CNN
@@ -84,10 +94,13 @@ F 3 "~" H 3750 3150 30  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R?
+L R R30
 U 1 1 51B29146
 P 3750 3400
-F 0 "R?" V 3830 3400 40  0000 C CNN
+AR Path="/51B29079/51B29146" Ref="R30"  Part="1" 
+AR Path="/51B29C83/51B29146" Ref="R33"  Part="1" 
+AR Path="/51B2A046/51B29146" Ref="R36"  Part="1" 
+F 0 "R36" V 3830 3400 40  0000 C CNN
 F 1 "R" V 3757 3401 40  0000 C CNN
 F 2 "~" V 3680 3400 30  0000 C CNN
 F 3 "~" H 3750 3400 30  0000 C CNN
