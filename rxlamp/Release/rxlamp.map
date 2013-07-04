@@ -1,0 +1,889 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+resetdma            0x1               ./main.o
+prng                0x10              ./main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000008000000 0x0000000000008000 xr
+RAM              0x0000000020000000 0x0000000000001000 xrw
+MEMORY_B1        0x0000000060000000 0x0000000000000000 xr
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD ./core_cm3.o
+LOAD ./main.o
+LOAD ./misc.o
+LOAD ./stm32f10x_adc.o
+LOAD ./stm32f10x_bkp.o
+LOAD ./stm32f10x_can.o
+LOAD ./stm32f10x_cec.o
+LOAD ./stm32f10x_crc.o
+LOAD ./stm32f10x_dac.o
+LOAD ./stm32f10x_dbgmcu.o
+LOAD ./stm32f10x_dma.o
+LOAD ./stm32f10x_exti.o
+LOAD ./stm32f10x_flash.o
+LOAD ./stm32f10x_fsmc.o
+LOAD ./stm32f10x_gpio.o
+LOAD ./stm32f10x_i2c.o
+LOAD ./stm32f10x_it.o
+LOAD ./stm32f10x_iwdg.o
+LOAD ./stm32f10x_pwr.o
+LOAD ./stm32f10x_rcc.o
+LOAD ./stm32f10x_rtc.o
+LOAD ./stm32f10x_sdio.o
+LOAD ./stm32f10x_spi.o
+LOAD ./stm32f10x_tim.o
+LOAD ./stm32f10x_usart.o
+LOAD ./stm32f10x_wwdg.o
+LOAD ./system_stm32f10x.o
+LOAD /tmp/ccyziHys.o
+                0x0000000020001000                _estack = 0x20001000
+                0x0000000000000000                _Min_Heap_Size = 0x0
+                0x0000000000000100                _Min_Stack_Size = 0x100
+
+.isr_vector     0x0000000008000000      0x1d0
+                0x0000000008000000                . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x0000000008000000      0x1d0 /tmp/ccyziHys.o
+                0x0000000008000000                g_pfnVectors
+                0x00000000080001d0                . = ALIGN (0x4)
+
+.text           0x00000000080001d0     0x40c0
+                0x00000000080001d0                . = ALIGN (0x4)
+ *(.text)
+ .text          0x00000000080001d0       0x8c ./core_cm3.o
+                0x00000000080001d0                __get_PSP
+                0x00000000080001d8                __set_PSP
+                0x00000000080001de                __get_MSP
+                0x00000000080001e6                __set_MSP
+                0x00000000080001ec                __get_BASEPRI
+                0x00000000080001f2                __set_BASEPRI
+                0x00000000080001f8                __get_PRIMASK
+                0x00000000080001fe                __set_PRIMASK
+                0x0000000008000204                __get_FAULTMASK
+                0x000000000800020a                __set_FAULTMASK
+                0x0000000008000210                __get_CONTROL
+                0x0000000008000216                __set_CONTROL
+                0x000000000800021c                __REV
+                0x0000000008000220                __REV16
+                0x0000000008000224                __REVSH
+                0x0000000008000228                __RBIT
+                0x000000000800022e                __LDREXB
+                0x0000000008000236                __LDREXH
+                0x000000000800023e                __LDREXW
+                0x0000000008000244                __STREXB
+                0x000000000800024c                __STREXH
+                0x0000000008000254                __STREXW
+ .text          0x000000000800025c      0x26c ./main.o
+                0x000000000800025c                ranval
+                0x0000000008000280                raninit
+                0x00000000080002a0                GPIO_Configuration
+                0x0000000008000364                RCC_Configuration
+                0x00000000080003b8                Delay
+                0x00000000080003d0                colorWheel
+                0x0000000008000438                TimingDelay_Decrement
+                0x000000000800048c                randiff
+                0x00000000080004a8                ranrange
+                0x00000000080004c4                NVIC_Configuration
+ .text          0x00000000080004c8       0xbc ./misc.o
+                0x00000000080004c8                NVIC_PriorityGroupConfig
+                0x00000000080004dc                NVIC_Init
+                0x0000000008000540                NVIC_SetVectorTable
+                0x0000000008000554                NVIC_SystemLPConfig
+                0x000000000800056c                SysTick_CLKSourceConfig
+ .text          0x0000000008000584      0x35c ./stm32f10x_adc.o
+                0x0000000008000584                ADC_DeInit
+                0x00000000080005e0                ADC_Init
+                0x0000000008000628                ADC_StructInit
+                0x000000000800063a                ADC_Cmd
+                0x000000000800064c                ADC_DMACmd
+                0x000000000800065e                ADC_ITConfig
+                0x0000000008000670                ADC_ResetCalibration
+                0x000000000800067a                ADC_GetResetCalibrationStatus
+                0x0000000008000682                ADC_StartCalibration
+                0x000000000800068c                ADC_GetCalibrationStatus
+                0x0000000008000694                ADC_SoftwareStartConvCmd
+                0x00000000080006a6                ADC_GetSoftwareStartConvStatus
+                0x00000000080006ae                ADC_DiscModeChannelCountConfig
+                0x00000000080006be                ADC_DiscModeCmd
+                0x00000000080006d0                ADC_RegularChannelConfig
+                0x000000000800075c                ADC_ExternalTrigConvCmd
+                0x000000000800076e                ADC_GetConversionValue
+                0x0000000008000774                ADC_GetDualModeConversionValue
+                0x0000000008000780                ADC_AutoInjectedConvCmd
+                0x0000000008000792                ADC_InjectedDiscModeCmd
+                0x00000000080007a4                ADC_ExternalTrigInjectedConvConfig
+                0x00000000080007b0                ADC_ExternalTrigInjectedConvCmd
+                0x00000000080007c2                ADC_SoftwareStartInjectedConvCmd
+                0x00000000080007d4                ADC_GetSoftwareStartInjectedConvCmdStatus
+                0x00000000080007dc                ADC_InjectedChannelConfig
+                0x0000000008000836                ADC_InjectedSequencerLengthConfig
+                0x0000000008000846                ADC_SetInjectedOffset
+                0x000000000800085c                ADC_GetInjectedConversionValue
+                0x0000000008000876                ADC_AnalogWatchdogCmd
+                0x0000000008000886                ADC_AnalogWatchdogThresholdsConfig
+                0x000000000800088c                ADC_AnalogWatchdogSingleChannelConfig
+                0x0000000008000898                ADC_TempSensorVrefintCmd
+                0x00000000080008b0                ADC_GetFlagStatus
+                0x00000000080008bc                ADC_ClearFlag
+                0x00000000080008c2                ADC_GetITStatus
+                0x00000000080008d8                ADC_ClearITPendingBit
+ .text          0x00000000080008e0       0xe0 ./stm32f10x_bkp.o
+                0x00000000080008e0                BKP_DeInit
+                0x00000000080008f2                BKP_TamperPinLevelConfig
+                0x00000000080008fc                BKP_TamperPinCmd
+                0x0000000008000908                BKP_ITConfig
+                0x0000000008000914                BKP_RTCOutputConfig
+                0x000000000800092c                BKP_SetRTCCalibrationValue
+                0x0000000008000944                BKP_WriteBackupRegister
+                0x0000000008000960                BKP_ReadBackupRegister
+                0x0000000008000980                BKP_GetFlagStatus
+                0x000000000800098c                BKP_ClearFlag
+                0x00000000080009a0                BKP_GetITStatus
+                0x00000000080009ac                BKP_ClearITPendingBit
+ .text          0x00000000080009c0      0x5dc ./stm32f10x_can.o
+                0x00000000080009c0                CAN_DeInit
+                0x00000000080009f4                CAN_Init
+                0x0000000008000aca                CAN_FilterInit
+                0x0000000008000bb0                CAN_StructInit
+                0x0000000008000bd0                CAN_SlaveStartBank
+                0x0000000008000c0c                CAN_ITConfig
+                0x0000000008000c1c                CAN_Transmit
+                0x0000000008000cd4                CAN_TransmitStatus
+                0x0000000008000d3c                CAN_CancelTransmit
+                0x0000000008000d62                CAN_FIFORelease
+                0x0000000008000d6e                CAN_MessagePending
+                0x0000000008000d84                CAN_Receive
+                0x0000000008000e06                CAN_DBGFreeze
+                0x0000000008000e18                CAN_Sleep
+                0x0000000008000e38                CAN_WakeUp
+                0x0000000008000e5a                CAN_GetFlagStatus
+                0x0000000008000e66                CAN_ClearFlag
+                0x0000000008000e70                CAN_GetITStatus
+                0x0000000008000f08                CAN_ClearITPendingBit
+ .text          0x0000000008000f9c      0x114 ./stm32f10x_cec.o
+                0x0000000008000f9c                CEC_DeInit
+                0x0000000008000fb6                CEC_Init
+                0x0000000008000fd4                CEC_Cmd
+                0x0000000008000fec                CEC_ITConfig
+                0x0000000008000ff8                CEC_OwnAddressConfig
+                0x0000000008001004                CEC_SetPrescaler
+                0x0000000008001010                CEC_SendDataByte
+                0x000000000800101c                CEC_ReceiveDataByte
+                0x0000000008001028                CEC_StartOfMessage
+                0x0000000008001034                CEC_EndOfMessageCmd
+                0x0000000008001040                CEC_GetFlagStatus
+                0x0000000008001064                CEC_ClearFlag
+                0x0000000008001080                CEC_GetITStatus
+                0x0000000008001094                CEC_ClearITPendingBit
+ .text          0x00000000080010b0       0x5c ./stm32f10x_crc.o
+                0x00000000080010b0                CRC_ResetDR
+                0x00000000080010bc                CRC_CalcCRC
+                0x00000000080010c8                CRC_CalcBlockCRC
+                0x00000000080010e8                CRC_GetCRC
+                0x00000000080010f4                CRC_SetIDRegister
+                0x0000000008001100                CRC_GetIDRegister
+ .text          0x000000000800110c      0x1c8 ./stm32f10x_dac.o
+                0x000000000800110c                DAC_DeInit
+                0x0000000008001126                DAC_Init
+                0x0000000008001154                DAC_StructInit
+                0x0000000008001160                DAC_Cmd
+                0x0000000008001180                DAC_ITConfig
+                0x000000000800119c                DAC_DMACmd
+                0x00000000080011bc                DAC_SoftwareTriggerCmd
+                0x00000000080011dc                DAC_DualSoftwareTriggerCmd
+                0x00000000080011f4                DAC_WaveGenerationCmd
+                0x0000000008001210                DAC_SetChannel1Data
+                0x0000000008001230                DAC_SetChannel2Data
+                0x0000000008001250                DAC_SetDualChannelData
+                0x0000000008001268                DAC_GetDataOutputValue
+                0x000000000800128c                DAC_GetFlagStatus
+                0x00000000080012a0                DAC_ClearFlag
+                0x00000000080012ac                DAC_GetITStatus
+                0x00000000080012c8                DAC_ClearITPendingBit
+ .text          0x00000000080012d4       0x34 ./stm32f10x_dbgmcu.o
+                0x00000000080012d4                DBGMCU_GetREVID
+                0x00000000080012e0                DBGMCU_GetDEVID
+                0x00000000080012f0                DBGMCU_Config
+ .text          0x0000000008001308      0x1d8 ./stm32f10x_dma.o
+                0x0000000008001308                DMA_DeInit
+                0x0000000008001400                DMA_Init
+                0x000000000800143e                DMA_StructInit
+                0x0000000008001458                DMA_Cmd
+                0x000000000800146a                DMA_ITConfig
+                0x000000000800147a                DMA_GetCurrDataCounter
+                0x0000000008001480                DMA_GetFlagStatus
+                0x000000000800149c                DMA_ClearFlag
+                0x00000000080014b0                DMA_GetITStatus
+                0x00000000080014cc                DMA_ClearITPendingBit
+ .text          0x00000000080014e0       0xf8 ./stm32f10x_exti.o
+                0x00000000080014e0                EXTI_DeInit
+                0x00000000080014fc                EXTI_Init
+                0x0000000008001574                EXTI_StructInit
+                0x0000000008001582                EXTI_GenerateSWInterrupt
+                0x0000000008001590                EXTI_GetFlagStatus
+                0x00000000080015a4                EXTI_ClearFlag
+                0x00000000080015b0                EXTI_GetITStatus
+                0x00000000080015cc                EXTI_ClearITPendingBit
+ .text          0x00000000080015d8      0x554 ./stm32f10x_flash.o
+                0x00000000080015d8                FLASH_SetLatency
+                0x00000000080015ec                FLASH_HalfCycleAccessCmd
+                0x0000000008001604                FLASH_PrefetchBufferCmd
+                0x000000000800161c                FLASH_Unlock
+                0x0000000008001634                FLASH_UnlockBank1
+                0x000000000800164c                FLASH_Lock
+                0x000000000800165c                FLASH_LockBank1
+                0x000000000800166c                FLASH_GetUserOptionByte
+                0x0000000008001678                FLASH_GetWriteProtectionOptionByte
+                0x0000000008001684                FLASH_GetReadOutProtectionStatus
+                0x0000000008001694                FLASH_GetPrefetchBufferStatus
+                0x00000000080016a4                FLASH_ITConfig
+                0x00000000080016bc                FLASH_GetFlagStatus
+                0x00000000080016dc                FLASH_ClearFlag
+                0x00000000080016e8                FLASH_GetStatus
+                0x0000000008001710                FLASH_GetBank1Status
+                0x0000000008001738                FLASH_WaitForLastOperation
+                0x000000000800175c                FLASH_UserOptionByteConfig
+                0x00000000080017b4                FLASH_ReadOutProtection
+                0x0000000008001844                FLASH_EnableWriteProtection
+                0x00000000080018f0                FLASH_ProgramOptionByteData
+                0x0000000008001938                FLASH_ProgramHalfWord
+                0x0000000008001974                FLASH_ProgramWord
+                0x00000000080019d0                FLASH_EraseOptionBytes
+                0x0000000008001a50                FLASH_EraseAllPages
+                0x0000000008001a8c                FLASH_ErasePage
+                0x0000000008001acc                FLASH_WaitForLastBank1Operation
+                0x0000000008001af0                FLASH_EraseAllBank1Pages
+ .text          0x0000000008001b2c      0x468 ./stm32f10x_fsmc.o
+                0x0000000008001b2c                FSMC_NORSRAMDeInit
+                0x0000000008001b5a                FSMC_NANDDeInit
+                0x0000000008001b7c                FSMC_PCCARDDeInit
+                0x0000000008001b98                FSMC_NORSRAMInit
+                0x0000000008001c5c                FSMC_NANDInit
+                0x0000000008001cc4                FSMC_PCCARDInit
+                0x0000000008001d2c                FSMC_NORSRAMStructInit
+                0x0000000008001d78                FSMC_NANDStructInit
+                0x0000000008001da2                FSMC_PCCARDStructInit
+                0x0000000008001dcc                FSMC_NORSRAMCmd
+                0x0000000008001df0                FSMC_NANDCmd
+                0x0000000008001e24                FSMC_PCCARDCmd
+                0x0000000008001e44                FSMC_NANDECCCmd
+                0x0000000008001e78                FSMC_GetECC
+                0x0000000008001e8c                FSMC_ITConfig
+                0x0000000008001ed4                FSMC_GetFlagStatus
+                0x0000000008001f00                FSMC_ClearFlag
+                0x0000000008001f30                FSMC_GetITStatus
+                0x0000000008001f64                FSMC_ClearITPendingBit
+ .text          0x0000000008001f94      0x288 ./stm32f10x_gpio.o
+                0x0000000008001f94                GPIO_DeInit
+                0x0000000008002040                GPIO_AFIODeInit
+                0x0000000008002056                GPIO_Init
+                0x00000000080020fe                GPIO_StructInit
+                0x000000000800210e                GPIO_ReadInputDataBit
+                0x000000000800211a                GPIO_ReadInputData
+                0x0000000008002120                GPIO_ReadOutputDataBit
+                0x000000000800212c                GPIO_ReadOutputData
+                0x0000000008002132                GPIO_SetBits
+                0x0000000008002136                GPIO_ResetBits
+                0x000000000800213a                GPIO_WriteBit
+                0x0000000008002144                GPIO_Write
+                0x0000000008002148                GPIO_PinLockConfig
+                0x0000000008002158                GPIO_EventOutputConfig
+                0x0000000008002174                GPIO_EventOutputCmd
+                0x0000000008002180                GPIO_PinRemapConfig
+                0x00000000080021e0                GPIO_EXTILineConfig
+                0x0000000008002210                GPIO_ETH_MediaInterfaceConfig
+ .text          0x000000000800221c      0x394 ./stm32f10x_i2c.o
+                0x000000000800221c                I2C_DeInit
+                0x0000000008002250                I2C_Init
+                0x0000000008002320                I2C_StructInit
+                0x000000000800233c                I2C_Cmd
+                0x0000000008002354                I2C_DMACmd
+                0x000000000800236c                I2C_DMALastTransferCmd
+                0x0000000008002384                I2C_GenerateSTART
+                0x000000000800239c                I2C_GenerateSTOP
+                0x00000000080023b4                I2C_AcknowledgeConfig
+                0x00000000080023cc                I2C_OwnAddress2Config
+                0x00000000080023de                I2C_DualAddressCmd
+                0x00000000080023f6                I2C_GeneralCallCmd
+                0x000000000800240e                I2C_ITConfig
+                0x0000000008002420                I2C_SendData
+                0x0000000008002424                I2C_ReceiveData
+                0x000000000800242a                I2C_Send7bitAddress
+                0x000000000800243a                I2C_ReadRegister
+                0x0000000008002452                I2C_SoftwareResetCmd
+                0x000000000800246a                I2C_SMBusAlertConfig
+                0x0000000008002486                I2C_TransmitPEC
+                0x000000000800249e                I2C_PECPositionConfig
+                0x00000000080024ba                I2C_CalculatePEC
+                0x00000000080024d2                I2C_GetPEC
+                0x00000000080024da                I2C_ARPCmd
+                0x00000000080024f2                I2C_StretchClockCmd
+                0x000000000800250a                I2C_FastModeDutyCycleConfig
+                0x0000000008002526                I2C_CheckEvent
+                0x000000000800253e                I2C_GetLastEvent
+                0x000000000800254e                I2C_GetFlagStatus
+                0x0000000008002582                I2C_ClearFlag
+                0x000000000800258a                I2C_GetITStatus
+                0x00000000080025a6                I2C_ClearITPendingBit
+ .text          0x00000000080025b0       0x14 ./stm32f10x_it.o
+                0x00000000080025b0                NMI_Handler
+                0x00000000080025b2                HardFault_Handler
+                0x00000000080025b4                MemManage_Handler
+                0x00000000080025b6                BusFault_Handler
+                0x00000000080025b8                UsageFault_Handler
+                0x00000000080025ba                SVC_Handler
+                0x00000000080025bc                DebugMon_Handler
+                0x00000000080025be                PendSV_Handler
+                0x00000000080025c0                SysTick_Handler
+ .text          0x00000000080025c4       0x58 ./stm32f10x_iwdg.o
+                0x00000000080025c4                IWDG_WriteAccessCmd
+                0x00000000080025d0                IWDG_SetPrescaler
+                0x00000000080025dc                IWDG_SetReload
+                0x00000000080025e8                IWDG_ReloadCounter
+                0x00000000080025f8                IWDG_Enable
+                0x0000000008002608                IWDG_GetFlagStatus
+ .text          0x000000000800261c       0xd0 ./stm32f10x_pwr.o
+                0x000000000800261c                PWR_DeInit
+                0x0000000008002636                PWR_BackupAccessCmd
+                0x0000000008002640                PWR_PVDCmd
+                0x000000000800264c                PWR_PVDLevelConfig
+                0x0000000008002660                PWR_WakeUpPinCmd
+                0x000000000800266c                PWR_EnterSTOPMode
+                0x00000000080026a0                PWR_EnterSTANDBYMode
+                0x00000000080026c8                PWR_GetFlagStatus
+                0x00000000080026dc                PWR_ClearFlag
+ .text          0x00000000080026ec      0x360 ./stm32f10x_rcc.o
+                0x00000000080026ec                RCC_DeInit
+                0x0000000008002730                RCC_HSEConfig
+                0x0000000008002768                RCC_AdjustHSICalibrationValue
+                0x000000000800277c                RCC_HSICmd
+                0x0000000008002788                RCC_PLLConfig
+                0x000000000800279c                RCC_PLLCmd
+                0x00000000080027a8                RCC_PREDIV1Config
+                0x00000000080027c0                RCC_SYSCLKConfig
+                0x00000000080027d4                RCC_GetSYSCLKSource
+                0x00000000080027e4                RCC_HCLKConfig
+                0x00000000080027f8                RCC_PCLK1Config
+                0x000000000800280c                RCC_PCLK2Config
+                0x0000000008002820                RCC_ITConfig
+                0x0000000008002838                RCC_USBCLKConfig
+                0x0000000008002844                RCC_ADCCLKConfig
+                0x0000000008002858                RCC_LSEConfig
+                0x0000000008002878                RCC_LSICmd
+                0x0000000008002884                RCC_RTCCLKConfig
+                0x0000000008002894                RCC_RTCCLKCmd
+                0x00000000080028a0                RCC_GetClocksFreq
+                0x000000000800292c                RCC_AHBPeriphClockCmd
+                0x0000000008002944                RCC_APB2PeriphClockCmd
+                0x000000000800295c                RCC_APB1PeriphClockCmd
+                0x0000000008002974                RCC_APB2PeriphResetCmd
+                0x000000000800298c                RCC_APB1PeriphResetCmd
+                0x00000000080029a4                RCC_BackupResetCmd
+                0x00000000080029b0                RCC_ClockSecuritySystemCmd
+                0x00000000080029bc                RCC_MCOConfig
+                0x00000000080029c8                RCC_GetFlagStatus
+                0x00000000080029f0                RCC_WaitForHSEStartUp
+                0x0000000008002a1c                RCC_ClearFlag
+                0x0000000008002a2c                RCC_GetITStatus
+                0x0000000008002a40                RCC_ClearITPendingBit
+ .text          0x0000000008002a4c      0x158 ./stm32f10x_rtc.o
+                0x0000000008002a4c                RTC_ITConfig
+                0x0000000008002a64                RTC_EnterConfigMode
+                0x0000000008002a78                RTC_ExitConfigMode
+                0x0000000008002a8c                RTC_GetCounter
+                0x0000000008002aa0                RTC_SetCounter
+                0x0000000008002ac0                RTC_SetPrescaler
+                0x0000000008002ae0                RTC_SetAlarm
+                0x0000000008002b00                RTC_GetDivider
+                0x0000000008002b18                RTC_WaitForLastTask
+                0x0000000008002b28                RTC_WaitForSynchro
+                0x0000000008002b44                RTC_GetFlagStatus
+                0x0000000008002b58                RTC_ClearFlag
+                0x0000000008002b6c                RTC_GetITStatus
+                0x0000000008002b90                RTC_ClearITPendingBit
+ .text          0x0000000008002ba4      0x234 ./stm32f10x_sdio.o
+                0x0000000008002ba4                SDIO_DeInit
+                0x0000000008002bc8                SDIO_Init
+                0x0000000008002bf8                SDIO_StructInit
+                0x0000000008002c08                SDIO_ClockCmd
+                0x0000000008002c14                SDIO_SetPowerState
+                0x0000000008002c2c                SDIO_GetPowerState
+                0x0000000008002c3c                SDIO_ITConfig
+                0x0000000008002c54                SDIO_DMACmd
+                0x0000000008002c60                SDIO_SendCommand
+                0x0000000008002c8c                SDIO_CmdStructInit
+                0x0000000008002c9a                SDIO_GetCommandResponse
+                0x0000000008002ca8                SDIO_GetResponse
+                0x0000000008002cc0                SDIO_DataConfig
+                0x0000000008002cec                SDIO_DataStructInit
+                0x0000000008002d00                SDIO_GetDataCounter
+                0x0000000008002d0c                SDIO_ReadData
+                0x0000000008002d18                SDIO_WriteData
+                0x0000000008002d24                SDIO_GetFIFOCount
+                0x0000000008002d30                SDIO_StartSDIOReadWait
+                0x0000000008002d3c                SDIO_StopSDIOReadWait
+                0x0000000008002d48                SDIO_SetSDIOReadWaitMode
+                0x0000000008002d54                SDIO_SetSDIOOperation
+                0x0000000008002d60                SDIO_SendSDIOSuspendCmd
+                0x0000000008002d6c                SDIO_CommandCompletionCmd
+                0x0000000008002d78                SDIO_CEATAITCmd
+                0x0000000008002d8c                SDIO_SendCEATACmd
+                0x0000000008002d98                SDIO_GetFlagStatus
+                0x0000000008002dac                SDIO_ClearFlag
+                0x0000000008002db8                SDIO_GetITStatus
+                0x0000000008002dcc                SDIO_ClearITPendingBit
+ .text          0x0000000008002dd8      0x2c0 ./stm32f10x_spi.o
+                0x0000000008002dd8                SPI_I2S_DeInit
+                0x0000000008002e3c                SPI_Init
+                0x0000000008002e7a                I2S_Init
+                0x0000000008002f1a                SPI_StructInit
+                0x0000000008002f32                I2S_StructInit
+                0x0000000008002f44                SPI_Cmd
+                0x0000000008002f5c                I2S_Cmd
+                0x0000000008002f74                SPI_I2S_ITConfig
+                0x0000000008002f92                SPI_I2S_DMACmd
+                0x0000000008002fa4                SPI_I2S_SendData
+                0x0000000008002fa8                SPI_I2S_ReceiveData
+                0x0000000008002fae                SPI_NSSInternalSoftwareConfig
+                0x0000000008002fcc                SPI_SSOutputCmd
+                0x0000000008002fe4                SPI_DataSizeConfig
+                0x0000000008002ffa                SPI_TransmitCRC
+                0x0000000008003006                SPI_CalculateCRC
+                0x000000000800301e                SPI_GetCRC
+                0x000000000800302a                SPI_GetCRCPolynomial
+                0x0000000008003030                SPI_BiDirectionalLineConfig
+                0x000000000800304c                SPI_I2S_GetFlagStatus
+                0x0000000008003058                SPI_I2S_ClearFlag
+                0x0000000008003060                SPI_I2S_GetITStatus
+                0x0000000008003086                SPI_I2S_ClearITPendingBit
+ .text          0x0000000008003098      0xb98 ./stm32f10x_tim.o
+                0x0000000008003104                TIM_DeInit
+                0x00000000080032b0                TIM_TimeBaseInit
+                0x0000000008003344                TIM_OC1Init
+                0x00000000080033cc                TIM_OC2Init
+                0x0000000008003454                TIM_OC3Init
+                0x00000000080034d8                TIM_OC4Init
+                0x0000000008003540                TIM_BDTRConfig
+                0x0000000008003562                TIM_TimeBaseStructInit
+                0x0000000008003574                TIM_OCStructInit
+                0x0000000008003588                TIM_ICStructInit
+                0x0000000008003598                TIM_BDTRStructInit
+                0x00000000080035aa                TIM_Cmd
+                0x00000000080035c2                TIM_CtrlPWMOutputs
+                0x00000000080035de                TIM_ITConfig
+                0x00000000080035f0                TIM_GenerateEvent
+                0x00000000080035f4                TIM_DMAConfig
+                0x00000000080035fc                TIM_DMACmd
+                0x000000000800360e                TIM_InternalClockConfig
+                0x000000000800361c                TIM_ITRxExternalClockConfig
+                0x0000000008003636                TIM_TIxExternalClockConfig
+                0x000000000800366a                TIM_ETRConfig
+                0x000000000800367e                TIM_ETRClockMode2Config
+                0x0000000008003692                TIM_ETRClockMode1Config
+                0x00000000080036ac                TIM_PrescalerConfig
+                0x00000000080036b2                TIM_CounterModeConfig
+                0x00000000080036c2                TIM_SelectInputTrigger
+                0x00000000080036d2                TIM_EncoderInterfaceConfig
+                0x000000000800370e                TIM_ForcedOC1Config
+                0x000000000800371e                TIM_ForcedOC2Config
+                0x0000000008003732                TIM_ForcedOC3Config
+                0x0000000008003742                TIM_ForcedOC4Config
+                0x0000000008003756                TIM_ARRPreloadConfig
+                0x000000000800376e                TIM_SelectCOM
+                0x0000000008003786                TIM_SelectCCDMA
+                0x000000000800379e                TIM_CCPreloadControl
+                0x00000000080037b6                TIM_OC1PreloadConfig
+                0x00000000080037c6                TIM_OC2PreloadConfig
+                0x00000000080037da                TIM_OC3PreloadConfig
+                0x00000000080037ea                TIM_OC4PreloadConfig
+                0x00000000080037fe                TIM_OC1FastConfig
+                0x000000000800380e                TIM_OC2FastConfig
+                0x0000000008003822                TIM_OC3FastConfig
+                0x0000000008003832                TIM_OC4FastConfig
+                0x0000000008003846                TIM_ClearOC1Ref
+                0x0000000008003856                TIM_ClearOC2Ref
+                0x0000000008003866                TIM_ClearOC3Ref
+                0x0000000008003876                TIM_ClearOC4Ref
+                0x0000000008003886                TIM_OC1PolarityConfig
+                0x0000000008003896                TIM_OC1NPolarityConfig
+                0x00000000080038a6                TIM_OC2PolarityConfig
+                0x00000000080038ba                TIM_OC2NPolarityConfig
+                0x00000000080038ce                TIM_OC3PolarityConfig
+                0x00000000080038e2                TIM_OC3NPolarityConfig
+                0x00000000080038f6                TIM_OC4PolarityConfig
+                0x000000000800390a                TIM_CCxCmd
+                0x0000000008003926                TIM_CCxNCmd
+                0x0000000008003942                TIM_SelectOCxM
+                0x0000000008003984                TIM_UpdateDisableConfig
+                0x000000000800399c                TIM_UpdateRequestConfig
+                0x00000000080039b4                TIM_SelectHallSensor
+                0x00000000080039cc                TIM_SelectOnePulseMode
+                0x00000000080039e2                TIM_SelectOutputTrigger
+                0x00000000080039f8                TIM_SelectSlaveMode
+                0x0000000008003a0e                TIM_SelectMasterSlaveMode
+                0x0000000008003a24                TIM_SetCounter
+                0x0000000008003a28                TIM_SetAutoreload
+                0x0000000008003a2c                TIM_SetCompare1
+                0x0000000008003a30                TIM_SetCompare2
+                0x0000000008003a34                TIM_SetCompare3
+                0x0000000008003a38                TIM_SetCompare4
+                0x0000000008003a3e                TIM_SetIC1Prescaler
+                0x0000000008003a54                TIM_SetIC2Prescaler
+                0x0000000008003a6e                TIM_PWMIConfig
+                0x0000000008003adc                TIM_SetIC3Prescaler
+                0x0000000008003af2                TIM_SetIC4Prescaler
+                0x0000000008003b0c                TIM_ICInit
+                0x0000000008003bc2                TIM_SetClockDivision
+                0x0000000008003bd8                TIM_GetCapture1
+                0x0000000008003bde                TIM_GetCapture2
+                0x0000000008003be4                TIM_GetCapture3
+                0x0000000008003bea                TIM_GetCapture4
+                0x0000000008003bf2                TIM_GetCounter
+                0x0000000008003bf8                TIM_GetPrescaler
+                0x0000000008003bfe                TIM_GetFlagStatus
+                0x0000000008003c0a                TIM_ClearFlag
+                0x0000000008003c12                TIM_GetITStatus
+                0x0000000008003c28                TIM_ClearITPendingBit
+ .text          0x0000000008003c30      0x398 ./stm32f10x_usart.o
+                0x0000000008003c30                USART_DeInit
+                0x0000000008003cc8                USART_Init
+                0x0000000008003d70                USART_StructInit
+                0x0000000008003d86                USART_ClockInit
+                0x0000000008003da6                USART_ClockStructInit
+                0x0000000008003db2                USART_Cmd
+                0x0000000008003dca                USART_ITConfig
+                0x0000000008003dfa                USART_DMACmd
+                0x0000000008003e0c                USART_SetAddress
+                0x0000000008003e22                USART_WakeUpConfig
+                0x0000000008003e38                USART_ReceiverWakeUpCmd
+                0x0000000008003e50                USART_LINBreakDetectLengthConfig
+                0x0000000008003e66                USART_LINCmd
+                0x0000000008003e7e                USART_SendData
+                0x0000000008003e86                USART_ReceiveData
+                0x0000000008003e8e                USART_SendBreak
+                0x0000000008003e9a                USART_SetGuardTime
+                0x0000000008003eac                USART_SetPrescaler
+                0x0000000008003ebe                USART_SmartCardCmd
+                0x0000000008003ed6                USART_SmartCardNACKCmd
+                0x0000000008003eee                USART_HalfDuplexCmd
+                0x0000000008003f06                USART_OverSampling8Cmd
+                0x0000000008003f1e                USART_OneBitMethodCmd
+                0x0000000008003f36                USART_IrDAConfig
+                0x0000000008003f4c                USART_IrDACmd
+                0x0000000008003f64                USART_GetFlagStatus
+                0x0000000008003f70                USART_ClearFlag
+                0x0000000008003f78                USART_GetITStatus
+                0x0000000008003fb8                USART_ClearITPendingBit
+ .text          0x0000000008003fc8       0x98 ./stm32f10x_wwdg.o
+                0x0000000008003fc8                WWDG_DeInit
+                0x0000000008003fe2                WWDG_SetPrescaler
+                0x0000000008003ff4                WWDG_SetWindowValue
+                0x000000000800401c                WWDG_EnableIT
+                0x0000000008004028                WWDG_SetCounter
+                0x0000000008004038                WWDG_Enable
+                0x0000000008004048                WWDG_GetFlagStatus
+                0x0000000008004054                WWDG_ClearFlag
+ .text          0x0000000008004060       0xec ./system_stm32f10x.o
+                0x0000000008004060                SystemInit
+                0x00000000080040e8                SystemCoreClockUpdate
+ .text          0x000000000800414c       0x14 /tmp/ccyziHys.o
+ *(.text*)
+ .text.startup  0x0000000008004160       0xd8 ./main.o
+                0x0000000008004160                main
+ .text.Reset_Handler
+                0x0000000008004238       0x4c /tmp/ccyziHys.o
+                0x0000000008004238                Reset_Handler
+ .text.Default_Handler
+                0x0000000008004284        0x4 /tmp/ccyziHys.o
+                0x0000000008004284                EXTI2_IRQHandler
+                0x0000000008004284                TIM1_CC_IRQHandler
+                0x0000000008004284                PVD_IRQHandler
+                0x0000000008004284                EXTI3_IRQHandler
+                0x0000000008004284                EXTI0_IRQHandler
+                0x0000000008004284                TIM1_UP_TIM16_IRQHandler
+                0x0000000008004284                SPI1_IRQHandler
+                0x0000000008004284                TAMPER_IRQHandler
+                0x0000000008004284                TIM6_DAC_IRQHandler
+                0x0000000008004284                DMA1_Channel4_IRQHandler
+                0x0000000008004284                ADC1_IRQHandler
+                0x0000000008004284                RTC_IRQHandler
+                0x0000000008004284                DMA1_Channel7_IRQHandler
+                0x0000000008004284                I2C1_EV_IRQHandler
+                0x0000000008004284                DMA1_Channel6_IRQHandler
+                0x0000000008004284                TIM3_IRQHandler
+                0x0000000008004284                RCC_IRQHandler
+                0x0000000008004284                DMA1_Channel1_IRQHandler
+                0x0000000008004284                Default_Handler
+                0x0000000008004284                CEC_IRQHandler
+                0x0000000008004284                EXTI15_10_IRQHandler
+                0x0000000008004284                TIM7_IRQHandler
+                0x0000000008004284                EXTI9_5_IRQHandler
+                0x0000000008004284                DMA1_Channel5_IRQHandler
+                0x0000000008004284                EXTI4_IRQHandler
+                0x0000000008004284                TIM1_TRG_COM_TIM17_IRQHandler
+                0x0000000008004284                DMA1_Channel3_IRQHandler
+                0x0000000008004284                WWDG_IRQHandler
+                0x0000000008004284                TIM2_IRQHandler
+                0x0000000008004284                EXTI1_IRQHandler
+                0x0000000008004284                RTCAlarm_IRQHandler
+                0x0000000008004284                USART2_IRQHandler
+                0x0000000008004284                DMA1_Channel2_IRQHandler
+                0x0000000008004284                FLASH_IRQHandler
+                0x0000000008004284                USART1_IRQHandler
+                0x0000000008004284                I2C1_ER_IRQHandler
+                0x0000000008004284                TIM1_BRK_TIM15_IRQHandler
+ *(.rodata)
+ .rodata        0x0000000008004288        0x8 ./stm32f10x_can.o
+ *(.rodata*)
+ *(.glue_7)
+ .glue_7        0x0000000000000000        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x0000000000000000        0x0 linker stubs
+ *(.init)
+ *(.fini)
+                0x0000000008004290                . = ALIGN (0x4)
+                0x0000000008004290                _etext = .
+
+.vfp11_veneer   0x0000000008004290        0x0
+ .vfp11_veneer  0x0000000000000000        0x0 linker stubs
+
+.v4_bx          0x0000000008004290        0x0
+ .v4_bx         0x0000000000000000        0x0 linker stubs
+
+.iplt           0x0000000008004290        0x0
+ .iplt          0x0000000000000000        0x0 ./main.o
+
+.rel.dyn        0x0000000008004290        0x0
+ .rel.iplt      0x0000000000000000        0x0 ./main.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0000000008004290        0x0
+                0x0000000008004290                __exidx_start = .
+ *(.ARM.exidx*)
+                0x0000000008004290                __exidx_end = .
+
+.ARM.attributes
+                0x0000000008004290       0x31
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x0000000008004290       0x33 ./core_cm3.o
+ .ARM.attributes
+                0x00000000080042c3       0x33 ./main.o
+ .ARM.attributes
+                0x00000000080042f6       0x33 ./misc.o
+ .ARM.attributes
+                0x0000000008004329       0x33 ./stm32f10x_adc.o
+ .ARM.attributes
+                0x000000000800435c       0x33 ./stm32f10x_bkp.o
+ .ARM.attributes
+                0x000000000800438f       0x33 ./stm32f10x_can.o
+ .ARM.attributes
+                0x00000000080043c2       0x33 ./stm32f10x_cec.o
+ .ARM.attributes
+                0x00000000080043f5       0x33 ./stm32f10x_crc.o
+ .ARM.attributes
+                0x0000000008004428       0x33 ./stm32f10x_dac.o
+ .ARM.attributes
+                0x000000000800445b       0x33 ./stm32f10x_dbgmcu.o
+ .ARM.attributes
+                0x000000000800448e       0x33 ./stm32f10x_dma.o
+ .ARM.attributes
+                0x00000000080044c1       0x33 ./stm32f10x_exti.o
+ .ARM.attributes
+                0x00000000080044f4       0x33 ./stm32f10x_flash.o
+ .ARM.attributes
+                0x0000000008004527       0x33 ./stm32f10x_fsmc.o
+ .ARM.attributes
+                0x000000000800455a       0x33 ./stm32f10x_gpio.o
+ .ARM.attributes
+                0x000000000800458d       0x33 ./stm32f10x_i2c.o
+ .ARM.attributes
+                0x00000000080045c0       0x33 ./stm32f10x_it.o
+ .ARM.attributes
+                0x00000000080045f3       0x33 ./stm32f10x_iwdg.o
+ .ARM.attributes
+                0x0000000008004626       0x33 ./stm32f10x_pwr.o
+ .ARM.attributes
+                0x0000000008004659       0x33 ./stm32f10x_rcc.o
+ .ARM.attributes
+                0x000000000800468c       0x33 ./stm32f10x_rtc.o
+ .ARM.attributes
+                0x00000000080046bf       0x33 ./stm32f10x_sdio.o
+ .ARM.attributes
+                0x00000000080046f2       0x33 ./stm32f10x_spi.o
+ .ARM.attributes
+                0x0000000008004725       0x33 ./stm32f10x_tim.o
+ .ARM.attributes
+                0x0000000008004758       0x33 ./stm32f10x_usart.o
+ .ARM.attributes
+                0x000000000800478b       0x33 ./stm32f10x_wwdg.o
+ .ARM.attributes
+                0x00000000080047be       0x33 ./system_stm32f10x.o
+ .ARM.attributes
+                0x00000000080047f1       0x21 /tmp/ccyziHys.o
+
+.preinit_array  0x0000000008004290        0x0
+                0x0000000008004290                PROVIDE (__preinit_array_start, .)
+ *(.preinit_array*)
+                0x0000000008004290                PROVIDE (__preinit_array_end, .)
+
+.init_array     0x0000000008004290        0x0
+                0x0000000008004290                PROVIDE (__init_array_start, .)
+ *(SORT(.init_array.*))
+ *(.init_array*)
+                0x0000000008004290                PROVIDE (__init_array_end, .)
+
+.fini_array     0x0000000008004290        0x0
+                0x0000000008004290                PROVIDE (__fini_array_start, .)
+ *(.fini_array*)
+ *(SORT(.fini_array.*))
+                0x0000000008004290                PROVIDE (__fini_array_end, .)
+                0x0000000008004290                _sidata = .
+
+.data           0x0000000020000000       0x28 load address 0x0000000008004812
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                _sdata = .
+ *(.data)
+ .data          0x0000000020000000        0x0 ./core_cm3.o
+ .data          0x0000000020000000        0x0 ./main.o
+ .data          0x0000000020000000        0x0 ./misc.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_adc.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_bkp.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_can.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_cec.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_crc.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_dac.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_dbgmcu.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_dma.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_exti.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_flash.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_fsmc.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_gpio.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_i2c.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_it.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_iwdg.o
+ .data          0x0000000020000000        0x0 ./stm32f10x_pwr.o
+ .data          0x0000000020000000       0x14 ./stm32f10x_rcc.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_rtc.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_sdio.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_spi.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_tim.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_usart.o
+ .data          0x0000000020000014        0x0 ./stm32f10x_wwdg.o
+ .data          0x0000000020000014       0x14 ./system_stm32f10x.o
+                0x0000000020000014                SystemCoreClock
+                0x0000000020000018                AHBPrescTable
+ .data          0x0000000020000028        0x0 /tmp/ccyziHys.o
+ *(.data*)
+                0x0000000020000028                . = ALIGN (0x4)
+                0x0000000020000028                _edata = .
+
+.igot.plt       0x0000000020000028        0x0 load address 0x000000000800483c
+ .igot.plt      0x0000000000000000        0x0 ./main.o
+                0x0000000020000028                . = ALIGN (0x4)
+
+.bss            0x0000000020000028       0x28 load address 0x000000000800483c
+                0x0000000020000028                _sbss = .
+                0x0000000020000028                __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x0000000020000028        0x0 ./core_cm3.o
+ .bss           0x0000000020000028       0x14 ./main.o
+                0x000000002000002c                comtimeout
+                0x0000000020000030                test
+                0x0000000020000034                pre
+                0x0000000020000038                newSeedCount
+ .bss           0x000000002000003c        0x0 ./misc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_adc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_bkp.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_can.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_cec.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_crc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_dac.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_dbgmcu.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_dma.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_exti.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_flash.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_fsmc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_gpio.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_i2c.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_it.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_iwdg.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_pwr.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_rcc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_rtc.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_sdio.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_spi.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_tim.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_usart.o
+ .bss           0x000000002000003c        0x0 ./stm32f10x_wwdg.o
+ .bss           0x000000002000003c        0x0 ./system_stm32f10x.o
+ .bss           0x000000002000003c        0x0 /tmp/ccyziHys.o
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x000000002000003c       0x14 ./main.o
+                0x000000002000003c                resetdma
+                0x0000000020000040                prng
+                0x0000000020000050                . = ALIGN (0x4)
+                0x0000000020000050                _ebss = .
+                0x0000000020000050                __bss_end__ = _ebss
+                0x0000000020000050                PROVIDE (end, _ebss)
+                0x0000000020000050                PROVIDE (_end, _ebss)
+
+._user_heap_stack
+                0x0000000020000050      0x100 load address 0x0000000008004864
+                0x0000000020000050                . = ALIGN (0x4)
+                0x0000000020000050                . = (. + _Min_Heap_Size)
+                0x0000000020000150                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020000050      0x100 
+                0x0000000020000150                . = ALIGN (0x4)
+
+.memory_b1_text
+ *(.mb1text)
+ *(.mb1text*)
+ *(.mb1rodata)
+ *(.mb1rodata*)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+OUTPUT(rxlamp.elf elf32-littlearm)
+
+.comment        0x0000000000000000       0x3a
+ .comment       0x0000000000000000       0x3a ./core_cm3.o
+                                         0x3b (size before relaxing)
+ .comment       0x0000000000000000       0x3b ./main.o
+ .comment       0x0000000000000000       0x3b ./misc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_adc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_bkp.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_can.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_cec.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_crc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_dac.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_dbgmcu.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_dma.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_exti.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_flash.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_fsmc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_gpio.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_i2c.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_it.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_iwdg.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_pwr.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_rcc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_rtc.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_sdio.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_spi.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_tim.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_usart.o
+ .comment       0x0000000000000000       0x3b ./stm32f10x_wwdg.o
+ .comment       0x0000000000000000       0x3b ./system_stm32f10x.o

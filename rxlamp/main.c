@@ -75,7 +75,7 @@ void GPIO_Configuration(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 ;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2 ;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
@@ -93,7 +93,7 @@ void GPIO_Configuration(void)
 	TIM_OCInitTypeDef TIM_OCInitStructure;
 
 
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3 | RCC_APB1Periph_TIM2, ENABLE);
 
 	TIM_TimeBaseStructure.TIM_Period = 4096;
 	TIM_TimeBaseStructure.TIM_Prescaler = 0;
@@ -101,6 +101,7 @@ void GPIO_Configuration(void)
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
 
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 
 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
@@ -108,13 +109,14 @@ void GPIO_Configuration(void)
 	TIM_OCInitStructure.TIM_Pulse = 0;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 
-	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
-	TIM_OC2Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC2Init(TIM2, &TIM_OCInitStructure);
+	TIM_OC3Init(TIM2, &TIM_OCInitStructure);
 	TIM_OC3Init(TIM3, &TIM_OCInitStructure);
 
 
 	/* TIM3 enable counter */
 	TIM_Cmd(TIM3, ENABLE);
+	TIM_Cmd(TIM2, ENABLE);
 
 }
 
@@ -163,7 +165,7 @@ void TimingDelay_Decrement(void)
 	} else {
 
 		test++;
-		colorWheel(&test, &TIM3->CCR3, &TIM3->CCR2, &TIM3->CCR1);
+		colorWheel(&test, &TIM3->CCR3, &TIM2->CCR3, &TIM2->CCR2);
 	}
 
 

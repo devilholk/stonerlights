@@ -1,0 +1,706 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_usart.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	USART_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	USART_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24 0000 08B5     		push	{r3, lr}
+  25 0002 204B     		ldr	r3, .L8
+  26 0004 9842     		cmp	r0, r3
+  27 0006 0BD1     		bne	.L2
+  28 0008 4FF48040 		mov	r0, #16384
+  29 000c 0121     		movs	r1, #1
+  30 000e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  31 0012 4FF48040 		mov	r0, #16384
+  32 0016 0021     		movs	r1, #0
+  33 0018 BDE80840 		pop	{r3, lr}
+  34 001c FFF7FEBF 		b	RCC_APB2PeriphResetCmd
+  35              	.L2:
+  36 0020 194B     		ldr	r3, .L8+4
+  37 0022 9842     		cmp	r0, r3
+  38 0024 07D1     		bne	.L3
+  39 0026 4FF40030 		mov	r0, #131072
+  40 002a 0121     		movs	r1, #1
+  41 002c FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  42 0030 4FF40030 		mov	r0, #131072
+  43 0034 1FE0     		b	.L7
+  44              	.L3:
+  45 0036 154B     		ldr	r3, .L8+8
+  46 0038 9842     		cmp	r0, r3
+  47 003a 07D1     		bne	.L4
+  48 003c 4FF48020 		mov	r0, #262144
+  49 0040 0121     		movs	r1, #1
+  50 0042 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  51 0046 4FF48020 		mov	r0, #262144
+  52 004a 14E0     		b	.L7
+  53              	.L4:
+  54 004c 104B     		ldr	r3, .L8+12
+  55 004e 9842     		cmp	r0, r3
+  56 0050 07D1     		bne	.L5
+  57 0052 4FF40020 		mov	r0, #524288
+  58 0056 0121     		movs	r1, #1
+  59 0058 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  60 005c 4FF40020 		mov	r0, #524288
+  61 0060 09E0     		b	.L7
+  62              	.L5:
+  63 0062 0C4B     		ldr	r3, .L8+16
+  64 0064 9842     		cmp	r0, r3
+  65 0066 0BD1     		bne	.L1
+  66 0068 4FF48010 		mov	r0, #1048576
+  67 006c 0121     		movs	r1, #1
+  68 006e FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  69 0072 4FF48010 		mov	r0, #1048576
+  70              	.L7:
+  71 0076 0021     		movs	r1, #0
+  72 0078 BDE80840 		pop	{r3, lr}
+  73 007c FFF7FEBF 		b	RCC_APB1PeriphResetCmd
+  74              	.L1:
+  75 0080 08BD     		pop	{r3, pc}
+  76              	.L9:
+  77 0082 00BF     		.align	2
+  78              	.L8:
+  79 0084 00380140 		.word	1073821696
+  80 0088 00440040 		.word	1073759232
+  81 008c 00480040 		.word	1073760256
+  82 0090 004C0040 		.word	1073761280
+  83 0094 00500040 		.word	1073762304
+  85              		.align	1
+  86              		.global	USART_Init
+  87              		.thumb
+  88              		.thumb_func
+  90              	USART_Init:
+  91              		@ args = 0, pretend = 0, frame = 24
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93 0098 038A     		ldrh	r3, [r0, #16]
+  94 009a CA88     		ldrh	r2, [r1, #6]
+  95 009c 9BB2     		uxth	r3, r3
+  96 009e 23F44053 		bic	r3, r3, #12288
+  97 00a2 1343     		orrs	r3, r3, r2
+  98 00a4 30B5     		push	{r4, r5, lr}
+  99 00a6 0382     		strh	r3, [r0, #16]	@ movhi
+ 100 00a8 8389     		ldrh	r3, [r0, #12]
+ 101 00aa 0D46     		mov	r5, r1
+ 102 00ac AA88     		ldrh	r2, [r5, #4]
+ 103 00ae 0989     		ldrh	r1, [r1, #8]
+ 104 00b0 23F4B053 		bic	r3, r3, #5632
+ 105 00b4 0A43     		orrs	r2, r2, r1
+ 106 00b6 23F00C03 		bic	r3, r3, #12
+ 107 00ba 6989     		ldrh	r1, [r5, #10]
+ 108 00bc 1B04     		lsls	r3, r3, #16
+ 109 00be 0A43     		orrs	r2, r2, r1
+ 110 00c0 1B0C     		lsrs	r3, r3, #16
+ 111 00c2 1343     		orrs	r3, r3, r2
+ 112 00c4 9BB2     		uxth	r3, r3
+ 113 00c6 8381     		strh	r3, [r0, #12]	@ movhi
+ 114 00c8 838A     		ldrh	r3, [r0, #20]
+ 115 00ca AA89     		ldrh	r2, [r5, #12]
+ 116 00cc 9BB2     		uxth	r3, r3
+ 117 00ce 23F44073 		bic	r3, r3, #768
+ 118 00d2 87B0     		sub	sp, sp, #28
+ 119 00d4 1343     		orrs	r3, r3, r2
+ 120 00d6 0446     		mov	r4, r0
+ 121 00d8 8382     		strh	r3, [r0, #20]	@ movhi
+ 122 00da 01A8     		add	r0, sp, #4
+ 123 00dc FFF7FEFF 		bl	RCC_GetClocksFreq
+ 124 00e0 164B     		ldr	r3, .L19
+ 125 00e2 A289     		ldrh	r2, [r4, #12]
+ 126 00e4 9C42     		cmp	r4, r3
+ 127 00e6 0CBF     		ite	eq
+ 128 00e8 049B     		ldreq	r3, [sp, #16]
+ 129 00ea 039B     		ldrne	r3, [sp, #12]
+ 130 00ec 1921     		movs	r1, #25
+ 131 00ee 12B2     		sxth	r2, r2
+ 132 00f0 5943     		muls	r1, r3, r1
+ 133 00f2 002A     		cmp	r2, #0
+ 134 00f4 2A68     		ldr	r2, [r5, #0]
+ 135 00f6 4FF06403 		mov	r3, #100
+ 136 00fa B4BF     		ite	lt
+ 137 00fc 5200     		lsllt	r2, r2, #1
+ 138 00fe 9200     		lslge	r2, r2, #2
+ 139 0100 B1FBF2F1 		udiv	r1, r1, r2
+ 140 0104 B1FBF3F2 		udiv	r2, r1, r3
+ 141 0108 1201     		lsls	r2, r2, #4
+ 142 010a 1009     		lsrs	r0, r2, #4
+ 143 010c 03FB1011 		mls	r1, r3, r0, r1
+ 144 0110 A089     		ldrh	r0, [r4, #12]
+ 145 0112 00B2     		sxth	r0, r0
+ 146 0114 0028     		cmp	r0, #0
+ 147 0116 06DA     		bge	.L15
+ 148 0118 C900     		lsls	r1, r1, #3
+ 149 011a 3231     		adds	r1, r1, #50
+ 150 011c B1FBF3F3 		udiv	r3, r1, r3
+ 151 0120 03F00703 		and	r3, r3, #7
+ 152 0124 05E0     		b	.L18
+ 153              	.L15:
+ 154 0126 0901     		lsls	r1, r1, #4
+ 155 0128 3231     		adds	r1, r1, #50
+ 156 012a B1FBF3F3 		udiv	r3, r1, r3
+ 157 012e 03F00F03 		and	r3, r3, #15
+ 158              	.L18:
+ 159 0132 1A43     		orrs	r2, r2, r3
+ 160 0134 92B2     		uxth	r2, r2
+ 161 0136 2281     		strh	r2, [r4, #8]	@ movhi
+ 162 0138 07B0     		add	sp, sp, #28
+ 163 013a 30BD     		pop	{r4, r5, pc}
+ 164              	.L20:
+ 165              		.align	2
+ 166              	.L19:
+ 167 013c 00380140 		.word	1073821696
+ 169              		.align	1
+ 170              		.global	USART_StructInit
+ 171              		.thumb
+ 172              		.thumb_func
+ 174              	USART_StructInit:
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177              		@ link register save eliminated.
+ 178 0140 4FF41653 		mov	r3, #9600
+ 179 0144 0360     		str	r3, [r0, #0]
+ 180 0146 0C22     		movs	r2, #12
+ 181 0148 0023     		movs	r3, #0
+ 182 014a 8380     		strh	r3, [r0, #4]	@ movhi
+ 183 014c C380     		strh	r3, [r0, #6]	@ movhi
+ 184 014e 0381     		strh	r3, [r0, #8]	@ movhi
+ 185 0150 4281     		strh	r2, [r0, #10]	@ movhi
+ 186 0152 8381     		strh	r3, [r0, #12]	@ movhi
+ 187 0154 7047     		bx	lr
+ 189              		.align	1
+ 190              		.global	USART_ClockInit
+ 191              		.thumb
+ 192              		.thumb_func
+ 194              	USART_ClockInit:
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197 0156 0B88     		ldrh	r3, [r1, #0]
+ 198 0158 10B5     		push	{r4, lr}
+ 199 015a 4C88     		ldrh	r4, [r1, #2]
+ 200 015c 028A     		ldrh	r2, [r0, #16]
+ 201 015e 2343     		orrs	r3, r3, r4
+ 202 0160 8C88     		ldrh	r4, [r1, #4]
+ 203 0162 C988     		ldrh	r1, [r1, #6]
+ 204 0164 92B2     		uxth	r2, r2
+ 205 0166 2343     		orrs	r3, r3, r4
+ 206 0168 0B43     		orrs	r3, r3, r1
+ 207 016a 22F47062 		bic	r2, r2, #3840
+ 208 016e 1343     		orrs	r3, r3, r2
+ 209 0170 9BB2     		uxth	r3, r3
+ 210 0172 0382     		strh	r3, [r0, #16]	@ movhi
+ 211 0174 10BD     		pop	{r4, pc}
+ 213              		.align	1
+ 214              		.global	USART_ClockStructInit
+ 215              		.thumb
+ 216              		.thumb_func
+ 218              	USART_ClockStructInit:
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 222 0176 0023     		movs	r3, #0
+ 223 0178 0380     		strh	r3, [r0, #0]	@ movhi
+ 224 017a 4380     		strh	r3, [r0, #2]	@ movhi
+ 225 017c 8380     		strh	r3, [r0, #4]	@ movhi
+ 226 017e C380     		strh	r3, [r0, #6]	@ movhi
+ 227 0180 7047     		bx	lr
+ 229              		.align	1
+ 230              		.global	USART_Cmd
+ 231              		.thumb
+ 232              		.thumb_func
+ 234              	USART_Cmd:
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238 0182 8389     		ldrh	r3, [r0, #12]
+ 239 0184 19B1     		cbz	r1, .L25
+ 240 0186 9BB2     		uxth	r3, r3
+ 241 0188 43F40053 		orr	r3, r3, #8192
+ 242 018c 03E0     		b	.L27
+ 243              	.L25:
+ 244 018e 23F40053 		bic	r3, r3, #8192
+ 245 0192 1B04     		lsls	r3, r3, #16
+ 246 0194 1B0C     		lsrs	r3, r3, #16
+ 247              	.L27:
+ 248 0196 8381     		strh	r3, [r0, #12]	@ movhi
+ 249 0198 7047     		bx	lr
+ 251              		.align	1
+ 252              		.global	USART_ITConfig
+ 253              		.thumb
+ 254              		.thumb_func
+ 256              	USART_ITConfig:
+ 257              		@ args = 0, pretend = 0, frame = 0
+ 258              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259 019a C1F34213 		ubfx	r3, r1, #5, #3
+ 260 019e 10B5     		push	{r4, lr}
+ 261 01a0 0124     		movs	r4, #1
+ 262 01a2 01F01F01 		and	r1, r1, #31
+ 263 01a6 A342     		cmp	r3, r4
+ 264 01a8 04FA01F1 		lsl	r1, r4, r1
+ 265 01ac 01D1     		bne	.L29
+ 266 01ae 0C30     		adds	r0, r0, #12
+ 267 01b0 03E0     		b	.L30
+ 268              	.L29:
+ 269 01b2 022B     		cmp	r3, #2
+ 270 01b4 0CBF     		ite	eq
+ 271 01b6 1030     		addeq	r0, r0, #16
+ 272 01b8 1430     		addne	r0, r0, #20
+ 273              	.L30:
+ 274 01ba 0368     		ldr	r3, [r0, #0]
+ 275 01bc 0AB1     		cbz	r2, .L32
+ 276 01be 1943     		orrs	r1, r1, r3
+ 277 01c0 01E0     		b	.L34
+ 278              	.L32:
+ 279 01c2 23EA0101 		bic	r1, r3, r1
+ 280              	.L34:
+ 281 01c6 0160     		str	r1, [r0, #0]
+ 282 01c8 10BD     		pop	{r4, pc}
+ 284              		.align	1
+ 285              		.global	USART_DMACmd
+ 286              		.thumb
+ 287              		.thumb_func
+ 289              	USART_DMACmd:
+ 290              		@ args = 0, pretend = 0, frame = 0
+ 291              		@ frame_needed = 0, uses_anonymous_args = 0
+ 292              		@ link register save eliminated.
+ 293 01ca 838A     		ldrh	r3, [r0, #20]
+ 294 01cc 9BB2     		uxth	r3, r3
+ 295 01ce 0AB1     		cbz	r2, .L36
+ 296 01d0 1943     		orrs	r1, r1, r3
+ 297 01d2 01E0     		b	.L38
+ 298              	.L36:
+ 299 01d4 23EA0101 		bic	r1, r3, r1
+ 300              	.L38:
+ 301 01d8 8182     		strh	r1, [r0, #20]	@ movhi
+ 302 01da 7047     		bx	lr
+ 304              		.align	1
+ 305              		.global	USART_SetAddress
+ 306              		.thumb
+ 307              		.thumb_func
+ 309              	USART_SetAddress:
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 313 01dc 038A     		ldrh	r3, [r0, #16]
+ 314 01de 23F00F03 		bic	r3, r3, #15
+ 315 01e2 1B04     		lsls	r3, r3, #16
+ 316 01e4 1B0C     		lsrs	r3, r3, #16
+ 317 01e6 0382     		strh	r3, [r0, #16]	@ movhi
+ 318 01e8 038A     		ldrh	r3, [r0, #16]
+ 319 01ea 9BB2     		uxth	r3, r3
+ 320 01ec 1943     		orrs	r1, r1, r3
+ 321 01ee 0182     		strh	r1, [r0, #16]	@ movhi
+ 322 01f0 7047     		bx	lr
+ 324              		.align	1
+ 325              		.global	USART_WakeUpConfig
+ 326              		.thumb
+ 327              		.thumb_func
+ 329              	USART_WakeUpConfig:
+ 330              		@ args = 0, pretend = 0, frame = 0
+ 331              		@ frame_needed = 0, uses_anonymous_args = 0
+ 332              		@ link register save eliminated.
+ 333 01f2 8389     		ldrh	r3, [r0, #12]
+ 334 01f4 23F40063 		bic	r3, r3, #2048
+ 335 01f8 1B04     		lsls	r3, r3, #16
+ 336 01fa 1B0C     		lsrs	r3, r3, #16
+ 337 01fc 8381     		strh	r3, [r0, #12]	@ movhi
+ 338 01fe 8389     		ldrh	r3, [r0, #12]
+ 339 0200 9BB2     		uxth	r3, r3
+ 340 0202 1943     		orrs	r1, r1, r3
+ 341 0204 8181     		strh	r1, [r0, #12]	@ movhi
+ 342 0206 7047     		bx	lr
+ 344              		.align	1
+ 345              		.global	USART_ReceiverWakeUpCmd
+ 346              		.thumb
+ 347              		.thumb_func
+ 349              	USART_ReceiverWakeUpCmd:
+ 350              		@ args = 0, pretend = 0, frame = 0
+ 351              		@ frame_needed = 0, uses_anonymous_args = 0
+ 352              		@ link register save eliminated.
+ 353 0208 8389     		ldrh	r3, [r0, #12]
+ 354 020a 19B1     		cbz	r1, .L42
+ 355 020c 9BB2     		uxth	r3, r3
+ 356 020e 43F00203 		orr	r3, r3, #2
+ 357 0212 03E0     		b	.L44
+ 358              	.L42:
+ 359 0214 23F00203 		bic	r3, r3, #2
+ 360 0218 1B04     		lsls	r3, r3, #16
+ 361 021a 1B0C     		lsrs	r3, r3, #16
+ 362              	.L44:
+ 363 021c 8381     		strh	r3, [r0, #12]	@ movhi
+ 364 021e 7047     		bx	lr
+ 366              		.align	1
+ 367              		.global	USART_LINBreakDetectLengthConfig
+ 368              		.thumb
+ 369              		.thumb_func
+ 371              	USART_LINBreakDetectLengthConfig:
+ 372              		@ args = 0, pretend = 0, frame = 0
+ 373              		@ frame_needed = 0, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 375 0220 038A     		ldrh	r3, [r0, #16]
+ 376 0222 23F02003 		bic	r3, r3, #32
+ 377 0226 1B04     		lsls	r3, r3, #16
+ 378 0228 1B0C     		lsrs	r3, r3, #16
+ 379 022a 0382     		strh	r3, [r0, #16]	@ movhi
+ 380 022c 038A     		ldrh	r3, [r0, #16]
+ 381 022e 9BB2     		uxth	r3, r3
+ 382 0230 1943     		orrs	r1, r1, r3
+ 383 0232 0182     		strh	r1, [r0, #16]	@ movhi
+ 384 0234 7047     		bx	lr
+ 386              		.align	1
+ 387              		.global	USART_LINCmd
+ 388              		.thumb
+ 389              		.thumb_func
+ 391              	USART_LINCmd:
+ 392              		@ args = 0, pretend = 0, frame = 0
+ 393              		@ frame_needed = 0, uses_anonymous_args = 0
+ 394              		@ link register save eliminated.
+ 395 0236 038A     		ldrh	r3, [r0, #16]
+ 396 0238 19B1     		cbz	r1, .L47
+ 397 023a 9BB2     		uxth	r3, r3
+ 398 023c 43F48043 		orr	r3, r3, #16384
+ 399 0240 03E0     		b	.L49
+ 400              	.L47:
+ 401 0242 23F48043 		bic	r3, r3, #16384
+ 402 0246 1B04     		lsls	r3, r3, #16
+ 403 0248 1B0C     		lsrs	r3, r3, #16
+ 404              	.L49:
+ 405 024a 0382     		strh	r3, [r0, #16]	@ movhi
+ 406 024c 7047     		bx	lr
+ 408              		.align	1
+ 409              		.global	USART_SendData
+ 410              		.thumb
+ 411              		.thumb_func
+ 413              	USART_SendData:
+ 414              		@ args = 0, pretend = 0, frame = 0
+ 415              		@ frame_needed = 0, uses_anonymous_args = 0
+ 416              		@ link register save eliminated.
+ 417 024e C1F30801 		ubfx	r1, r1, #0, #9
+ 418 0252 8180     		strh	r1, [r0, #4]	@ movhi
+ 419 0254 7047     		bx	lr
+ 421              		.align	1
+ 422              		.global	USART_ReceiveData
+ 423              		.thumb
+ 424              		.thumb_func
+ 426              	USART_ReceiveData:
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 429              		@ link register save eliminated.
+ 430 0256 8088     		ldrh	r0, [r0, #4]
+ 431 0258 C0F30800 		ubfx	r0, r0, #0, #9
+ 432 025c 7047     		bx	lr
+ 434              		.align	1
+ 435              		.global	USART_SendBreak
+ 436              		.thumb
+ 437              		.thumb_func
+ 439              	USART_SendBreak:
+ 440              		@ args = 0, pretend = 0, frame = 0
+ 441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 442              		@ link register save eliminated.
+ 443 025e 8389     		ldrh	r3, [r0, #12]
+ 444 0260 9BB2     		uxth	r3, r3
+ 445 0262 43F00103 		orr	r3, r3, #1
+ 446 0266 8381     		strh	r3, [r0, #12]	@ movhi
+ 447 0268 7047     		bx	lr
+ 449              		.align	1
+ 450              		.global	USART_SetGuardTime
+ 451              		.thumb
+ 452              		.thumb_func
+ 454              	USART_SetGuardTime:
+ 455              		@ args = 0, pretend = 0, frame = 0
+ 456              		@ frame_needed = 0, uses_anonymous_args = 0
+ 457              		@ link register save eliminated.
+ 458 026a 038B     		ldrh	r3, [r0, #24]
+ 459 026c DBB2     		uxtb	r3, r3
+ 460 026e 0383     		strh	r3, [r0, #24]	@ movhi
+ 461 0270 038B     		ldrh	r3, [r0, #24]
+ 462 0272 9BB2     		uxth	r3, r3
+ 463 0274 43EA0121 		orr	r1, r3, r1, lsl #8
+ 464 0278 0183     		strh	r1, [r0, #24]	@ movhi
+ 465 027a 7047     		bx	lr
+ 467              		.align	1
+ 468              		.global	USART_SetPrescaler
+ 469              		.thumb
+ 470              		.thumb_func
+ 472              	USART_SetPrescaler:
+ 473              		@ args = 0, pretend = 0, frame = 0
+ 474              		@ frame_needed = 0, uses_anonymous_args = 0
+ 475              		@ link register save eliminated.
+ 476 027c 038B     		ldrh	r3, [r0, #24]
+ 477 027e 03F47F43 		and	r3, r3, #65280
+ 478 0282 0383     		strh	r3, [r0, #24]	@ movhi
+ 479 0284 038B     		ldrh	r3, [r0, #24]
+ 480 0286 9BB2     		uxth	r3, r3
+ 481 0288 1943     		orrs	r1, r1, r3
+ 482 028a 0183     		strh	r1, [r0, #24]	@ movhi
+ 483 028c 7047     		bx	lr
+ 485              		.align	1
+ 486              		.global	USART_SmartCardCmd
+ 487              		.thumb
+ 488              		.thumb_func
+ 490              	USART_SmartCardCmd:
+ 491              		@ args = 0, pretend = 0, frame = 0
+ 492              		@ frame_needed = 0, uses_anonymous_args = 0
+ 493              		@ link register save eliminated.
+ 494 028e 838A     		ldrh	r3, [r0, #20]
+ 495 0290 19B1     		cbz	r1, .L56
+ 496 0292 9BB2     		uxth	r3, r3
+ 497 0294 43F02003 		orr	r3, r3, #32
+ 498 0298 03E0     		b	.L58
+ 499              	.L56:
+ 500 029a 23F02003 		bic	r3, r3, #32
+ 501 029e 1B04     		lsls	r3, r3, #16
+ 502 02a0 1B0C     		lsrs	r3, r3, #16
+ 503              	.L58:
+ 504 02a2 8382     		strh	r3, [r0, #20]	@ movhi
+ 505 02a4 7047     		bx	lr
+ 507              		.align	1
+ 508              		.global	USART_SmartCardNACKCmd
+ 509              		.thumb
+ 510              		.thumb_func
+ 512              	USART_SmartCardNACKCmd:
+ 513              		@ args = 0, pretend = 0, frame = 0
+ 514              		@ frame_needed = 0, uses_anonymous_args = 0
+ 515              		@ link register save eliminated.
+ 516 02a6 838A     		ldrh	r3, [r0, #20]
+ 517 02a8 19B1     		cbz	r1, .L60
+ 518 02aa 9BB2     		uxth	r3, r3
+ 519 02ac 43F01003 		orr	r3, r3, #16
+ 520 02b0 03E0     		b	.L62
+ 521              	.L60:
+ 522 02b2 23F01003 		bic	r3, r3, #16
+ 523 02b6 1B04     		lsls	r3, r3, #16
+ 524 02b8 1B0C     		lsrs	r3, r3, #16
+ 525              	.L62:
+ 526 02ba 8382     		strh	r3, [r0, #20]	@ movhi
+ 527 02bc 7047     		bx	lr
+ 529              		.align	1
+ 530              		.global	USART_HalfDuplexCmd
+ 531              		.thumb
+ 532              		.thumb_func
+ 534              	USART_HalfDuplexCmd:
+ 535              		@ args = 0, pretend = 0, frame = 0
+ 536              		@ frame_needed = 0, uses_anonymous_args = 0
+ 537              		@ link register save eliminated.
+ 538 02be 838A     		ldrh	r3, [r0, #20]
+ 539 02c0 19B1     		cbz	r1, .L64
+ 540 02c2 9BB2     		uxth	r3, r3
+ 541 02c4 43F00803 		orr	r3, r3, #8
+ 542 02c8 03E0     		b	.L66
+ 543              	.L64:
+ 544 02ca 23F00803 		bic	r3, r3, #8
+ 545 02ce 1B04     		lsls	r3, r3, #16
+ 546 02d0 1B0C     		lsrs	r3, r3, #16
+ 547              	.L66:
+ 548 02d2 8382     		strh	r3, [r0, #20]	@ movhi
+ 549 02d4 7047     		bx	lr
+ 551              		.align	1
+ 552              		.global	USART_OverSampling8Cmd
+ 553              		.thumb
+ 554              		.thumb_func
+ 556              	USART_OverSampling8Cmd:
+ 557              		@ args = 0, pretend = 0, frame = 0
+ 558              		@ frame_needed = 0, uses_anonymous_args = 0
+ 559              		@ link register save eliminated.
+ 560 02d6 8389     		ldrh	r3, [r0, #12]
+ 561 02d8 29B1     		cbz	r1, .L68
+ 562 02da 6FEA4343 		mvn	r3, r3, lsl #17
+ 563 02de 6FEA5343 		mvn	r3, r3, lsr #17
+ 564 02e2 9BB2     		uxth	r3, r3
+ 565 02e4 01E0     		b	.L70
+ 566              	.L68:
+ 567 02e6 C3F30E03 		ubfx	r3, r3, #0, #15
+ 568              	.L70:
+ 569 02ea 8381     		strh	r3, [r0, #12]	@ movhi
+ 570 02ec 7047     		bx	lr
+ 572              		.align	1
+ 573              		.global	USART_OneBitMethodCmd
+ 574              		.thumb
+ 575              		.thumb_func
+ 577              	USART_OneBitMethodCmd:
+ 578              		@ args = 0, pretend = 0, frame = 0
+ 579              		@ frame_needed = 0, uses_anonymous_args = 0
+ 580              		@ link register save eliminated.
+ 581 02ee 838A     		ldrh	r3, [r0, #20]
+ 582 02f0 19B1     		cbz	r1, .L72
+ 583 02f2 9BB2     		uxth	r3, r3
+ 584 02f4 43F40063 		orr	r3, r3, #2048
+ 585 02f8 03E0     		b	.L74
+ 586              	.L72:
+ 587 02fa 23F40063 		bic	r3, r3, #2048
+ 588 02fe 1B04     		lsls	r3, r3, #16
+ 589 0300 1B0C     		lsrs	r3, r3, #16
+ 590              	.L74:
+ 591 0302 8382     		strh	r3, [r0, #20]	@ movhi
+ 592 0304 7047     		bx	lr
+ 594              		.align	1
+ 595              		.global	USART_IrDAConfig
+ 596              		.thumb
+ 597              		.thumb_func
+ 599              	USART_IrDAConfig:
+ 600              		@ args = 0, pretend = 0, frame = 0
+ 601              		@ frame_needed = 0, uses_anonymous_args = 0
+ 602              		@ link register save eliminated.
+ 603 0306 838A     		ldrh	r3, [r0, #20]
+ 604 0308 23F00403 		bic	r3, r3, #4
+ 605 030c 1B04     		lsls	r3, r3, #16
+ 606 030e 1B0C     		lsrs	r3, r3, #16
+ 607 0310 8382     		strh	r3, [r0, #20]	@ movhi
+ 608 0312 838A     		ldrh	r3, [r0, #20]
+ 609 0314 9BB2     		uxth	r3, r3
+ 610 0316 1943     		orrs	r1, r1, r3
+ 611 0318 8182     		strh	r1, [r0, #20]	@ movhi
+ 612 031a 7047     		bx	lr
+ 614              		.align	1
+ 615              		.global	USART_IrDACmd
+ 616              		.thumb
+ 617              		.thumb_func
+ 619              	USART_IrDACmd:
+ 620              		@ args = 0, pretend = 0, frame = 0
+ 621              		@ frame_needed = 0, uses_anonymous_args = 0
+ 622              		@ link register save eliminated.
+ 623 031c 838A     		ldrh	r3, [r0, #20]
+ 624 031e 19B1     		cbz	r1, .L77
+ 625 0320 9BB2     		uxth	r3, r3
+ 626 0322 43F00203 		orr	r3, r3, #2
+ 627 0326 03E0     		b	.L79
+ 628              	.L77:
+ 629 0328 23F00203 		bic	r3, r3, #2
+ 630 032c 1B04     		lsls	r3, r3, #16
+ 631 032e 1B0C     		lsrs	r3, r3, #16
+ 632              	.L79:
+ 633 0330 8382     		strh	r3, [r0, #20]	@ movhi
+ 634 0332 7047     		bx	lr
+ 636              		.align	1
+ 637              		.global	USART_GetFlagStatus
+ 638              		.thumb
+ 639              		.thumb_func
+ 641              	USART_GetFlagStatus:
+ 642              		@ args = 0, pretend = 0, frame = 0
+ 643              		@ frame_needed = 0, uses_anonymous_args = 0
+ 644              		@ link register save eliminated.
+ 645 0334 0388     		ldrh	r3, [r0, #0]
+ 646 0336 1942     		tst	r1, r3
+ 647 0338 0CBF     		ite	eq
+ 648 033a 0020     		moveq	r0, #0
+ 649 033c 0120     		movne	r0, #1
+ 650 033e 7047     		bx	lr
+ 652              		.align	1
+ 653              		.global	USART_ClearFlag
+ 654              		.thumb
+ 655              		.thumb_func
+ 657              	USART_ClearFlag:
+ 658              		@ args = 0, pretend = 0, frame = 0
+ 659              		@ frame_needed = 0, uses_anonymous_args = 0
+ 660              		@ link register save eliminated.
+ 661 0340 C943     		mvns	r1, r1
+ 662 0342 89B2     		uxth	r1, r1
+ 663 0344 0180     		strh	r1, [r0, #0]	@ movhi
+ 664 0346 7047     		bx	lr
+ 666              		.align	1
+ 667              		.global	USART_GetITStatus
+ 668              		.thumb
+ 669              		.thumb_func
+ 671              	USART_GetITStatus:
+ 672              		@ args = 0, pretend = 0, frame = 0
+ 673              		@ frame_needed = 0, uses_anonymous_args = 0
+ 674 0348 10B5     		push	{r4, lr}
+ 675 034a C1F34214 		ubfx	r4, r1, #5, #3
+ 676 034e 01F01F03 		and	r3, r1, #31
+ 677 0352 0122     		movs	r2, #1
+ 678 0354 012C     		cmp	r4, #1
+ 679 0356 02FA03F2 		lsl	r2, r2, r3
+ 680 035a 01D1     		bne	.L83
+ 681 035c 8389     		ldrh	r3, [r0, #12]
+ 682 035e 03E0     		b	.L88
+ 683              	.L83:
+ 684 0360 022C     		cmp	r4, #2
+ 685 0362 0CBF     		ite	eq
+ 686 0364 038A     		ldrheq	r3, [r0, #16]
+ 687 0366 838A     		ldrhne	r3, [r0, #20]
+ 688              	.L88:
+ 689 0368 9BB2     		uxth	r3, r3
+ 690 036a 1340     		ands	r3, r3, r2
+ 691 036c 0288     		ldrh	r2, [r0, #0]
+ 692 036e 92B2     		uxth	r2, r2
+ 693 0370 43B1     		cbz	r3, .L87
+ 694 0372 0123     		movs	r3, #1
+ 695 0374 090A     		lsrs	r1, r1, #8
+ 696 0376 03FA01F1 		lsl	r1, r3, r1
+ 697 037a 1142     		tst	r1, r2
+ 698 037c 0CBF     		ite	eq
+ 699 037e 0020     		moveq	r0, #0
+ 700 0380 0120     		movne	r0, #1
+ 701 0382 10BD     		pop	{r4, pc}
+ 702              	.L87:
+ 703 0384 1846     		mov	r0, r3
+ 704 0386 10BD     		pop	{r4, pc}
+ 706              		.align	1
+ 707              		.global	USART_ClearITPendingBit
+ 708              		.thumb
+ 709              		.thumb_func
+ 711              	USART_ClearITPendingBit:
+ 712              		@ args = 0, pretend = 0, frame = 0
+ 713              		@ frame_needed = 0, uses_anonymous_args = 0
+ 714              		@ link register save eliminated.
+ 715 0388 090A     		lsrs	r1, r1, #8
+ 716 038a 0123     		movs	r3, #1
+ 717 038c 8B40     		lsls	r3, r3, r1
+ 718 038e DB43     		mvns	r3, r3
+ 719 0390 9BB2     		uxth	r3, r3
+ 720 0392 0380     		strh	r3, [r0, #0]	@ movhi
+ 721 0394 7047     		bx	lr
+ 723 0396 00BF     		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f10x_usart.c
+     /tmp/ccMMWYIr.s:16     .text:0000000000000000 $t
+     /tmp/ccMMWYIr.s:21     .text:0000000000000000 USART_DeInit
+     /tmp/ccMMWYIr.s:79     .text:0000000000000084 $d
+     /tmp/ccMMWYIr.s:85     .text:0000000000000098 $t
+     /tmp/ccMMWYIr.s:90     .text:0000000000000098 USART_Init
+     /tmp/ccMMWYIr.s:167    .text:000000000000013c $d
+     /tmp/ccMMWYIr.s:169    .text:0000000000000140 $t
+     /tmp/ccMMWYIr.s:174    .text:0000000000000140 USART_StructInit
+     /tmp/ccMMWYIr.s:194    .text:0000000000000156 USART_ClockInit
+     /tmp/ccMMWYIr.s:218    .text:0000000000000176 USART_ClockStructInit
+     /tmp/ccMMWYIr.s:234    .text:0000000000000182 USART_Cmd
+     /tmp/ccMMWYIr.s:256    .text:000000000000019a USART_ITConfig
+     /tmp/ccMMWYIr.s:289    .text:00000000000001ca USART_DMACmd
+     /tmp/ccMMWYIr.s:309    .text:00000000000001dc USART_SetAddress
+     /tmp/ccMMWYIr.s:329    .text:00000000000001f2 USART_WakeUpConfig
+     /tmp/ccMMWYIr.s:349    .text:0000000000000208 USART_ReceiverWakeUpCmd
+     /tmp/ccMMWYIr.s:371    .text:0000000000000220 USART_LINBreakDetectLengthConfig
+     /tmp/ccMMWYIr.s:391    .text:0000000000000236 USART_LINCmd
+     /tmp/ccMMWYIr.s:413    .text:000000000000024e USART_SendData
+     /tmp/ccMMWYIr.s:426    .text:0000000000000256 USART_ReceiveData
+     /tmp/ccMMWYIr.s:439    .text:000000000000025e USART_SendBreak
+     /tmp/ccMMWYIr.s:454    .text:000000000000026a USART_SetGuardTime
+     /tmp/ccMMWYIr.s:472    .text:000000000000027c USART_SetPrescaler
+     /tmp/ccMMWYIr.s:490    .text:000000000000028e USART_SmartCardCmd
+     /tmp/ccMMWYIr.s:512    .text:00000000000002a6 USART_SmartCardNACKCmd
+     /tmp/ccMMWYIr.s:534    .text:00000000000002be USART_HalfDuplexCmd
+     /tmp/ccMMWYIr.s:556    .text:00000000000002d6 USART_OverSampling8Cmd
+     /tmp/ccMMWYIr.s:577    .text:00000000000002ee USART_OneBitMethodCmd
+     /tmp/ccMMWYIr.s:599    .text:0000000000000306 USART_IrDAConfig
+     /tmp/ccMMWYIr.s:619    .text:000000000000031c USART_IrDACmd
+     /tmp/ccMMWYIr.s:641    .text:0000000000000334 USART_GetFlagStatus
+     /tmp/ccMMWYIr.s:657    .text:0000000000000340 USART_ClearFlag
+     /tmp/ccMMWYIr.s:671    .text:0000000000000348 USART_GetITStatus
+     /tmp/ccMMWYIr.s:711    .text:0000000000000388 USART_ClearITPendingBit
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd
+RCC_APB1PeriphResetCmd
+RCC_GetClocksFreq

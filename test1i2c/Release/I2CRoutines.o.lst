@@ -1,0 +1,982 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"I2CRoutines.c"
+  15              		.text
+  16              		.align	1
+  17              		.thumb
+  18              		.thumb_func
+  20              	I2C_DMAConfig.part.0:
+  21              		@ args = 0, pretend = 0, frame = 0
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23 0000 10B5     		push	{r4, lr}
+  24 0002 124C     		ldr	r4, .L4
+  25 0004 1023     		movs	r3, #16
+  26 0006 A360     		str	r3, [r4, #8]
+  27 0008 114B     		ldr	r3, .L4+4
+  28 000a 6160     		str	r1, [r4, #4]
+  29 000c 9842     		cmp	r0, r3
+  30 000e E260     		str	r2, [r4, #12]
+  31 0010 0BD1     		bne	.L2
+  32 0012 1033     		adds	r3, r3, #16
+  33 0014 0F48     		ldr	r0, .L4+8
+  34 0016 0021     		movs	r1, #0
+  35 0018 2360     		str	r3, [r4, #0]
+  36 001a FFF7FEFF 		bl	DMA_Cmd
+  37 001e 0D48     		ldr	r0, .L4+8
+  38 0020 2146     		mov	r1, r4
+  39 0022 FFF7FEFF 		bl	DMA_Init
+  40 0026 0B48     		ldr	r0, .L4+8
+  41 0028 0AE0     		b	.L3
+  42              	.L2:
+  43 002a 0B4B     		ldr	r3, .L4+12
+  44 002c 0B48     		ldr	r0, .L4+16
+  45 002e 0021     		movs	r1, #0
+  46 0030 2360     		str	r3, [r4, #0]
+  47 0032 FFF7FEFF 		bl	DMA_Cmd
+  48 0036 0948     		ldr	r0, .L4+16
+  49 0038 2146     		mov	r1, r4
+  50 003a FFF7FEFF 		bl	DMA_Init
+  51 003e 0748     		ldr	r0, .L4+16
+  52              	.L3:
+  53 0040 0121     		movs	r1, #1
+  54 0042 BDE81040 		pop	{r4, lr}
+  55 0046 FFF7FEBF 		b	DMA_Cmd
+  56              	.L5:
+  57 004a 00BF     		.align	2
+  58              	.L4:
+  59 004c 00000000 		.word	I2CDMA_InitStructure
+  60 0050 00540040 		.word	1073763328
+  61 0054 6C000240 		.word	1073873004
+  62 0058 10580040 		.word	1073764368
+  63 005c 44000240 		.word	1073872964
+  65              		.align	1
+  66              		.global	I2C_Master_BufferWrite
+  67              		.thumb
+  68              		.thumb_func
+  70              	I2C_Master_BufferWrite:
+  71              		@ args = 4, pretend = 0, frame = 8
+  72              		@ frame_needed = 0, uses_anonymous_args = 0
+  73 0060 2DE9F341 		push	{r0, r1, r4, r5, r6, r7, r8, lr}
+  74 0064 0027     		movs	r7, #0
+  75 0066 0097     		str	r7, [sp, #0]
+  76 0068 0197     		str	r7, [sp, #4]
+  77 006a B0F80480 		ldrh	r8, [r0, #4]
+  78 006e 022B     		cmp	r3, #2
+  79 0070 1FFA88F8 		uxth	r8, r8
+  80 0074 48F48078 		orr	r8, r8, #256
+  81 0078 0446     		mov	r4, r0
+  82 007a 8C46     		mov	ip, r1
+  83 007c 1546     		mov	r5, r2
+  84 007e 9DF82060 		ldrb	r6, [sp, #32]	@ zero_extendqisi2
+  85 0082 A0F80480 		strh	r8, [r0, #4]	@ movhi
+  86 0086 59D1     		bne	.L7
+  87 0088 4FF6FF73 		movw	r3, #65535
+  88 008c 0193     		str	r3, [sp, #4]
+  89 008e FFF7B7FF 		bl	I2C_DMAConfig.part.0
+  90 0092 A388     		ldrh	r3, [r4, #4]
+  91 0094 9BB2     		uxth	r3, r3
+  92 0096 43F40063 		orr	r3, r3, #2048
+  93 009a A380     		strh	r3, [r4, #4]	@ movhi
+  94 009c 2388     		ldrh	r3, [r4, #0]
+  95 009e 9BB2     		uxth	r3, r3
+  96 00a0 43F48073 		orr	r3, r3, #256
+  97 00a4 2380     		strh	r3, [r4, #0]	@ movhi
+  98 00a6 05E0     		b	.L8
+  99              	.L10:
+ 100 00a8 019B     		ldr	r3, [sp, #4]
+ 101 00aa 5A1E     		subs	r2, r3, #1
+ 102 00ac 0192     		str	r2, [sp, #4]
+ 103 00ae 0BB9     		cbnz	r3, .L8
+ 104              	.L12:
+ 105 00b0 0020     		movs	r0, #0
+ 106 00b2 A8E0     		b	.L9
+ 107              	.L8:
+ 108 00b4 A38A     		ldrh	r3, [r4, #20]
+ 109 00b6 D807     		lsls	r0, r3, #31
+ 110 00b8 F6D5     		bpl	.L10
+ 111 00ba 4FF6FF73 		movw	r3, #65535
+ 112 00be 0193     		str	r3, [sp, #4]
+ 113 00c0 524B     		ldr	r3, .L75
+ 114 00c2 06F0FE06 		and	r6, r6, #254
+ 115 00c6 1E70     		strb	r6, [r3, #0]
+ 116 00c8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 117 00ca DBB2     		uxtb	r3, r3
+ 118 00cc 2382     		strh	r3, [r4, #16]	@ movhi
+ 119 00ce 04E0     		b	.L11
+ 120              	.L13:
+ 121 00d0 019B     		ldr	r3, [sp, #4]
+ 122 00d2 5A1E     		subs	r2, r3, #1
+ 123 00d4 0192     		str	r2, [sp, #4]
+ 124 00d6 002B     		cmp	r3, #0
+ 125 00d8 EAD0     		beq	.L12
+ 126              	.L11:
+ 127 00da A38A     		ldrh	r3, [r4, #20]
+ 128 00dc 9907     		lsls	r1, r3, #30
+ 129 00de F7D5     		bpl	.L13
+ 130 00e0 238B     		ldrh	r3, [r4, #24]
+ 131 00e2 9BB2     		uxth	r3, r3
+ 132 00e4 0093     		str	r3, [sp, #0]
+ 133 00e6 4A4B     		ldr	r3, .L75+4
+ 134 00e8 9C42     		cmp	r4, r3
+ 135 00ea 0CD1     		bne	.L51
+ 136              	.L50:
+ 137 00ec 4FF40010 		mov	r0, #2097152
+ 138 00f0 FFF7FEFF 		bl	DMA_GetFlagStatus
+ 139 00f4 0028     		cmp	r0, #0
+ 140 00f6 F9D0     		beq	.L50
+ 141 00f8 4648     		ldr	r0, .L75+8
+ 142 00fa 0021     		movs	r1, #0
+ 143 00fc FFF7FEFF 		bl	DMA_Cmd
+ 144 0100 4FF40010 		mov	r0, #2097152
+ 145 0104 0BE0     		b	.L73
+ 146              	.L51:
+ 147 0106 4FF40050 		mov	r0, #8192
+ 148 010a FFF7FEFF 		bl	DMA_GetFlagStatus
+ 149 010e 0028     		cmp	r0, #0
+ 150 0110 F9D0     		beq	.L51
+ 151 0112 4148     		ldr	r0, .L75+12
+ 152 0114 0021     		movs	r1, #0
+ 153 0116 FFF7FEFF 		bl	DMA_Cmd
+ 154 011a 4FF40050 		mov	r0, #8192
+ 155              	.L73:
+ 156 011e FFF7FEFF 		bl	DMA_ClearFlag
+ 157              	.L49:
+ 158 0122 A38A     		ldrh	r3, [r4, #20]
+ 159 0124 5A07     		lsls	r2, r3, #29
+ 160 0126 FCD5     		bpl	.L49
+ 161 0128 2388     		ldrh	r3, [r4, #0]
+ 162 012a 9BB2     		uxth	r3, r3
+ 163 012c 43F40073 		orr	r3, r3, #512
+ 164 0130 2380     		strh	r3, [r4, #0]	@ movhi
+ 165              	.L18:
+ 166 0132 2388     		ldrh	r3, [r4, #0]
+ 167 0134 9B05     		lsls	r3, r3, #22
+ 168 0136 FCD4     		bmi	.L18
+ 169              	.L28:
+ 170 0138 0120     		movs	r0, #1
+ 171 013a 64E0     		b	.L9
+ 172              	.L7:
+ 173 013c 002B     		cmp	r3, #0
+ 174 013e 40D1     		bne	.L19
+ 175 0140 4FF6FF73 		movw	r3, #65535
+ 176 0144 0193     		str	r3, [sp, #4]
+ 177 0146 0388     		ldrh	r3, [r0, #0]
+ 178 0148 9BB2     		uxth	r3, r3
+ 179 014a 43F48073 		orr	r3, r3, #256
+ 180 014e 0380     		strh	r3, [r0, #0]	@ movhi
+ 181 0150 04E0     		b	.L20
+ 182              	.L21:
+ 183 0152 019B     		ldr	r3, [sp, #4]
+ 184 0154 5A1E     		subs	r2, r3, #1
+ 185 0156 0192     		str	r2, [sp, #4]
+ 186 0158 002B     		cmp	r3, #0
+ 187 015a A9D0     		beq	.L12
+ 188              	.L20:
+ 189 015c A38A     		ldrh	r3, [r4, #20]
+ 190 015e D807     		lsls	r0, r3, #31
+ 191 0160 F7D5     		bpl	.L21
+ 192 0162 2A4B     		ldr	r3, .L75
+ 193 0164 06F0FE06 		and	r6, r6, #254
+ 194 0168 1E70     		strb	r6, [r3, #0]
+ 195 016a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 196 016c DBB2     		uxtb	r3, r3
+ 197 016e 2382     		strh	r3, [r4, #16]	@ movhi
+ 198 0170 4FF6FF73 		movw	r3, #65535
+ 199 0174 0193     		str	r3, [sp, #4]
+ 200 0176 04E0     		b	.L22
+ 201              	.L23:
+ 202 0178 019B     		ldr	r3, [sp, #4]
+ 203 017a 5A1E     		subs	r2, r3, #1
+ 204 017c 0192     		str	r2, [sp, #4]
+ 205 017e 002B     		cmp	r3, #0
+ 206 0180 96D0     		beq	.L12
+ 207              	.L22:
+ 208 0182 A38A     		ldrh	r3, [r4, #20]
+ 209 0184 9907     		lsls	r1, r3, #30
+ 210 0186 F7D5     		bpl	.L23
+ 211 0188 238B     		ldrh	r3, [r4, #24]
+ 212 018a 6544     		add	r5, ip, r5
+ 213 018c 9BB2     		uxth	r3, r3
+ 214 018e 0093     		str	r3, [sp, #0]
+ 215 0190 6346     		mov	r3, ip
+ 216 0192 13F8012B 		ldrb	r2, [r3], #1	@ zero_extendqisi2
+ 217 0196 2282     		strh	r2, [r4, #16]	@ movhi
+ 218 0198 05E0     		b	.L24
+ 219              	.L53:
+ 220 019a A28A     		ldrh	r2, [r4, #20]
+ 221 019c 5207     		lsls	r2, r2, #29
+ 222 019e FCD5     		bpl	.L53
+ 223 01a0 13F8012B 		ldrb	r2, [r3], #1	@ zero_extendqisi2
+ 224 01a4 2282     		strh	r2, [r4, #16]	@ movhi
+ 225              	.L24:
+ 226 01a6 AB42     		cmp	r3, r5
+ 227 01a8 F7D1     		bne	.L53
+ 228              	.L52:
+ 229 01aa A38A     		ldrh	r3, [r4, #20]
+ 230 01ac 5807     		lsls	r0, r3, #29
+ 231 01ae FCD5     		bpl	.L52
+ 232 01b0 2388     		ldrh	r3, [r4, #0]
+ 233 01b2 9BB2     		uxth	r3, r3
+ 234 01b4 43F40073 		orr	r3, r3, #512
+ 235 01b8 2380     		strh	r3, [r4, #0]	@ movhi
+ 236              	.L27:
+ 237 01ba 2388     		ldrh	r3, [r4, #0]
+ 238 01bc 9905     		lsls	r1, r3, #22
+ 239 01be FCD4     		bmi	.L27
+ 240 01c0 BAE7     		b	.L28
+ 241              	.L19:
+ 242 01c2 8388     		ldrh	r3, [r0, #4]
+ 243 01c4 06F0FE06 		and	r6, r6, #254
+ 244 01c8 9BB2     		uxth	r3, r3
+ 245 01ca 43F40073 		orr	r3, r3, #512
+ 246 01ce 8380     		strh	r3, [r0, #4]	@ movhi
+ 247 01d0 8388     		ldrh	r3, [r0, #4]
+ 248 01d2 9BB2     		uxth	r3, r3
+ 249 01d4 43F48063 		orr	r3, r3, #1024
+ 250 01d8 8380     		strh	r3, [r0, #4]	@ movhi
+ 251 01da 104B     		ldr	r3, .L75+16
+ 252 01dc 1F60     		str	r7, [r3, #0]
+ 253 01de 0B4B     		ldr	r3, .L75
+ 254 01e0 1E70     		strb	r6, [r3, #0]
+ 255 01e2 0B4B     		ldr	r3, .L75+4
+ 256 01e4 9842     		cmp	r0, r3
+ 257 01e6 0CBF     		ite	eq
+ 258 01e8 0D4B     		ldreq	r3, .L75+20
+ 259 01ea 0E4B     		ldrne	r3, .L75+24
+ 260 01ec 1A60     		str	r2, [r3, #0]
+ 261 01ee 0388     		ldrh	r3, [r0, #0]
+ 262 01f0 9BB2     		uxth	r3, r3
+ 263 01f2 43F48073 		orr	r3, r3, #256
+ 264 01f6 0380     		strh	r3, [r0, #0]	@ movhi
+ 265              	.L31:
+ 266 01f8 2388     		ldrh	r3, [r4, #0]
+ 267 01fa DA05     		lsls	r2, r3, #23
+ 268 01fc FCD4     		bmi	.L31
+ 269              	.L54:
+ 270 01fe 238B     		ldrh	r3, [r4, #24]
+ 271 0200 9B07     		lsls	r3, r3, #30
+ 272 0202 FCD4     		bmi	.L54
+ 273 0204 98E7     		b	.L28
+ 274              	.L9:
+ 275 0206 BDE8FC81 		pop	{r2, r3, r4, r5, r6, r7, r8, pc}
+ 276              	.L76:
+ 277 020a 00BF     		.align	2
+ 278              	.L75:
+ 279 020c 00000000 		.word	Address
+ 280 0210 00540040 		.word	1073763328
+ 281 0214 6C000240 		.word	1073873004
+ 282 0218 44000240 		.word	1073872964
+ 283 021c 00000000 		.word	.LANCHOR0
+ 284 0220 00000000 		.word	NumbOfBytes1
+ 285 0224 00000000 		.word	NumbOfBytes2
+ 287              		.align	1
+ 288              		.global	I2C_Slave_BufferReadWrite
+ 289              		.thumb
+ 290              		.thumb_func
+ 292              	I2C_Slave_BufferReadWrite:
+ 293              		@ args = 0, pretend = 0, frame = 0
+ 294              		@ frame_needed = 0, uses_anonymous_args = 0
+ 295              		@ link register save eliminated.
+ 296 0228 8388     		ldrh	r3, [r0, #4]
+ 297 022a 0229     		cmp	r1, #2
+ 298 022c 9BB2     		uxth	r3, r3
+ 299 022e 43F40073 		orr	r3, r3, #512
+ 300 0232 8380     		strh	r3, [r0, #4]	@ movhi
+ 301 0234 8388     		ldrh	r3, [r0, #4]
+ 302 0236 9BB2     		uxth	r3, r3
+ 303 0238 43F48073 		orr	r3, r3, #256
+ 304 023c 8380     		strh	r3, [r0, #4]	@ movhi
+ 305 023e 8388     		ldrh	r3, [r0, #4]
+ 306 0240 9BB2     		uxth	r3, r3
+ 307 0242 0CBF     		ite	eq
+ 308 0244 43F40063 		orreq	r3, r3, #2048
+ 309 0248 43F48063 		orrne	r3, r3, #1024
+ 310 024c 8380     		strh	r3, [r0, #4]	@ movhi
+ 311 024e 7047     		bx	lr
+ 313              		.align	1
+ 314              		.global	I2C_LowLevel_Init
+ 315              		.thumb
+ 316              		.thumb_func
+ 318              	I2C_LowLevel_Init:
+ 319              		@ args = 0, pretend = 0, frame = 24
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321 0250 F0B5     		push	{r4, r5, r6, r7, lr}
+ 322 0252 0121     		movs	r1, #1
+ 323 0254 87B0     		sub	sp, sp, #28
+ 324 0256 0646     		mov	r6, r0
+ 325 0258 0820     		movs	r0, #8
+ 326 025a FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 327 025e 0120     		movs	r0, #1
+ 328 0260 0146     		mov	r1, r0
+ 329 0262 FFF7FEFF 		bl	RCC_AHBPeriphClockCmd
+ 330 0266 524B     		ldr	r3, .L88
+ 331 0268 9E42     		cmp	r6, r3
+ 332 026a 19D1     		bne	.L82
+ 333 026c 4FF40010 		mov	r0, #2097152
+ 334 0270 0121     		movs	r1, #1
+ 335 0272 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+ 336 0276 C023     		movs	r3, #192
+ 337 0278 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 338 027c 0323     		movs	r3, #3
+ 339 027e 8DF80630 		strb	r3, [sp, #6]
+ 340 0282 4C48     		ldr	r0, .L88+4
+ 341 0284 1C23     		movs	r3, #28
+ 342 0286 01A9     		add	r1, sp, #4
+ 343 0288 8DF80730 		strb	r3, [sp, #7]
+ 344 028c FFF7FEFF 		bl	GPIO_Init
+ 345 0290 4FF40010 		mov	r0, #2097152
+ 346 0294 0121     		movs	r1, #1
+ 347 0296 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 348 029a 4FF40010 		mov	r0, #2097152
+ 349 029e 21E0     		b	.L86
+ 350              	.L82:
+ 351 02a0 4FF48000 		mov	r0, #4194304
+ 352 02a4 0121     		movs	r1, #1
+ 353 02a6 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+ 354 02aa 4FF48063 		mov	r3, #1024
+ 355 02ae ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 356 02b2 0323     		movs	r3, #3
+ 357 02b4 8DF80630 		strb	r3, [sp, #6]
+ 358 02b8 3E48     		ldr	r0, .L88+4
+ 359 02ba 1C23     		movs	r3, #28
+ 360 02bc 01A9     		add	r1, sp, #4
+ 361 02be 8DF80730 		strb	r3, [sp, #7]
+ 362 02c2 FFF7FEFF 		bl	GPIO_Init
+ 363 02c6 4FF40063 		mov	r3, #2048
+ 364 02ca 3A48     		ldr	r0, .L88+4
+ 365 02cc 01A9     		add	r1, sp, #4
+ 366 02ce ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 367 02d2 FFF7FEFF 		bl	GPIO_Init
+ 368 02d6 4FF48000 		mov	r0, #4194304
+ 369 02da 0121     		movs	r1, #1
+ 370 02dc FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 371 02e0 4FF48000 		mov	r0, #4194304
+ 372              	.L86:
+ 373 02e4 0021     		movs	r1, #0
+ 374 02e6 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+ 375 02ea 4FF48043 		mov	r3, #16384
+ 376 02ee ADF80E30 		strh	r3, [sp, #14]	@ movhi
+ 377 02f2 ADF81430 		strh	r3, [sp, #20]	@ movhi
+ 378 02f6 304B     		ldr	r3, .L88+8
+ 379 02f8 06AC     		add	r4, sp, #24
+ 380 02fa 2D4F     		ldr	r7, .L88
+ 381 02fc 44F8103D 		str	r3, [r4, #-16]!
+ 382 0300 2822     		movs	r2, #40
+ 383 0302 2146     		mov	r1, r4
+ 384 0304 ADF81020 		strh	r2, [sp, #16]	@ movhi
+ 385 0308 3846     		mov	r0, r7
+ 386 030a 4FF48062 		mov	r2, #1024
+ 387 030e 0025     		movs	r5, #0
+ 388 0310 ADF81220 		strh	r2, [sp, #18]	@ movhi
+ 389 0314 ADF80C50 		strh	r5, [sp, #12]	@ movhi
+ 390 0318 FFF7FEFF 		bl	I2C_Init
+ 391 031c 3023     		movs	r3, #48
+ 392 031e 2146     		mov	r1, r4
+ 393 0320 2648     		ldr	r0, .L88+12
+ 394 0322 ADF81030 		strh	r3, [sp, #16]	@ movhi
+ 395 0326 FFF7FEFF 		bl	I2C_Init
+ 396 032a BE42     		cmp	r6, r7
+ 397 032c 244C     		ldr	r4, .L88+16
+ 398 032e 1DD1     		bne	.L84
+ 399 0330 2448     		ldr	r0, .L88+20
+ 400 0332 FFF7FEFF 		bl	DMA_DeInit
+ 401 0336 244B     		ldr	r3, .L88+24
+ 402 0338 2248     		ldr	r0, .L88+20
+ 403 033a 84E82800 		stmia	r4, {r3, r5}
+ 404 033e 1023     		movs	r3, #16
+ 405 0340 A360     		str	r3, [r4, #8]
+ 406 0342 4FF6FF73 		movw	r3, #65535
+ 407 0346 E360     		str	r3, [r4, #12]
+ 408 0348 8023     		movs	r3, #128
+ 409 034a 6361     		str	r3, [r4, #20]
+ 410 034c 2146     		mov	r1, r4
+ 411 034e 4FF44053 		mov	r3, #12288
+ 412 0352 6362     		str	r3, [r4, #36]
+ 413 0354 2561     		str	r5, [r4, #16]
+ 414 0356 A561     		str	r5, [r4, #24]
+ 415 0358 E561     		str	r5, [r4, #28]
+ 416 035a 2562     		str	r5, [r4, #32]
+ 417 035c A562     		str	r5, [r4, #40]
+ 418 035e FFF7FEFF 		bl	DMA_Init
+ 419 0362 1A48     		ldr	r0, .L88+28
+ 420 0364 FFF7FEFF 		bl	DMA_DeInit
+ 421 0368 1848     		ldr	r0, .L88+28
+ 422 036a 1CE0     		b	.L87
+ 423              	.L84:
+ 424 036c 1848     		ldr	r0, .L88+32
+ 425 036e FFF7FEFF 		bl	DMA_DeInit
+ 426 0372 184B     		ldr	r3, .L88+36
+ 427 0374 1648     		ldr	r0, .L88+32
+ 428 0376 84E82800 		stmia	r4, {r3, r5}
+ 429 037a 1023     		movs	r3, #16
+ 430 037c A360     		str	r3, [r4, #8]
+ 431 037e 4FF6FF73 		movw	r3, #65535
+ 432 0382 E360     		str	r3, [r4, #12]
+ 433 0384 8023     		movs	r3, #128
+ 434 0386 6361     		str	r3, [r4, #20]
+ 435 0388 2146     		mov	r1, r4
+ 436 038a 4FF44053 		mov	r3, #12288
+ 437 038e 6362     		str	r3, [r4, #36]
+ 438 0390 2561     		str	r5, [r4, #16]
+ 439 0392 A561     		str	r5, [r4, #24]
+ 440 0394 E561     		str	r5, [r4, #28]
+ 441 0396 2562     		str	r5, [r4, #32]
+ 442 0398 A562     		str	r5, [r4, #40]
+ 443 039a FFF7FEFF 		bl	DMA_Init
+ 444 039e 0E48     		ldr	r0, .L88+40
+ 445 03a0 FFF7FEFF 		bl	DMA_DeInit
+ 446 03a4 0C48     		ldr	r0, .L88+40
+ 447              	.L87:
+ 448 03a6 2146     		mov	r1, r4
+ 449 03a8 FFF7FEFF 		bl	DMA_Init
+ 450 03ac 07B0     		add	sp, sp, #28
+ 451 03ae F0BD     		pop	{r4, r5, r6, r7, pc}
+ 452              	.L89:
+ 453              		.align	2
+ 454              	.L88:
+ 455 03b0 00540040 		.word	1073763328
+ 456 03b4 000C0140 		.word	1073810432
+ 457 03b8 801A0600 		.word	400000
+ 458 03bc 00580040 		.word	1073764352
+ 459 03c0 00000000 		.word	I2CDMA_InitStructure
+ 460 03c4 6C000240 		.word	1073873004
+ 461 03c8 10540040 		.word	1073763344
+ 462 03cc 80000240 		.word	1073873024
+ 463 03d0 44000240 		.word	1073872964
+ 464 03d4 10580040 		.word	1073764368
+ 465 03d8 58000240 		.word	1073872984
+ 467              		.align	1
+ 468              		.global	I2C_DMAConfig
+ 469              		.thumb
+ 470              		.thumb_func
+ 472              	I2C_DMAConfig:
+ 473              		@ args = 0, pretend = 0, frame = 0
+ 474              		@ frame_needed = 0, uses_anonymous_args = 0
+ 475 03dc F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 476 03de 0546     		mov	r5, r0
+ 477 03e0 0F46     		mov	r7, r1
+ 478 03e2 1646     		mov	r6, r2
+ 479 03e4 1BB9     		cbnz	r3, .L91
+ 480 03e6 BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 481 03ea FFF709BE 		b	I2C_DMAConfig.part.0
+ 482              	.L91:
+ 483 03ee 114C     		ldr	r4, .L94
+ 484 03f0 114B     		ldr	r3, .L94+4
+ 485 03f2 6160     		str	r1, [r4, #4]
+ 486 03f4 9842     		cmp	r0, r3
+ 487 03f6 4FF00001 		mov	r1, #0
+ 488 03fa A160     		str	r1, [r4, #8]
+ 489 03fc E260     		str	r2, [r4, #12]
+ 490 03fe 0AD1     		bne	.L92
+ 491 0400 1033     		adds	r3, r3, #16
+ 492 0402 0E48     		ldr	r0, .L94+8
+ 493 0404 2360     		str	r3, [r4, #0]
+ 494 0406 FFF7FEFF 		bl	DMA_Cmd
+ 495 040a 0C48     		ldr	r0, .L94+8
+ 496 040c 2146     		mov	r1, r4
+ 497 040e FFF7FEFF 		bl	DMA_Init
+ 498 0412 0A48     		ldr	r0, .L94+8
+ 499 0414 09E0     		b	.L93
+ 500              	.L92:
+ 501 0416 0A4B     		ldr	r3, .L94+12
+ 502 0418 0A48     		ldr	r0, .L94+16
+ 503 041a 2360     		str	r3, [r4, #0]
+ 504 041c FFF7FEFF 		bl	DMA_Cmd
+ 505 0420 0848     		ldr	r0, .L94+16
+ 506 0422 2146     		mov	r1, r4
+ 507 0424 FFF7FEFF 		bl	DMA_Init
+ 508 0428 0648     		ldr	r0, .L94+16
+ 509              	.L93:
+ 510 042a 0121     		movs	r1, #1
+ 511 042c BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 512 0430 FFF7FEBF 		b	DMA_Cmd
+ 513              	.L95:
+ 514              		.align	2
+ 515              	.L94:
+ 516 0434 00000000 		.word	I2CDMA_InitStructure
+ 517 0438 00540040 		.word	1073763328
+ 518 043c 80000240 		.word	1073873024
+ 519 0440 10580040 		.word	1073764368
+ 520 0444 58000240 		.word	1073872984
+ 522              		.align	1
+ 523              		.global	I2C_Master_BufferRead
+ 524              		.thumb
+ 525              		.thumb_func
+ 527              	I2C_Master_BufferRead:
+ 528              		@ args = 4, pretend = 0, frame = 8
+ 529              		@ frame_needed = 0, uses_anonymous_args = 0
+ 530 0448 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 531 044a 4FF0000C 		mov	ip, #0
+ 532 044e CDF800C0 		str	ip, [sp, #0]
+ 533 0452 CDF804C0 		str	ip, [sp, #4]
+ 534 0456 B0F804C0 		ldrh	ip, [r0, #4]
+ 535 045a 022B     		cmp	r3, #2
+ 536 045c 1FFA8CFC 		uxth	ip, ip
+ 537 0460 4CF4807C 		orr	ip, ip, #256
+ 538 0464 0446     		mov	r4, r0
+ 539 0466 0F46     		mov	r7, r1
+ 540 0468 1546     		mov	r5, r2
+ 541 046a 9DF82060 		ldrb	r6, [sp, #32]	@ zero_extendqisi2
+ 542 046e A0F804C0 		strh	ip, [r0, #4]	@ movhi
+ 543 0472 5BD1     		bne	.L97
+ 544 0474 0123     		movs	r3, #1
+ 545 0476 FFF7FEFF 		bl	I2C_DMAConfig
+ 546 047a A388     		ldrh	r3, [r4, #4]
+ 547 047c 9BB2     		uxth	r3, r3
+ 548 047e 43F48053 		orr	r3, r3, #4096
+ 549 0482 A380     		strh	r3, [r4, #4]	@ movhi
+ 550 0484 A388     		ldrh	r3, [r4, #4]
+ 551 0486 9BB2     		uxth	r3, r3
+ 552 0488 43F40063 		orr	r3, r3, #2048
+ 553 048c A380     		strh	r3, [r4, #4]	@ movhi
+ 554 048e 4FF6FF73 		movw	r3, #65535
+ 555 0492 0193     		str	r3, [sp, #4]
+ 556 0494 2388     		ldrh	r3, [r4, #0]
+ 557 0496 9BB2     		uxth	r3, r3
+ 558 0498 43F48073 		orr	r3, r3, #256
+ 559 049c 2380     		strh	r3, [r4, #0]	@ movhi
+ 560 049e 05E0     		b	.L98
+ 561              	.L100:
+ 562 04a0 019B     		ldr	r3, [sp, #4]
+ 563 04a2 5A1E     		subs	r2, r3, #1
+ 564 04a4 0192     		str	r2, [sp, #4]
+ 565 04a6 0BB9     		cbnz	r3, .L98
+ 566              	.L102:
+ 567 04a8 0020     		movs	r0, #0
+ 568 04aa 56E1     		b	.L99
+ 569              	.L98:
+ 570 04ac A38A     		ldrh	r3, [r4, #20]
+ 571 04ae D907     		lsls	r1, r3, #31
+ 572 04b0 F6D5     		bpl	.L100
+ 573 04b2 4FF6FF73 		movw	r3, #65535
+ 574 04b6 0193     		str	r3, [sp, #4]
+ 575 04b8 904B     		ldr	r3, .L210
+ 576 04ba 46F00106 		orr	r6, r6, #1
+ 577 04be 1E70     		strb	r6, [r3, #0]
+ 578 04c0 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 579 04c2 DBB2     		uxtb	r3, r3
+ 580 04c4 2382     		strh	r3, [r4, #16]	@ movhi
+ 581 04c6 04E0     		b	.L101
+ 582              	.L103:
+ 583 04c8 019B     		ldr	r3, [sp, #4]
+ 584 04ca 5A1E     		subs	r2, r3, #1
+ 585 04cc 0192     		str	r2, [sp, #4]
+ 586 04ce 002B     		cmp	r3, #0
+ 587 04d0 EAD0     		beq	.L102
+ 588              	.L101:
+ 589 04d2 A38A     		ldrh	r3, [r4, #20]
+ 590 04d4 9A07     		lsls	r2, r3, #30
+ 591 04d6 F7D5     		bpl	.L103
+ 592 04d8 238B     		ldrh	r3, [r4, #24]
+ 593 04da 9BB2     		uxth	r3, r3
+ 594 04dc 0093     		str	r3, [sp, #0]
+ 595 04de 884B     		ldr	r3, .L210+4
+ 596 04e0 9C42     		cmp	r4, r3
+ 597 04e2 0CD1     		bne	.L170
+ 598              	.L169:
+ 599 04e4 4FF00070 		mov	r0, #33554432
+ 600 04e8 FFF7FEFF 		bl	DMA_GetFlagStatus
+ 601 04ec 0028     		cmp	r0, #0
+ 602 04ee F9D0     		beq	.L169
+ 603 04f0 8448     		ldr	r0, .L210+8
+ 604 04f2 0021     		movs	r1, #0
+ 605 04f4 FFF7FEFF 		bl	DMA_Cmd
+ 606 04f8 4FF00070 		mov	r0, #33554432
+ 607 04fc 0BE0     		b	.L205
+ 608              	.L170:
+ 609 04fe 4FF40030 		mov	r0, #131072
+ 610 0502 FFF7FEFF 		bl	DMA_GetFlagStatus
+ 611 0506 0028     		cmp	r0, #0
+ 612 0508 F9D0     		beq	.L170
+ 613 050a 7F48     		ldr	r0, .L210+12
+ 614 050c 0021     		movs	r1, #0
+ 615 050e FFF7FEFF 		bl	DMA_Cmd
+ 616 0512 4FF40030 		mov	r0, #131072
+ 617              	.L205:
+ 618 0516 FFF7FEFF 		bl	DMA_ClearFlag
+ 619 051a 2388     		ldrh	r3, [r4, #0]
+ 620 051c 9BB2     		uxth	r3, r3
+ 621 051e 43F40073 		orr	r3, r3, #512
+ 622 0522 2380     		strh	r3, [r4, #0]	@ movhi
+ 623              	.L107:
+ 624 0524 2388     		ldrh	r3, [r4, #0]
+ 625 0526 9B05     		lsls	r3, r3, #22
+ 626 0528 FCD4     		bmi	.L107
+ 627 052a 15E1     		b	.L207
+ 628              	.L97:
+ 629 052c 002B     		cmp	r3, #0
+ 630 052e 40F0ED80 		bne	.L108
+ 631 0532 012A     		cmp	r2, #1
+ 632 0534 4FF6FF73 		movw	r3, #65535
+ 633 0538 3AD1     		bne	.L109
+ 634 053a 0193     		str	r3, [sp, #4]
+ 635 053c 0388     		ldrh	r3, [r0, #0]
+ 636 053e 9BB2     		uxth	r3, r3
+ 637 0540 43F48073 		orr	r3, r3, #256
+ 638 0544 0380     		strh	r3, [r0, #0]	@ movhi
+ 639 0546 04E0     		b	.L110
+ 640              	.L111:
+ 641 0548 019B     		ldr	r3, [sp, #4]
+ 642 054a 5A1E     		subs	r2, r3, #1
+ 643 054c 0192     		str	r2, [sp, #4]
+ 644 054e 002B     		cmp	r3, #0
+ 645 0550 AAD0     		beq	.L102
+ 646              	.L110:
+ 647 0552 A38A     		ldrh	r3, [r4, #20]
+ 648 0554 D807     		lsls	r0, r3, #31
+ 649 0556 F7D5     		bpl	.L111
+ 650 0558 684B     		ldr	r3, .L210
+ 651 055a 46F00106 		orr	r6, r6, #1
+ 652 055e 1E70     		strb	r6, [r3, #0]
+ 653 0560 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 654 0562 DBB2     		uxtb	r3, r3
+ 655 0564 2382     		strh	r3, [r4, #16]	@ movhi
+ 656 0566 4FF6FF73 		movw	r3, #65535
+ 657 056a 0193     		str	r3, [sp, #4]
+ 658 056c 04E0     		b	.L112
+ 659              	.L113:
+ 660 056e 019B     		ldr	r3, [sp, #4]
+ 661 0570 5A1E     		subs	r2, r3, #1
+ 662 0572 0192     		str	r2, [sp, #4]
+ 663 0574 002B     		cmp	r3, #0
+ 664 0576 97D0     		beq	.L102
+ 665              	.L112:
+ 666 0578 A38A     		ldrh	r3, [r4, #20]
+ 667 057a 9907     		lsls	r1, r3, #30
+ 668 057c F7D5     		bpl	.L113
+ 669 057e 2388     		ldrh	r3, [r4, #0]
+ 670 0580 23F48063 		bic	r3, r3, #1024
+ 671 0584 1B04     		lsls	r3, r3, #16
+ 672 0586 1B0C     		lsrs	r3, r3, #16
+ 673 0588 2380     		strh	r3, [r4, #0]	@ movhi
+ 674              	@ 1205 "../core_cm3.h" 1
+ 675 058a 72B6     		cpsid i
+ 676              	@ 0 "" 2
+ 677              		.thumb
+ 678 058c 238B     		ldrh	r3, [r4, #24]
+ 679 058e 9BB2     		uxth	r3, r3
+ 680 0590 0093     		str	r3, [sp, #0]
+ 681 0592 2388     		ldrh	r3, [r4, #0]
+ 682 0594 9BB2     		uxth	r3, r3
+ 683 0596 43F40073 		orr	r3, r3, #512
+ 684 059a 2380     		strh	r3, [r4, #0]	@ movhi
+ 685              	@ 1204 "../core_cm3.h" 1
+ 686 059c 62B6     		cpsie i
+ 687              	@ 0 "" 2
+ 688              		.thumb
+ 689              	.L114:
+ 690 059e A38A     		ldrh	r3, [r4, #20]
+ 691 05a0 5A06     		lsls	r2, r3, #25
+ 692 05a2 FCD5     		bpl	.L114
+ 693 05a4 238A     		ldrh	r3, [r4, #16]
+ 694 05a6 3B70     		strb	r3, [r7, #0]
+ 695              	.L115:
+ 696 05a8 2388     		ldrh	r3, [r4, #0]
+ 697 05aa 9B05     		lsls	r3, r3, #22
+ 698 05ac FCD4     		bmi	.L115
+ 699 05ae CEE0     		b	.L208
+ 700              	.L109:
+ 701 05b0 022A     		cmp	r2, #2
+ 702 05b2 4ED1     		bne	.L116
+ 703 05b4 0288     		ldrh	r2, [r0, #0]
+ 704 05b6 92B2     		uxth	r2, r2
+ 705 05b8 42F40062 		orr	r2, r2, #2048
+ 706 05bc 0280     		strh	r2, [r0, #0]	@ movhi
+ 707 05be 0193     		str	r3, [sp, #4]
+ 708 05c0 0388     		ldrh	r3, [r0, #0]
+ 709 05c2 9BB2     		uxth	r3, r3
+ 710 05c4 43F48073 		orr	r3, r3, #256
+ 711 05c8 0380     		strh	r3, [r0, #0]	@ movhi
+ 712 05ca 05E0     		b	.L117
+ 713              	.L118:
+ 714 05cc 019B     		ldr	r3, [sp, #4]
+ 715 05ce 5A1E     		subs	r2, r3, #1
+ 716 05d0 0192     		str	r2, [sp, #4]
+ 717 05d2 002B     		cmp	r3, #0
+ 718 05d4 3FF468AF 		beq	.L102
+ 719              	.L117:
+ 720 05d8 A38A     		ldrh	r3, [r4, #20]
+ 721 05da D807     		lsls	r0, r3, #31
+ 722 05dc F6D5     		bpl	.L118
+ 723 05de 4FF6FF73 		movw	r3, #65535
+ 724 05e2 0193     		str	r3, [sp, #4]
+ 725 05e4 454B     		ldr	r3, .L210
+ 726 05e6 46F00106 		orr	r6, r6, #1
+ 727 05ea 1E70     		strb	r6, [r3, #0]
+ 728 05ec 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 729 05ee DBB2     		uxtb	r3, r3
+ 730 05f0 2382     		strh	r3, [r4, #16]	@ movhi
+ 731 05f2 05E0     		b	.L119
+ 732              	.L120:
+ 733 05f4 019B     		ldr	r3, [sp, #4]
+ 734 05f6 5A1E     		subs	r2, r3, #1
+ 735 05f8 0192     		str	r2, [sp, #4]
+ 736 05fa 002B     		cmp	r3, #0
+ 737 05fc 3FF454AF 		beq	.L102
+ 738              	.L119:
+ 739 0600 A38A     		ldrh	r3, [r4, #20]
+ 740 0602 9907     		lsls	r1, r3, #30
+ 741 0604 F6D5     		bpl	.L120
+ 742              	@ 1205 "../core_cm3.h" 1
+ 743 0606 72B6     		cpsid i
+ 744              	@ 0 "" 2
+ 745              		.thumb
+ 746 0608 238B     		ldrh	r3, [r4, #24]
+ 747 060a 9BB2     		uxth	r3, r3
+ 748 060c 0093     		str	r3, [sp, #0]
+ 749 060e 2388     		ldrh	r3, [r4, #0]
+ 750 0610 23F48063 		bic	r3, r3, #1024
+ 751 0614 1B04     		lsls	r3, r3, #16
+ 752 0616 1B0C     		lsrs	r3, r3, #16
+ 753 0618 2380     		strh	r3, [r4, #0]	@ movhi
+ 754              	@ 1204 "../core_cm3.h" 1
+ 755 061a 62B6     		cpsie i
+ 756              	@ 0 "" 2
+ 757              		.thumb
+ 758              	.L121:
+ 759 061c A38A     		ldrh	r3, [r4, #20]
+ 760 061e 5A07     		lsls	r2, r3, #29
+ 761 0620 FCD5     		bpl	.L121
+ 762              	@ 1205 "../core_cm3.h" 1
+ 763 0622 72B6     		cpsid i
+ 764              	@ 0 "" 2
+ 765              		.thumb
+ 766 0624 0121     		movs	r1, #1
+ 767 0626 2046     		mov	r0, r4
+ 768 0628 FFF7FEFF 		bl	I2C_GenerateSTOP
+ 769 062c 238A     		ldrh	r3, [r4, #16]
+ 770 062e 3B70     		strb	r3, [r7, #0]
+ 771              	@ 1204 "../core_cm3.h" 1
+ 772 0630 62B6     		cpsie i
+ 773              	@ 0 "" 2
+ 774              		.thumb
+ 775 0632 238A     		ldrh	r3, [r4, #16]
+ 776 0634 7B70     		strb	r3, [r7, #1]
+ 777              	.L122:
+ 778 0636 2388     		ldrh	r3, [r4, #0]
+ 779 0638 9B05     		lsls	r3, r3, #22
+ 780 063a FCD4     		bmi	.L122
+ 781 063c 2388     		ldrh	r3, [r4, #0]
+ 782 063e 9BB2     		uxth	r3, r3
+ 783 0640 43F48063 		orr	r3, r3, #1024
+ 784 0644 2380     		strh	r3, [r4, #0]	@ movhi
+ 785 0646 2388     		ldrh	r3, [r4, #0]
+ 786 0648 23F40063 		bic	r3, r3, #2048
+ 787 064c 1B04     		lsls	r3, r3, #16
+ 788 064e 1B0C     		lsrs	r3, r3, #16
+ 789 0650 81E0     		b	.L209
+ 790              	.L116:
+ 791 0652 0193     		str	r3, [sp, #4]
+ 792 0654 0388     		ldrh	r3, [r0, #0]
+ 793 0656 9BB2     		uxth	r3, r3
+ 794 0658 43F48073 		orr	r3, r3, #256
+ 795 065c 0380     		strh	r3, [r0, #0]	@ movhi
+ 796 065e 05E0     		b	.L123
+ 797              	.L124:
+ 798 0660 019B     		ldr	r3, [sp, #4]
+ 799 0662 5A1E     		subs	r2, r3, #1
+ 800 0664 0192     		str	r2, [sp, #4]
+ 801 0666 002B     		cmp	r3, #0
+ 802 0668 3FF41EAF 		beq	.L102
+ 803              	.L123:
+ 804 066c A38A     		ldrh	r3, [r4, #20]
+ 805 066e D807     		lsls	r0, r3, #31
+ 806 0670 F6D5     		bpl	.L124
+ 807 0672 4FF6FF73 		movw	r3, #65535
+ 808 0676 0193     		str	r3, [sp, #4]
+ 809 0678 204B     		ldr	r3, .L210
+ 810 067a 46F00106 		orr	r6, r6, #1
+ 811 067e 1E70     		strb	r6, [r3, #0]
+ 812 0680 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 813 0682 DBB2     		uxtb	r3, r3
+ 814 0684 2382     		strh	r3, [r4, #16]	@ movhi
+ 815 0686 05E0     		b	.L125
+ 816              	.L126:
+ 817 0688 019B     		ldr	r3, [sp, #4]
+ 818 068a 5A1E     		subs	r2, r3, #1
+ 819 068c 0192     		str	r2, [sp, #4]
+ 820 068e 002B     		cmp	r3, #0
+ 821 0690 3FF40AAF 		beq	.L102
+ 822              	.L125:
+ 823 0694 A38A     		ldrh	r3, [r4, #20]
+ 824 0696 9907     		lsls	r1, r3, #30
+ 825 0698 F6D5     		bpl	.L126
+ 826 069a 238B     		ldrh	r3, [r4, #24]
+ 827 069c 9BB2     		uxth	r3, r3
+ 828 069e 0093     		str	r3, [sp, #0]
+ 829 06a0 25E0     		b	.L127
+ 830              	.L133:
+ 831 06a2 032D     		cmp	r5, #3
+ 832 06a4 08D0     		beq	.L172
+ 833              	.L173:
+ 834 06a6 A28A     		ldrh	r2, [r4, #20]
+ 835 06a8 5207     		lsls	r2, r2, #29
+ 836 06aa FCD5     		bpl	.L173
+ 837 06ac 228A     		ldrh	r2, [r4, #16]
+ 838 06ae 013D     		subs	r5, r5, #1
+ 839 06b0 032D     		cmp	r5, #3
+ 840 06b2 03F8012B 		strb	r2, [r3], #1
+ 841 06b6 1BD1     		bne	.L130
+ 842              	.L172:
+ 843 06b8 A28A     		ldrh	r2, [r4, #20]
+ 844 06ba 5507     		lsls	r5, r2, #29
+ 845 06bc FCD5     		bpl	.L172
+ 846 06be 2288     		ldrh	r2, [r4, #0]
+ 847 06c0 22F48062 		bic	r2, r2, #1024
+ 848 06c4 1204     		lsls	r2, r2, #16
+ 849 06c6 120C     		lsrs	r2, r2, #16
+ 850 06c8 2280     		strh	r2, [r4, #0]	@ movhi
+ 851              	@ 1205 "../core_cm3.h" 1
+ 852 06ca 72B6     		cpsid i
+ 853              	@ 0 "" 2
+ 854              		.thumb
+ 855 06cc 228A     		ldrh	r2, [r4, #16]
+ 856 06ce 1A70     		strb	r2, [r3, #0]
+ 857 06d0 2288     		ldrh	r2, [r4, #0]
+ 858 06d2 92B2     		uxth	r2, r2
+ 859 06d4 42F40072 		orr	r2, r2, #512
+ 860 06d8 2280     		strh	r2, [r4, #0]	@ movhi
+ 861 06da 228A     		ldrh	r2, [r4, #16]
+ 862 06dc 5A70     		strb	r2, [r3, #1]
+ 863              	@ 1204 "../core_cm3.h" 1
+ 864 06de 62B6     		cpsie i
+ 865              	@ 0 "" 2
+ 866              		.thumb
+ 867 06e0 9F1C     		adds	r7, r3, #2
+ 868              	.L132:
+ 869 06e2 A28A     		ldrh	r2, [r4, #20]
+ 870 06e4 5006     		lsls	r0, r2, #25
+ 871 06e6 FCD5     		bpl	.L132
+ 872 06e8 228A     		ldrh	r2, [r4, #16]
+ 873 06ea 0025     		movs	r5, #0
+ 874 06ec 9A70     		strb	r2, [r3, #2]
+ 875              	.L127:
+ 876 06ee 3B46     		mov	r3, r7
+ 877              	.L130:
+ 878 06f0 002D     		cmp	r5, #0
+ 879 06f2 D6D1     		bne	.L133
+ 880              	.L171:
+ 881 06f4 2388     		ldrh	r3, [r4, #0]
+ 882 06f6 9905     		lsls	r1, r3, #22
+ 883 06f8 FCD4     		bmi	.L171
+ 884 06fa 28E0     		b	.L208
+ 885              	.L211:
+ 886              		.align	2
+ 887              	.L210:
+ 888 06fc 00000000 		.word	Address
+ 889 0700 00540040 		.word	1073763328
+ 890 0704 80000240 		.word	1073873024
+ 891 0708 58000240 		.word	1073872984
+ 892              	.L108:
+ 893 070c 8388     		ldrh	r3, [r0, #4]
+ 894 070e 0122     		movs	r2, #1
+ 895 0710 9BB2     		uxth	r3, r3
+ 896 0712 43F40073 		orr	r3, r3, #512
+ 897 0716 8380     		strh	r3, [r0, #4]	@ movhi
+ 898 0718 8388     		ldrh	r3, [r0, #4]
+ 899 071a 1643     		orrs	r6, r6, r2
+ 900 071c 9BB2     		uxth	r3, r3
+ 901 071e 43F48063 		orr	r3, r3, #1024
+ 902 0722 8380     		strh	r3, [r0, #4]	@ movhi
+ 903 0724 0D4B     		ldr	r3, .L212
+ 904 0726 1A60     		str	r2, [r3, #0]
+ 905 0728 0D4B     		ldr	r3, .L212+4
+ 906 072a 1E70     		strb	r6, [r3, #0]
+ 907 072c 0D4B     		ldr	r3, .L212+8
+ 908 072e 9842     		cmp	r0, r3
+ 909 0730 0CBF     		ite	eq
+ 910 0732 0D4B     		ldreq	r3, .L212+12
+ 911 0734 0D4B     		ldrne	r3, .L212+16
+ 912 0736 1D60     		str	r5, [r3, #0]
+ 913 0738 0388     		ldrh	r3, [r0, #0]
+ 914 073a 9BB2     		uxth	r3, r3
+ 915 073c 43F48073 		orr	r3, r3, #256
+ 916 0740 0380     		strh	r3, [r0, #0]	@ movhi
+ 917              	.L137:
+ 918 0742 2388     		ldrh	r3, [r4, #0]
+ 919 0744 DA05     		lsls	r2, r3, #23
+ 920 0746 FCD4     		bmi	.L137
+ 921              	.L174:
+ 922 0748 238B     		ldrh	r3, [r4, #24]
+ 923 074a 9B07     		lsls	r3, r3, #30
+ 924 074c FCD4     		bmi	.L174
+ 925              	.L208:
+ 926 074e 2388     		ldrh	r3, [r4, #0]
+ 927 0750 9BB2     		uxth	r3, r3
+ 928 0752 43F48063 		orr	r3, r3, #1024
+ 929              	.L209:
+ 930 0756 2380     		strh	r3, [r4, #0]	@ movhi
+ 931              	.L207:
+ 932 0758 0120     		movs	r0, #1
+ 933              	.L99:
+ 934 075a FEBD     		pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+ 935              	.L213:
+ 936              		.align	2
+ 937              	.L212:
+ 938 075c 00000000 		.word	.LANCHOR0
+ 939 0760 00000000 		.word	Address
+ 940 0764 00540040 		.word	1073763328
+ 941 0768 00000000 		.word	NumbOfBytes1
+ 942 076c 00000000 		.word	NumbOfBytes2
+ 944              		.comm	Address,1,1
+ 945              		.comm	NumbOfBytes2,4,4
+ 946              		.comm	NumbOfBytes1,4,4
+ 947              		.global	I2CDirection
+ 948              		.comm	I2CDMA_InitStructure,44,4
+ 949              		.bss
+ 950              		.align	2
+ 951              		.set	.LANCHOR0,. + 0
+ 954              	I2CDirection:
+ 955 0000 00000000 		.space	4
+ 956              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 I2CRoutines.c
+     /tmp/ccwshjzG.s:16     .text:0000000000000000 $t
+     /tmp/ccwshjzG.s:20     .text:0000000000000000 I2C_DMAConfig.part.0
+     /tmp/ccwshjzG.s:59     .text:000000000000004c $d
+                            *COM*:000000000000002c I2CDMA_InitStructure
+     /tmp/ccwshjzG.s:65     .text:0000000000000060 $t
+     /tmp/ccwshjzG.s:70     .text:0000000000000060 I2C_Master_BufferWrite
+     /tmp/ccwshjzG.s:279    .text:000000000000020c $d
+                            *COM*:0000000000000001 Address
+                            *COM*:0000000000000004 NumbOfBytes1
+                            *COM*:0000000000000004 NumbOfBytes2
+     /tmp/ccwshjzG.s:287    .text:0000000000000228 $t
+     /tmp/ccwshjzG.s:292    .text:0000000000000228 I2C_Slave_BufferReadWrite
+     /tmp/ccwshjzG.s:318    .text:0000000000000250 I2C_LowLevel_Init
+     /tmp/ccwshjzG.s:455    .text:00000000000003b0 $d
+     /tmp/ccwshjzG.s:467    .text:00000000000003dc $t
+     /tmp/ccwshjzG.s:472    .text:00000000000003dc I2C_DMAConfig
+     /tmp/ccwshjzG.s:516    .text:0000000000000434 $d
+     /tmp/ccwshjzG.s:522    .text:0000000000000448 $t
+     /tmp/ccwshjzG.s:527    .text:0000000000000448 I2C_Master_BufferRead
+     /tmp/ccwshjzG.s:888    .text:00000000000006fc $d
+     /tmp/ccwshjzG.s:893    .text:000000000000070c $t
+     /tmp/ccwshjzG.s:938    .text:000000000000075c $d
+     /tmp/ccwshjzG.s:954    .bss:0000000000000000 I2CDirection
+     /tmp/ccwshjzG.s:950    .bss:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+DMA_Cmd
+DMA_Init
+DMA_GetFlagStatus
+DMA_ClearFlag
+RCC_APB2PeriphClockCmd
+RCC_AHBPeriphClockCmd
+RCC_APB1PeriphClockCmd
+GPIO_Init
+RCC_APB1PeriphResetCmd
+I2C_Init
+DMA_DeInit
+I2C_GenerateSTOP

@@ -1,0 +1,169 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"log.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	logInt8
+  18              		.thumb
+  19              		.thumb_func
+  21              	logInt8:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 044A     		ldr	r2, .L3
+  26 0002 1368     		ldr	r3, [r2, #0]
+  27 0004 B3F5806F 		cmp	r3, #1024
+  28 0008 03DA     		bge	.L1
+  29 000a 0349     		ldr	r1, .L3+4
+  30 000c C854     		strb	r0, [r1, r3]
+  31 000e 0133     		adds	r3, r3, #1
+  32 0010 1360     		str	r3, [r2, #0]
+  33              	.L1:
+  34 0012 7047     		bx	lr
+  35              	.L4:
+  36              		.align	2
+  37              	.L3:
+  38 0014 00000000 		.word	.LANCHOR0
+  39 0018 00000000 		.word	logbuf
+  41              		.align	1
+  42              		.global	logInt16
+  43              		.thumb
+  44              		.thumb_func
+  46              	logInt16:
+  47              		@ args = 0, pretend = 0, frame = 8
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49 001c 07B5     		push	{r0, r1, r2, lr}
+  50 001e ADF80600 		strh	r0, [sp, #6]	@ movhi
+  51 0022 C0B2     		uxtb	r0, r0
+  52 0024 FFF7FEFF 		bl	logInt8
+  53 0028 9DF80700 		ldrb	r0, [sp, #7]	@ zero_extendqisi2
+  54 002c FFF7FEFF 		bl	logInt8
+  55 0030 0EBD     		pop	{r1, r2, r3, pc}
+  57              		.align	1
+  58              		.global	logNote
+  59              		.thumb
+  60              		.thumb_func
+  62              	logNote:
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65 0032 08B5     		push	{r3, lr}
+  66 0034 FFF7FEFF 		bl	logInt16
+  67 0038 0020     		movs	r0, #0
+  68 003a BDE80840 		pop	{r3, lr}
+  69 003e FFF7FEBF 		b	logInt16
+  71              		.align	1
+  72              		.global	logData
+  73              		.thumb
+  74              		.thumb_func
+  76              	logData:
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79 0042 10B5     		push	{r4, lr}
+  80 0044 0C46     		mov	r4, r1
+  81 0046 FFF7FEFF 		bl	logInt16
+  82 004a 2046     		mov	r0, r4
+  83 004c BDE81040 		pop	{r4, lr}
+  84 0050 FFF7FEBF 		b	logInt16
+  86              		.align	1
+  87              		.global	logOutput
+  88              		.thumb
+  89              		.thumb_func
+  91              	logOutput:
+  92              		@ args = 0, pretend = 0, frame = 48
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94 0054 10B5     		push	{r4, lr}
+  95 0056 194B     		ldr	r3, .L17
+  96 0058 8CB0     		sub	sp, sp, #48
+  97 005a 1B68     		ldr	r3, [r3, #0]
+  98 005c DB07     		lsls	r3, r3, #31
+  99 005e 24D4     		bmi	.L13
+ 100              	.L10:
+ 101 0060 1648     		ldr	r0, .L17
+ 102 0062 FFF7FEFF 		bl	DMA_DeInit
+ 103 0066 164B     		ldr	r3, .L17+4
+ 104 0068 4FF44052 		mov	r2, #12288
+ 105 006c 0193     		str	r3, [sp, #4]
+ 106 006e 154B     		ldr	r3, .L17+8
+ 107 0070 8024     		movs	r4, #128
+ 108 0072 0293     		str	r3, [sp, #8]
+ 109 0074 1023     		movs	r3, #16
+ 110 0076 0393     		str	r3, [sp, #12]
+ 111 0078 134B     		ldr	r3, .L17+12
+ 112 007a 01A9     		add	r1, sp, #4
+ 113 007c 1B68     		ldr	r3, [r3, #0]
+ 114 007e 0F48     		ldr	r0, .L17
+ 115 0080 0493     		str	r3, [sp, #16]
+ 116 0082 0023     		movs	r3, #0
+ 117 0084 0A92     		str	r2, [sp, #40]
+ 118 0086 0593     		str	r3, [sp, #20]
+ 119 0088 0793     		str	r3, [sp, #28]
+ 120 008a 0893     		str	r3, [sp, #32]
+ 121 008c 0993     		str	r3, [sp, #36]
+ 122 008e 0B93     		str	r3, [sp, #44]
+ 123 0090 0694     		str	r4, [sp, #24]
+ 124 0092 FFF7FEFF 		bl	DMA_Init
+ 125 0096 0948     		ldr	r0, .L17
+ 126 0098 0121     		movs	r1, #1
+ 127 009a FFF7FEFF 		bl	DMA_Cmd
+ 128 009e 0B48     		ldr	r0, .L17+16
+ 129 00a0 2146     		mov	r1, r4
+ 130 00a2 0122     		movs	r2, #1
+ 131 00a4 FFF7FEFF 		bl	USART_DMACmd
+ 132 00a8 06E0     		b	.L16
+ 133              	.L13:
+ 134 00aa 4FF40050 		mov	r0, #8192
+ 135 00ae FFF7FEFF 		bl	DMA_GetFlagStatus
+ 136 00b2 0028     		cmp	r0, #0
+ 137 00b4 F9D0     		beq	.L13
+ 138 00b6 D3E7     		b	.L10
+ 139              	.L16:
+ 140 00b8 0CB0     		add	sp, sp, #48
+ 141 00ba 10BD     		pop	{r4, pc}
+ 142              	.L18:
+ 143              		.align	2
+ 144              	.L17:
+ 145 00bc 44000240 		.word	1073872964
+ 146 00c0 04380140 		.word	1073821700
+ 147 00c4 00000000 		.word	logbuf
+ 148 00c8 00000000 		.word	.LANCHOR0
+ 149 00cc 00380140 		.word	1073821696
+ 151              		.global	logptr
+ 152              		.comm	logbuf,1024,1
+ 153              		.bss
+ 154              		.align	2
+ 155              		.set	.LANCHOR0,. + 0
+ 158              	logptr:
+ 159 0000 00000000 		.space	4
+ 160              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 log.c
+     /tmp/cciOwNn1.s:16     .text:0000000000000000 $t
+     /tmp/cciOwNn1.s:21     .text:0000000000000000 logInt8
+     /tmp/cciOwNn1.s:38     .text:0000000000000014 $d
+                            *COM*:0000000000000400 logbuf
+     /tmp/cciOwNn1.s:41     .text:000000000000001c $t
+     /tmp/cciOwNn1.s:46     .text:000000000000001c logInt16
+     /tmp/cciOwNn1.s:62     .text:0000000000000032 logNote
+     /tmp/cciOwNn1.s:76     .text:0000000000000042 logData
+     /tmp/cciOwNn1.s:91     .text:0000000000000054 logOutput
+     /tmp/cciOwNn1.s:145    .text:00000000000000bc $d
+     /tmp/cciOwNn1.s:158    .bss:0000000000000000 logptr
+     /tmp/cciOwNn1.s:154    .bss:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+DMA_DeInit
+DMA_Init
+DMA_Cmd
+USART_DMACmd
+DMA_GetFlagStatus

@@ -1,0 +1,162 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"misc.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	NVIC_PriorityGroupConfig
+  18              		.thumb
+  19              		.thumb_func
+  21              	NVIC_PriorityGroupConfig:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 40F0BF60 		orr	r0, r0, #100139008
+  26 0004 024B     		ldr	r3, .L2
+  27 0006 40F40030 		orr	r0, r0, #131072
+  28 000a D860     		str	r0, [r3, #12]
+  29 000c 7047     		bx	lr
+  30              	.L3:
+  31 000e 00BF     		.align	2
+  32              	.L2:
+  33 0010 00ED00E0 		.word	-536810240
+  35              		.align	1
+  36              		.global	NVIC_Init
+  37              		.thumb
+  38              		.thumb_func
+  40              	NVIC_Init:
+  41              		@ args = 0, pretend = 0, frame = 0
+  42              		@ frame_needed = 0, uses_anonymous_args = 0
+  43 0014 C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
+  44 0016 10B5     		push	{r4, lr}
+  45 0018 F3B1     		cbz	r3, .L5
+  46 001a 154B     		ldr	r3, .L8
+  47 001c 4178     		ldrb	r1, [r0, #1]	@ zero_extendqisi2
+  48 001e DB68     		ldr	r3, [r3, #12]
+  49 0020 8478     		ldrb	r4, [r0, #2]	@ zero_extendqisi2
+  50 0022 DB43     		mvns	r3, r3
+  51 0024 C3F30223 		ubfx	r3, r3, #8, #3
+  52 0028 C3F10402 		rsb	r2, r3, #4
+  53 002c 9140     		lsls	r1, r1, r2
+  54 002e 0F22     		movs	r2, #15
+  55 0030 DA40     		lsrs	r2, r2, r3
+  56 0032 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+  57 0034 2240     		ands	r2, r2, r4
+  58 0036 0A43     		orrs	r2, r2, r1
+  59 0038 1201     		lsls	r2, r2, #4
+  60 003a 03F16043 		add	r3, r3, #-536870912
+  61 003e D2B2     		uxtb	r2, r2
+  62 0040 03F56143 		add	r3, r3, #57600
+  63 0044 83F80023 		strb	r2, [r3, #768]
+  64 0048 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+  65 004a 0122     		movs	r2, #1
+  66 004c 5909     		lsrs	r1, r3, #5
+  67 004e 03F01F03 		and	r3, r3, #31
+  68 0052 02FA03F3 		lsl	r3, r2, r3
+  69 0056 07E0     		b	.L7
+  70              	.L5:
+  71 0058 0378     		ldrb	r3, [r0, #0]	@ zero_extendqisi2
+  72 005a 0122     		movs	r2, #1
+  73 005c 5909     		lsrs	r1, r3, #5
+  74 005e 03F01F03 		and	r3, r3, #31
+  75 0062 02FA03F3 		lsl	r3, r2, r3
+  76 0066 2031     		adds	r1, r1, #32
+  77              	.L7:
+  78 0068 024A     		ldr	r2, .L8+4
+  79 006a 42F82130 		str	r3, [r2, r1, lsl #2]
+  80 006e 10BD     		pop	{r4, pc}
+  81              	.L9:
+  82              		.align	2
+  83              	.L8:
+  84 0070 00ED00E0 		.word	-536810240
+  85 0074 00E100E0 		.word	-536813312
+  87              		.align	1
+  88              		.global	NVIC_SetVectorTable
+  89              		.thumb
+  90              		.thumb_func
+  92              	NVIC_SetVectorTable:
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  96 0078 21F06041 		bic	r1, r1, #-536870912
+  97 007c 21F07F01 		bic	r1, r1, #127
+  98 0080 014B     		ldr	r3, .L11
+  99 0082 0843     		orrs	r0, r0, r1
+ 100 0084 9860     		str	r0, [r3, #8]
+ 101 0086 7047     		bx	lr
+ 102              	.L12:
+ 103              		.align	2
+ 104              	.L11:
+ 105 0088 00ED00E0 		.word	-536810240
+ 107              		.align	1
+ 108              		.global	NVIC_SystemLPConfig
+ 109              		.thumb
+ 110              		.thumb_func
+ 112              	NVIC_SystemLPConfig:
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 0, uses_anonymous_args = 0
+ 115              		@ link register save eliminated.
+ 116 008c 044B     		ldr	r3, .L17
+ 117 008e 1A69     		ldr	r2, [r3, #16]
+ 118 0090 09B1     		cbz	r1, .L14
+ 119 0092 1043     		orrs	r0, r0, r2
+ 120 0094 01E0     		b	.L16
+ 121              	.L14:
+ 122 0096 22EA0000 		bic	r0, r2, r0
+ 123              	.L16:
+ 124 009a 1861     		str	r0, [r3, #16]
+ 125 009c 7047     		bx	lr
+ 126              	.L18:
+ 127 009e 00BF     		.align	2
+ 128              	.L17:
+ 129 00a0 00ED00E0 		.word	-536810240
+ 131              		.align	1
+ 132              		.global	SysTick_CLKSourceConfig
+ 133              		.thumb
+ 134              		.thumb_func
+ 136              	SysTick_CLKSourceConfig:
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 0, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 00a4 044B     		ldr	r3, .L23
+ 141 00a6 0428     		cmp	r0, #4
+ 142 00a8 1A68     		ldr	r2, [r3, #0]
+ 143 00aa 0CBF     		ite	eq
+ 144 00ac 42F00402 		orreq	r2, r2, #4
+ 145 00b0 22F00402 		bicne	r2, r2, #4
+ 146 00b4 1A60     		str	r2, [r3, #0]
+ 147 00b6 7047     		bx	lr
+ 148              	.L24:
+ 149              		.align	2
+ 150              	.L23:
+ 151 00b8 10E000E0 		.word	-536813552
+ 153              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 misc.c
+     /tmp/ccXx3pH5.s:16     .text:0000000000000000 $t
+     /tmp/ccXx3pH5.s:21     .text:0000000000000000 NVIC_PriorityGroupConfig
+     /tmp/ccXx3pH5.s:33     .text:0000000000000010 $d
+     /tmp/ccXx3pH5.s:35     .text:0000000000000014 $t
+     /tmp/ccXx3pH5.s:40     .text:0000000000000014 NVIC_Init
+     /tmp/ccXx3pH5.s:84     .text:0000000000000070 $d
+     /tmp/ccXx3pH5.s:87     .text:0000000000000078 $t
+     /tmp/ccXx3pH5.s:92     .text:0000000000000078 NVIC_SetVectorTable
+     /tmp/ccXx3pH5.s:105    .text:0000000000000088 $d
+     /tmp/ccXx3pH5.s:107    .text:000000000000008c $t
+     /tmp/ccXx3pH5.s:112    .text:000000000000008c NVIC_SystemLPConfig
+     /tmp/ccXx3pH5.s:129    .text:00000000000000a0 $d
+     /tmp/ccXx3pH5.s:131    .text:00000000000000a4 $t
+     /tmp/ccXx3pH5.s:136    .text:00000000000000a4 SysTick_CLKSourceConfig
+     /tmp/ccXx3pH5.s:151    .text:00000000000000b8 $d
+
+NO UNDEFINED SYMBOLS

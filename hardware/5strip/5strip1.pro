@@ -1,13 +1,8 @@
-update=Sat 29 Jun 2013 09:23:15 AM CEST
+update=Mon 01 Jul 2013 03:27:26 AM CEST
 version=1
-last_client=pcbnew
+last_client=cvpcb
 [general]
 version=1
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [eeschema]
 version=1
 LibDir=
@@ -68,7 +63,6 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=
 LibName1=walter/w_battery_holders
 LibName2=walter/w_capacitors
 LibName3=walter/w_conn_9159
@@ -112,3 +106,9 @@ LibName40=walter/w_to
 LibName41=walter/w_vacuum
 LibName42=/home/m_lovqvist/Privata projekt/stonerlights/hardware/playboard/modules/qfn
 LibName43=/home/m_lovqvist/Privata projekt/stonerlights/hardware/playboard/modules/usb
+LibDir=
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms

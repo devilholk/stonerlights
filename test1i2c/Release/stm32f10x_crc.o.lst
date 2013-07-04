@@ -1,0 +1,140 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_crc.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	CRC_ResetDR
+  18              		.thumb
+  19              		.thumb_func
+  21              	CRC_ResetDR:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 014B     		ldr	r3, .L2
+  26 0002 0122     		movs	r2, #1
+  27 0004 9A60     		str	r2, [r3, #8]
+  28 0006 7047     		bx	lr
+  29              	.L3:
+  30              		.align	2
+  31              	.L2:
+  32 0008 00300240 		.word	1073885184
+  34              		.align	1
+  35              		.global	CRC_CalcCRC
+  36              		.thumb
+  37              		.thumb_func
+  39              	CRC_CalcCRC:
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 0, uses_anonymous_args = 0
+  42              		@ link register save eliminated.
+  43 000c 014B     		ldr	r3, .L5
+  44 000e 1860     		str	r0, [r3, #0]
+  45 0010 1868     		ldr	r0, [r3, #0]
+  46 0012 7047     		bx	lr
+  47              	.L6:
+  48              		.align	2
+  49              	.L5:
+  50 0014 00300240 		.word	1073885184
+  52              		.align	1
+  53              		.global	CRC_CalcBlockCRC
+  54              		.thumb
+  55              		.thumb_func
+  57              	CRC_CalcBlockCRC:
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60 0018 10B5     		push	{r4, lr}
+  61 001a 0023     		movs	r3, #0
+  62 001c 054C     		ldr	r4, .L10
+  63 001e 03E0     		b	.L8
+  64              	.L9:
+  65 0020 50F82320 		ldr	r2, [r0, r3, lsl #2]
+  66 0024 0133     		adds	r3, r3, #1
+  67 0026 2260     		str	r2, [r4, #0]
+  68              	.L8:
+  69 0028 8B42     		cmp	r3, r1
+  70 002a F9D1     		bne	.L9
+  71 002c 014B     		ldr	r3, .L10
+  72 002e 1868     		ldr	r0, [r3, #0]
+  73 0030 10BD     		pop	{r4, pc}
+  74              	.L11:
+  75 0032 00BF     		.align	2
+  76              	.L10:
+  77 0034 00300240 		.word	1073885184
+  79              		.align	1
+  80              		.global	CRC_GetCRC
+  81              		.thumb
+  82              		.thumb_func
+  84              	CRC_GetCRC:
+  85              		@ args = 0, pretend = 0, frame = 0
+  86              		@ frame_needed = 0, uses_anonymous_args = 0
+  87              		@ link register save eliminated.
+  88 0038 014B     		ldr	r3, .L13
+  89 003a 1868     		ldr	r0, [r3, #0]
+  90 003c 7047     		bx	lr
+  91              	.L14:
+  92 003e 00BF     		.align	2
+  93              	.L13:
+  94 0040 00300240 		.word	1073885184
+  96              		.align	1
+  97              		.global	CRC_SetIDRegister
+  98              		.thumb
+  99              		.thumb_func
+ 101              	CRC_SetIDRegister:
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105 0044 014B     		ldr	r3, .L16
+ 106 0046 1871     		strb	r0, [r3, #4]
+ 107 0048 7047     		bx	lr
+ 108              	.L17:
+ 109 004a 00BF     		.align	2
+ 110              	.L16:
+ 111 004c 00300240 		.word	1073885184
+ 113              		.align	1
+ 114              		.global	CRC_GetIDRegister
+ 115              		.thumb
+ 116              		.thumb_func
+ 118              	CRC_GetIDRegister:
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              		@ link register save eliminated.
+ 122 0050 014B     		ldr	r3, .L19
+ 123 0052 1879     		ldrb	r0, [r3, #4]	@ zero_extendqisi2
+ 124 0054 7047     		bx	lr
+ 125              	.L20:
+ 126 0056 00BF     		.align	2
+ 127              	.L19:
+ 128 0058 00300240 		.word	1073885184
+ 130              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f10x_crc.c
+     /tmp/cc7KrSoy.s:16     .text:0000000000000000 $t
+     /tmp/cc7KrSoy.s:21     .text:0000000000000000 CRC_ResetDR
+     /tmp/cc7KrSoy.s:32     .text:0000000000000008 $d
+     /tmp/cc7KrSoy.s:34     .text:000000000000000c $t
+     /tmp/cc7KrSoy.s:39     .text:000000000000000c CRC_CalcCRC
+     /tmp/cc7KrSoy.s:50     .text:0000000000000014 $d
+     /tmp/cc7KrSoy.s:52     .text:0000000000000018 $t
+     /tmp/cc7KrSoy.s:57     .text:0000000000000018 CRC_CalcBlockCRC
+     /tmp/cc7KrSoy.s:77     .text:0000000000000034 $d
+     /tmp/cc7KrSoy.s:79     .text:0000000000000038 $t
+     /tmp/cc7KrSoy.s:84     .text:0000000000000038 CRC_GetCRC
+     /tmp/cc7KrSoy.s:94     .text:0000000000000040 $d
+     /tmp/cc7KrSoy.s:96     .text:0000000000000044 $t
+     /tmp/cc7KrSoy.s:101    .text:0000000000000044 CRC_SetIDRegister
+     /tmp/cc7KrSoy.s:111    .text:000000000000004c $d
+     /tmp/cc7KrSoy.s:113    .text:0000000000000050 $t
+     /tmp/cc7KrSoy.s:118    .text:0000000000000050 CRC_GetIDRegister
+     /tmp/cc7KrSoy.s:128    .text:0000000000000058 $d
+
+NO UNDEFINED SYMBOLS

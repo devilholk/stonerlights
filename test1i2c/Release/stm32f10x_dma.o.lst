@@ -1,0 +1,342 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_dma.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	DMA_DeInit
+  18              		.thumb
+  19              		.thumb_func
+  21              	DMA_DeInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 0368     		ldr	r3, [r0, #0]
+  26 0002 23F00103 		bic	r3, r3, #1
+  27 0006 0360     		str	r3, [r0, #0]
+  28 0008 0023     		movs	r3, #0
+  29 000a 0360     		str	r3, [r0, #0]
+  30 000c 4360     		str	r3, [r0, #4]
+  31 000e 8360     		str	r3, [r0, #8]
+  32 0010 C360     		str	r3, [r0, #12]
+  33 0012 2D4B     		ldr	r3, .L19
+  34 0014 9842     		cmp	r0, r3
+  35 0016 00D1     		bne	.L2
+  36 0018 26E0     		b	.L14
+  37              	.L2:
+  38 001a 2C4B     		ldr	r3, .L19+4
+  39 001c 9842     		cmp	r0, r3
+  40 001e 00D1     		bne	.L4
+  41 0020 2CE0     		b	.L15
+  42              	.L4:
+  43 0022 2B4B     		ldr	r3, .L19+8
+  44 0024 9842     		cmp	r0, r3
+  45 0026 00D1     		bne	.L5
+  46 0028 32E0     		b	.L16
+  47              	.L5:
+  48 002a 2A4B     		ldr	r3, .L19+12
+  49 002c 9842     		cmp	r0, r3
+  50 002e 00D1     		bne	.L6
+  51 0030 38E0     		b	.L17
+  52              	.L6:
+  53 0032 294B     		ldr	r3, .L19+16
+  54 0034 9842     		cmp	r0, r3
+  55 0036 00D1     		bne	.L7
+  56 0038 3EE0     		b	.L18
+  57              	.L7:
+  58 003a 284B     		ldr	r3, .L19+20
+  59 003c 9842     		cmp	r0, r3
+  60 003e 06D1     		bne	.L8
+  61 0040 53F8682C 		ldr	r2, [r3, #-104]
+  62 0044 42F47002 		orr	r2, r2, #15728640
+  63 0048 43F8682C 		str	r2, [r3, #-104]
+  64 004c 7047     		bx	lr
+  65              	.L8:
+  66 004e 244B     		ldr	r3, .L19+24
+  67 0050 9842     		cmp	r0, r3
+  68 0052 06D1     		bne	.L9
+  69 0054 53F87C2C 		ldr	r2, [r3, #-124]
+  70 0058 42F07062 		orr	r2, r2, #251658240
+  71 005c 43F87C2C 		str	r2, [r3, #-124]
+  72 0060 7047     		bx	lr
+  73              	.L9:
+  74 0062 204B     		ldr	r3, .L19+28
+  75 0064 9842     		cmp	r0, r3
+  76 0066 06D1     		bne	.L10
+  77              	.L14:
+  78 0068 53F8042C 		ldr	r2, [r3, #-4]
+  79 006c 42F00F02 		orr	r2, r2, #15
+  80 0070 43F8042C 		str	r2, [r3, #-4]
+  81 0074 7047     		bx	lr
+  82              	.L10:
+  83 0076 1C4B     		ldr	r3, .L19+32
+  84 0078 9842     		cmp	r0, r3
+  85 007a 06D1     		bne	.L11
+  86              	.L15:
+  87 007c 53F8182C 		ldr	r2, [r3, #-24]
+  88 0080 42F0F002 		orr	r2, r2, #240
+  89 0084 43F8182C 		str	r2, [r3, #-24]
+  90 0088 7047     		bx	lr
+  91              	.L11:
+  92 008a 184B     		ldr	r3, .L19+36
+  93 008c 9842     		cmp	r0, r3
+  94 008e 06D1     		bne	.L12
+  95              	.L16:
+  96 0090 53F82C2C 		ldr	r2, [r3, #-44]
+  97 0094 42F47062 		orr	r2, r2, #3840
+  98 0098 43F82C2C 		str	r2, [r3, #-44]
+  99 009c 7047     		bx	lr
+ 100              	.L12:
+ 101 009e 144B     		ldr	r3, .L19+40
+ 102 00a0 9842     		cmp	r0, r3
+ 103 00a2 06D1     		bne	.L13
+ 104              	.L17:
+ 105 00a4 53F8402C 		ldr	r2, [r3, #-64]
+ 106 00a8 42F47042 		orr	r2, r2, #61440
+ 107 00ac 43F8402C 		str	r2, [r3, #-64]
+ 108 00b0 7047     		bx	lr
+ 109              	.L13:
+ 110 00b2 104B     		ldr	r3, .L19+44
+ 111 00b4 9842     		cmp	r0, r3
+ 112 00b6 05D1     		bne	.L1
+ 113              	.L18:
+ 114 00b8 53F8542C 		ldr	r2, [r3, #-84]
+ 115 00bc 42F47022 		orr	r2, r2, #983040
+ 116 00c0 43F8542C 		str	r2, [r3, #-84]
+ 117              	.L1:
+ 118 00c4 7047     		bx	lr
+ 119              	.L20:
+ 120 00c6 00BF     		.align	2
+ 121              	.L19:
+ 122 00c8 08000240 		.word	1073872904
+ 123 00cc 1C000240 		.word	1073872924
+ 124 00d0 30000240 		.word	1073872944
+ 125 00d4 44000240 		.word	1073872964
+ 126 00d8 58000240 		.word	1073872984
+ 127 00dc 6C000240 		.word	1073873004
+ 128 00e0 80000240 		.word	1073873024
+ 129 00e4 08040240 		.word	1073873928
+ 130 00e8 1C040240 		.word	1073873948
+ 131 00ec 30040240 		.word	1073873968
+ 132 00f0 44040240 		.word	1073873988
+ 133 00f4 58040240 		.word	1073874008
+ 135              		.align	1
+ 136              		.global	DMA_Init
+ 137              		.thumb
+ 138              		.thumb_func
+ 140              	DMA_Init:
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 0, uses_anonymous_args = 0
+ 143 00f8 70B5     		push	{r4, r5, r6, lr}
+ 144 00fa 8C68     		ldr	r4, [r1, #8]
+ 145 00fc 0D6A     		ldr	r5, [r1, #32]
+ 146 00fe 0668     		ldr	r6, [r0, #0]
+ 147 0100 45EA0402 		orr	r2, r5, r4
+ 148 0104 0C69     		ldr	r4, [r1, #16]
+ 149 0106 8B6A     		ldr	r3, [r1, #40]
+ 150 0108 2243     		orrs	r2, r2, r4
+ 151 010a 4C69     		ldr	r4, [r1, #20]
+ 152 010c 26F4FF46 		bic	r6, r6, #32640
+ 153 0110 2243     		orrs	r2, r2, r4
+ 154 0112 8C69     		ldr	r4, [r1, #24]
+ 155 0114 26F07006 		bic	r6, r6, #112
+ 156 0118 2243     		orrs	r2, r2, r4
+ 157 011a CC69     		ldr	r4, [r1, #28]
+ 158 011c 1443     		orrs	r4, r4, r2
+ 159 011e 4A6A     		ldr	r2, [r1, #36]
+ 160 0120 2243     		orrs	r2, r2, r4
+ 161 0122 1343     		orrs	r3, r3, r2
+ 162 0124 3343     		orrs	r3, r3, r6
+ 163 0126 0360     		str	r3, [r0, #0]
+ 164 0128 CB68     		ldr	r3, [r1, #12]
+ 165 012a 4360     		str	r3, [r0, #4]
+ 166 012c 0B68     		ldr	r3, [r1, #0]
+ 167 012e 8360     		str	r3, [r0, #8]
+ 168 0130 4B68     		ldr	r3, [r1, #4]
+ 169 0132 C360     		str	r3, [r0, #12]
+ 170 0134 70BD     		pop	{r4, r5, r6, pc}
+ 172              		.align	1
+ 173              		.global	DMA_StructInit
+ 174              		.thumb
+ 175              		.thumb_func
+ 177              	DMA_StructInit:
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 181 0136 0023     		movs	r3, #0
+ 182 0138 0360     		str	r3, [r0, #0]
+ 183 013a 4360     		str	r3, [r0, #4]
+ 184 013c 8360     		str	r3, [r0, #8]
+ 185 013e C360     		str	r3, [r0, #12]
+ 186 0140 0361     		str	r3, [r0, #16]
+ 187 0142 4361     		str	r3, [r0, #20]
+ 188 0144 8361     		str	r3, [r0, #24]
+ 189 0146 C361     		str	r3, [r0, #28]
+ 190 0148 0362     		str	r3, [r0, #32]
+ 191 014a 4362     		str	r3, [r0, #36]
+ 192 014c 8362     		str	r3, [r0, #40]
+ 193 014e 7047     		bx	lr
+ 195              		.align	1
+ 196              		.global	DMA_Cmd
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	DMA_Cmd:
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		@ link register save eliminated.
+ 204 0150 0368     		ldr	r3, [r0, #0]
+ 205 0152 11B1     		cbz	r1, .L24
+ 206 0154 43F00103 		orr	r3, r3, #1
+ 207 0158 01E0     		b	.L26
+ 208              	.L24:
+ 209 015a 23F00103 		bic	r3, r3, #1
+ 210              	.L26:
+ 211 015e 0360     		str	r3, [r0, #0]
+ 212 0160 7047     		bx	lr
+ 214              		.align	1
+ 215              		.global	DMA_ITConfig
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	DMA_ITConfig:
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		@ link register save eliminated.
+ 223 0162 0368     		ldr	r3, [r0, #0]
+ 224 0164 0AB1     		cbz	r2, .L28
+ 225 0166 1943     		orrs	r1, r1, r3
+ 226 0168 01E0     		b	.L30
+ 227              	.L28:
+ 228 016a 23EA0101 		bic	r1, r3, r1
+ 229              	.L30:
+ 230 016e 0160     		str	r1, [r0, #0]
+ 231 0170 7047     		bx	lr
+ 233              		.align	1
+ 234              		.global	DMA_GetCurrDataCounter
+ 235              		.thumb
+ 236              		.thumb_func
+ 238              	DMA_GetCurrDataCounter:
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+ 241              		@ link register save eliminated.
+ 242 0172 4068     		ldr	r0, [r0, #4]
+ 243 0174 80B2     		uxth	r0, r0
+ 244 0176 7047     		bx	lr
+ 246              		.align	1
+ 247              		.global	DMA_GetFlagStatus
+ 248              		.thumb
+ 249              		.thumb_func
+ 251              	DMA_GetFlagStatus:
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255 0178 C300     		lsls	r3, r0, #3
+ 256 017a 4CBF     		ite	mi
+ 257 017c 034B     		ldrmi	r3, .L36
+ 258 017e 044B     		ldrpl	r3, .L36+4
+ 259 0180 1B68     		ldr	r3, [r3, #0]
+ 260 0182 0342     		tst	r3, r0
+ 261 0184 0CBF     		ite	eq
+ 262 0186 0020     		moveq	r0, #0
+ 263 0188 0120     		movne	r0, #1
+ 264 018a 7047     		bx	lr
+ 265              	.L37:
+ 266              		.align	2
+ 267              	.L36:
+ 268 018c 00040240 		.word	1073873920
+ 269 0190 00000240 		.word	1073872896
+ 271              		.align	1
+ 272              		.global	DMA_ClearFlag
+ 273              		.thumb
+ 274              		.thumb_func
+ 276              	DMA_ClearFlag:
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		@ link register save eliminated.
+ 280 0194 C200     		lsls	r2, r0, #3
+ 281 0196 4CBF     		ite	mi
+ 282 0198 014B     		ldrmi	r3, .L42
+ 283 019a 024B     		ldrpl	r3, .L42+4
+ 284 019c 5860     		str	r0, [r3, #4]
+ 285 019e 7047     		bx	lr
+ 286              	.L43:
+ 287              		.align	2
+ 288              	.L42:
+ 289 01a0 00040240 		.word	1073873920
+ 290 01a4 00000240 		.word	1073872896
+ 292              		.align	1
+ 293              		.global	DMA_GetITStatus
+ 294              		.thumb
+ 295              		.thumb_func
+ 297              	DMA_GetITStatus:
+ 298              		@ args = 0, pretend = 0, frame = 0
+ 299              		@ frame_needed = 0, uses_anonymous_args = 0
+ 300              		@ link register save eliminated.
+ 301 01a8 C100     		lsls	r1, r0, #3
+ 302 01aa 4CBF     		ite	mi
+ 303 01ac 034B     		ldrmi	r3, .L48
+ 304 01ae 044B     		ldrpl	r3, .L48+4
+ 305 01b0 1B68     		ldr	r3, [r3, #0]
+ 306 01b2 0342     		tst	r3, r0
+ 307 01b4 0CBF     		ite	eq
+ 308 01b6 0020     		moveq	r0, #0
+ 309 01b8 0120     		movne	r0, #1
+ 310 01ba 7047     		bx	lr
+ 311              	.L49:
+ 312              		.align	2
+ 313              	.L48:
+ 314 01bc 00040240 		.word	1073873920
+ 315 01c0 00000240 		.word	1073872896
+ 317              		.align	1
+ 318              		.global	DMA_ClearITPendingBit
+ 319              		.thumb
+ 320              		.thumb_func
+ 322              	DMA_ClearITPendingBit:
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 325              		@ link register save eliminated.
+ 326 01c4 C300     		lsls	r3, r0, #3
+ 327 01c6 4CBF     		ite	mi
+ 328 01c8 014B     		ldrmi	r3, .L54
+ 329 01ca 024B     		ldrpl	r3, .L54+4
+ 330 01cc 5860     		str	r0, [r3, #4]
+ 331 01ce 7047     		bx	lr
+ 332              	.L55:
+ 333              		.align	2
+ 334              	.L54:
+ 335 01d0 00040240 		.word	1073873920
+ 336 01d4 00000240 		.word	1073872896
+ 338              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f10x_dma.c
+     /tmp/ccEH6yNM.s:16     .text:0000000000000000 $t
+     /tmp/ccEH6yNM.s:21     .text:0000000000000000 DMA_DeInit
+     /tmp/ccEH6yNM.s:122    .text:00000000000000c8 $d
+     /tmp/ccEH6yNM.s:135    .text:00000000000000f8 $t
+     /tmp/ccEH6yNM.s:140    .text:00000000000000f8 DMA_Init
+     /tmp/ccEH6yNM.s:177    .text:0000000000000136 DMA_StructInit
+     /tmp/ccEH6yNM.s:200    .text:0000000000000150 DMA_Cmd
+     /tmp/ccEH6yNM.s:219    .text:0000000000000162 DMA_ITConfig
+     /tmp/ccEH6yNM.s:238    .text:0000000000000172 DMA_GetCurrDataCounter
+     /tmp/ccEH6yNM.s:251    .text:0000000000000178 DMA_GetFlagStatus
+     /tmp/ccEH6yNM.s:268    .text:000000000000018c $d
+     /tmp/ccEH6yNM.s:271    .text:0000000000000194 $t
+     /tmp/ccEH6yNM.s:276    .text:0000000000000194 DMA_ClearFlag
+     /tmp/ccEH6yNM.s:289    .text:00000000000001a0 $d
+     /tmp/ccEH6yNM.s:292    .text:00000000000001a8 $t
+     /tmp/ccEH6yNM.s:297    .text:00000000000001a8 DMA_GetITStatus
+     /tmp/ccEH6yNM.s:314    .text:00000000000001bc $d
+     /tmp/ccEH6yNM.s:317    .text:00000000000001c4 $t
+     /tmp/ccEH6yNM.s:322    .text:00000000000001c4 DMA_ClearITPendingBit
+     /tmp/ccEH6yNM.s:335    .text:00000000000001d0 $d
+
+NO UNDEFINED SYMBOLS

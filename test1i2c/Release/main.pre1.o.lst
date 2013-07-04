@@ -1,0 +1,372 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.pre1.c"
+  14              		.text
+  15              		.align	1
+  16              		.global	Delay
+  17              		.thumb
+  18              		.thumb_func
+  20              	Delay:
+  21              		@ args = 0, pretend = 0, frame = 8
+  22              		@ frame_needed = 0, uses_anonymous_args = 0
+  23              		@ link register save eliminated.
+  24 0000 82B0     		sub	sp, sp, #8
+  25 0002 0190     		str	r0, [sp, #4]
+  26 0004 019A     		ldr	r2, [sp, #4]
+  27 0006 034B     		ldr	r3, .L4
+  28 0008 1A60     		str	r2, [r3, #0]
+  29              	.L2:
+  30 000a 1A68     		ldr	r2, [r3, #0]
+  31 000c 002A     		cmp	r2, #0
+  32 000e FCD1     		bne	.L2
+  33 0010 02B0     		add	sp, sp, #8
+  34 0012 7047     		bx	lr
+  35              	.L5:
+  36              		.align	2
+  37              	.L4:
+  38 0014 00000000 		.word	.LANCHOR0
+  40              		.align	1
+  41              		.global	TimingDelay_Decrement
+  42              		.thumb
+  43              		.thumb_func
+  45              	TimingDelay_Decrement:
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0018 104B     		ldr	r3, .L12
+  50 001a 5A68     		ldr	r2, [r3, #4]
+  51 001c 0132     		adds	r2, r2, #1
+  52 001e 5A60     		str	r2, [r3, #4]
+  53 0020 9968     		ldr	r1, [r3, #8]
+  54 0022 8A42     		cmp	r2, r1
+  55 0024 12D9     		bls	.L7
+  56 0026 0022     		movs	r2, #0
+  57 0028 5A60     		str	r2, [r3, #4]
+  58 002a 0D4B     		ldr	r3, .L12+4
+  59 002c DA68     		ldr	r2, [r3, #12]
+  60 002e 12F4804F 		tst	r2, #16384
+  61 0032 4FF48042 		mov	r2, #16384
+  62 0036 06D1     		bne	.L11
+  63              	.L8:
+  64 0038 1A61     		str	r2, [r3, #16]
+  65 003a DA68     		ldr	r2, [r3, #12]
+  66 003c 12F4004F 		tst	r2, #32768
+  67 0040 4FF40042 		mov	r2, #32768
+  68 0044 01D0     		beq	.L9
+  69              	.L11:
+  70 0046 5A61     		str	r2, [r3, #20]
+  71 0048 00E0     		b	.L7
+  72              	.L9:
+  73 004a 1A61     		str	r2, [r3, #16]
+  74              	.L7:
+  75 004c 034B     		ldr	r3, .L12
+  76 004e 1A68     		ldr	r2, [r3, #0]
+  77 0050 12B1     		cbz	r2, .L6
+  78 0052 1A68     		ldr	r2, [r3, #0]
+  79 0054 013A     		subs	r2, r2, #1
+  80 0056 1A60     		str	r2, [r3, #0]
+  81              	.L6:
+  82 0058 7047     		bx	lr
+  83              	.L13:
+  84 005a 00BF     		.align	2
+  85              	.L12:
+  86 005c 00000000 		.word	.LANCHOR0
+  87 0060 000C0140 		.word	1073810432
+  89              		.align	1
+  90              		.global	RCC_Configuration
+  91              		.thumb
+  92              		.thumb_func
+  94              	RCC_Configuration:
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97 0064 0120     		movs	r0, #1
+  98 0066 08B5     		push	{r3, lr}
+  99 0068 0146     		mov	r1, r0
+ 100 006a FFF7FEFF 		bl	RCC_AHBPeriphClockCmd
+ 101 006e 4FF40010 		mov	r0, #2097152
+ 102 0072 0121     		movs	r1, #1
+ 103 0074 FFF7FEFF 		bl	RCC_APB1PeriphClockCmd
+ 104 0078 44F20100 		movw	r0, #16385
+ 105 007c 0121     		movs	r1, #1
+ 106 007e FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 107 0082 0121     		movs	r1, #1
+ 108 0084 0C20     		movs	r0, #12
+ 109 0086 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 110 008a 094B     		ldr	r3, .L15
+ 111 008c F021     		movs	r1, #240
+ 112 008e 1A68     		ldr	r2, [r3, #0]
+ 113 0090 4FF47A73 		mov	r3, #1000
+ 114 0094 B2FBF3F2 		udiv	r2, r2, r3
+ 115 0098 064B     		ldr	r3, .L15+4
+ 116 009a 013A     		subs	r2, r2, #1
+ 117 009c 5A60     		str	r2, [r3, #4]
+ 118 009e 064A     		ldr	r2, .L15+8
+ 119 00a0 82F82310 		strb	r1, [r2, #35]
+ 120 00a4 0022     		movs	r2, #0
+ 121 00a6 9A60     		str	r2, [r3, #8]
+ 122 00a8 0722     		movs	r2, #7
+ 123 00aa 1A60     		str	r2, [r3, #0]
+ 124 00ac 08BD     		pop	{r3, pc}
+ 125              	.L16:
+ 126 00ae 00BF     		.align	2
+ 127              	.L15:
+ 128 00b0 00000000 		.word	SystemCoreClock
+ 129 00b4 10E000E0 		.word	-536813552
+ 130 00b8 00ED00E0 		.word	-536810240
+ 132              		.align	1
+ 133              		.global	GPIO_Configuration
+ 134              		.thumb
+ 135              		.thumb_func
+ 137              	GPIO_Configuration:
+ 138              		@ args = 0, pretend = 0, frame = 8
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140 00bc 37B5     		push	{r0, r1, r2, r4, r5, lr}
+ 141 00be 4FF48063 		mov	r3, #1024
+ 142 00c2 1A4D     		ldr	r5, .L18
+ 143 00c4 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 144 00c8 0423     		movs	r3, #4
+ 145 00ca 0DEB0301 		add	r1, sp, r3
+ 146 00ce 2846     		mov	r0, r5
+ 147 00d0 8DF80730 		strb	r3, [sp, #7]
+ 148 00d4 FFF7FEFF 		bl	GPIO_Init
+ 149 00d8 4FF40073 		mov	r3, #512
+ 150 00dc 0324     		movs	r4, #3
+ 151 00de ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 152 00e2 2846     		mov	r0, r5
+ 153 00e4 1823     		movs	r3, #24
+ 154 00e6 01A9     		add	r1, sp, #4
+ 155 00e8 8DF80730 		strb	r3, [sp, #7]
+ 156 00ec 05F58065 		add	r5, r5, #1024
+ 157 00f0 8DF80640 		strb	r4, [sp, #6]
+ 158 00f4 FFF7FEFF 		bl	GPIO_Init
+ 159 00f8 C023     		movs	r3, #192
+ 160 00fa ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 161 00fe 2846     		mov	r0, r5
+ 162 0100 1C23     		movs	r3, #28
+ 163 0102 01A9     		add	r1, sp, #4
+ 164 0104 8DF80730 		strb	r3, [sp, #7]
+ 165 0108 8DF80640 		strb	r4, [sp, #6]
+ 166 010c FFF7FEFF 		bl	GPIO_Init
+ 167 0110 4FF44043 		mov	r3, #49152
+ 168 0114 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 169 0118 2846     		mov	r0, r5
+ 170 011a 1423     		movs	r3, #20
+ 171 011c 01A9     		add	r1, sp, #4
+ 172 011e 8DF80640 		strb	r4, [sp, #6]
+ 173 0122 8DF80730 		strb	r3, [sp, #7]
+ 174 0126 FFF7FEFF 		bl	GPIO_Init
+ 175 012a 3EBD     		pop	{r1, r2, r3, r4, r5, pc}
+ 176              	.L19:
+ 177              		.align	2
+ 178              	.L18:
+ 179 012c 00080140 		.word	1073809408
+ 181              		.align	1
+ 182              		.global	I2C1_ER_IRQHandler
+ 183              		.thumb
+ 184              		.thumb_func
+ 186              	I2C1_ER_IRQHandler:
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+ 189              		@ link register save eliminated.
+ 190 0130 7047     		bx	lr
+ 192              		.align	1
+ 193              		.global	NVIC_Configuration
+ 194              		.thumb
+ 195              		.thumb_func
+ 197              	NVIC_Configuration:
+ 198              		@ args = 0, pretend = 0, frame = 8
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200 0132 37B5     		push	{r0, r1, r2, r4, r5, lr}
+ 201 0134 1F23     		movs	r3, #31
+ 202 0136 0024     		movs	r4, #0
+ 203 0138 0125     		movs	r5, #1
+ 204 013a 01A8     		add	r0, sp, #4
+ 205 013c 8DF80430 		strb	r3, [sp, #4]
+ 206 0140 8DF80540 		strb	r4, [sp, #5]
+ 207 0144 8DF80640 		strb	r4, [sp, #6]
+ 208 0148 8DF80750 		strb	r5, [sp, #7]
+ 209 014c FFF7FEFF 		bl	NVIC_Init
+ 210 0150 2023     		movs	r3, #32
+ 211 0152 01A8     		add	r0, sp, #4
+ 212 0154 8DF80430 		strb	r3, [sp, #4]
+ 213 0158 8DF80540 		strb	r4, [sp, #5]
+ 214 015c 8DF80640 		strb	r4, [sp, #6]
+ 215 0160 8DF80750 		strb	r5, [sp, #7]
+ 216 0164 FFF7FEFF 		bl	NVIC_Init
+ 217 0168 3EBD     		pop	{r1, r2, r3, r4, r5, pc}
+ 219 016a 00BF     		.section	.text.startup,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	main
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	main:
+ 226              		@ args = 0, pretend = 0, frame = 104
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228 0000 30B5     		push	{r4, r5, lr}
+ 229 0002 3548     		ldr	r0, .L26
+ 230 0004 9BB0     		sub	sp, sp, #108
+ 231 0006 FFF7FEFF 		bl	logReport
+ 232 000a 344B     		ldr	r3, .L26+4
+ 233 000c 6422     		movs	r2, #100
+ 234 000e 9A60     		str	r2, [r3, #8]
+ 235 0010 9968     		ldr	r1, [r3, #8]
+ 236 0012 3348     		ldr	r0, .L26+8
+ 237 0014 FFF7FEFF 		bl	logReport
+ 238 0018 FFF7FEFF 		bl	RCC_Configuration
+ 239 001c FFF7FEFF 		bl	NVIC_Configuration
+ 240 0020 FFF7FEFF 		bl	GPIO_Configuration
+ 241 0024 4FF4E123 		mov	r3, #460800
+ 242 0028 0024     		movs	r4, #0
+ 243 002a 1293     		str	r3, [sp, #72]
+ 244 002c 2D48     		ldr	r0, .L26+12
+ 245 002e 0823     		movs	r3, #8
+ 246 0030 12A9     		add	r1, sp, #72
+ 247 0032 ADF85230 		strh	r3, [sp, #82]	@ movhi
+ 248 0036 ADF84C40 		strh	r4, [sp, #76]	@ movhi
+ 249 003a ADF84E40 		strh	r4, [sp, #78]	@ movhi
+ 250 003e ADF85040 		strh	r4, [sp, #80]	@ movhi
+ 251 0042 ADF85440 		strh	r4, [sp, #84]	@ movhi
+ 252 0046 FFF7FEFF 		bl	USART_Init
+ 253 004a 0121     		movs	r1, #1
+ 254 004c 2548     		ldr	r0, .L26+12
+ 255 004e FFF7FEFF 		bl	USART_Cmd
+ 256 0052 2548     		ldr	r0, .L26+16
+ 257 0054 FFF7FEFF 		bl	I2C_DeInit
+ 258 0058 2146     		mov	r1, r4
+ 259 005a 2348     		ldr	r0, .L26+16
+ 260 005c FFF7FEFF 		bl	I2C_Cmd
+ 261 0060 16A8     		add	r0, sp, #88
+ 262 0062 FFF7FEFF 		bl	I2C_StructInit
+ 263 0066 0122     		movs	r2, #1
+ 264 0068 1F48     		ldr	r0, .L26+16
+ 265 006a 4FF44071 		mov	r1, #768
+ 266 006e FFF7FEFF 		bl	I2C_ITConfig
+ 267 0072 4BF6FF73 		movw	r3, #49151
+ 268 0076 ADF85E30 		strh	r3, [sp, #94]	@ movhi
+ 269 007a 4FF48043 		mov	r3, #16384
+ 270 007e ADF86430 		strh	r3, [sp, #100]	@ movhi
+ 271 0082 1A4B     		ldr	r3, .L26+20
+ 272 0084 1848     		ldr	r0, .L26+16
+ 273 0086 16A9     		add	r1, sp, #88
+ 274 0088 1693     		str	r3, [sp, #88]
+ 275 008a ADF85C40 		strh	r4, [sp, #92]	@ movhi
+ 276 008e FFF7FEFF 		bl	I2C_Init
+ 277 0092 FFF7FEFF 		bl	I2CD_Init
+ 278 0096 2023     		movs	r3, #32
+ 279 0098 8DF80440 		strb	r4, [sp, #4]
+ 280 009c 8DF80530 		strb	r3, [sp, #5]
+ 281 00a0 134C     		ldr	r4, .L26+24
+ 282 00a2 1023     		movs	r3, #16
+ 283 00a4 8DF80630 		strb	r3, [sp, #6]
+ 284 00a8 7023     		movs	r3, #112
+ 285 00aa 2370     		strb	r3, [r4, #0]
+ 286 00ac 01AB     		add	r3, sp, #4
+ 287 00ae E360     		str	r3, [r4, #12]
+ 288 00b0 0323     		movs	r3, #3
+ 289 00b2 6360     		str	r3, [r4, #4]
+ 290 00b4 FFF7FEFF 		bl	I2CD_Commit
+ 291              	.L23:
+ 292 00b8 227D     		ldrb	r2, [r4, #20]	@ zero_extendqisi2
+ 293 00ba 0D4B     		ldr	r3, .L26+24
+ 294 00bc 042A     		cmp	r2, #4
+ 295 00be FBD1     		bne	.L23
+ 296 00c0 0022     		movs	r2, #0
+ 297 00c2 1A75     		strb	r2, [r3, #20]
+ 298 00c4 7122     		movs	r2, #113
+ 299 00c6 1A70     		strb	r2, [r3, #0]
+ 300 00c8 FFF7FEFF 		bl	I2CD_Commit
+ 301 00cc 4FF47A70 		mov	r0, #1000
+ 302 00d0 FFF7FEFF 		bl	Delay
+ 303              	.L24:
+ 304 00d4 FEE7     		b	.L24
+ 305              	.L27:
+ 306 00d6 00BF     		.align	2
+ 307              	.L26:
+ 308 00d8 00000000 		.word	.LC0
+ 309 00dc 00000000 		.word	.LANCHOR0
+ 310 00e0 11000000 		.word	.LC1
+ 311 00e4 00380140 		.word	1073821696
+ 312 00e8 00540040 		.word	1073763328
+ 313 00ec 801A0600 		.word	400000
+ 314 00f0 00000000 		.word	I2CD_Transfer
+ 316              		.global	msgcount
+ 317              		.comm	I2CD_Transfer,24,4
+ 318              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 319              	.LC0:
+ 320 0000 53797374 		.ascii	"System started\015\012\000"
+ 320      656D2073 
+ 320      74617274 
+ 320      65640D0A 
+ 320      00
+ 321              	.LC1:
+ 322 0011 4C454420 		.ascii	"LED Period: %u\015\012\000"
+ 322      50657269 
+ 322      6F643A20 
+ 322      25750D0A 
+ 322      00
+ 323              		.bss
+ 324              		.align	2
+ 325              		.set	.LANCHOR0,. + 0
+ 328              	TimingDelay:
+ 329 0000 00000000 		.space	4
+ 332              	ledcount:
+ 333 0004 00000000 		.space	4
+ 336              	ledfreq:
+ 337 0008 00000000 		.space	4
+ 340              	msgcount:
+ 341 000c 00000000 		.space	4
+ 342              		.ident	"GCC: (Linaro GCC 4.6-2011.10) 4.6.2 20111004 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.pre1.c
+     /tmp/ccaXUoXI.s:15     .text:0000000000000000 $t
+     /tmp/ccaXUoXI.s:20     .text:0000000000000000 Delay
+     /tmp/ccaXUoXI.s:38     .text:0000000000000014 $d
+     /tmp/ccaXUoXI.s:40     .text:0000000000000018 $t
+     /tmp/ccaXUoXI.s:45     .text:0000000000000018 TimingDelay_Decrement
+     /tmp/ccaXUoXI.s:86     .text:000000000000005c $d
+     /tmp/ccaXUoXI.s:89     .text:0000000000000064 $t
+     /tmp/ccaXUoXI.s:94     .text:0000000000000064 RCC_Configuration
+     /tmp/ccaXUoXI.s:128    .text:00000000000000b0 $d
+     /tmp/ccaXUoXI.s:132    .text:00000000000000bc $t
+     /tmp/ccaXUoXI.s:137    .text:00000000000000bc GPIO_Configuration
+     /tmp/ccaXUoXI.s:179    .text:000000000000012c $d
+     /tmp/ccaXUoXI.s:181    .text:0000000000000130 $t
+     /tmp/ccaXUoXI.s:186    .text:0000000000000130 I2C1_ER_IRQHandler
+     /tmp/ccaXUoXI.s:197    .text:0000000000000132 NVIC_Configuration
+     /tmp/ccaXUoXI.s:220    .text.startup:0000000000000000 $t
+     /tmp/ccaXUoXI.s:225    .text.startup:0000000000000000 main
+     /tmp/ccaXUoXI.s:308    .text.startup:00000000000000d8 $d
+                            *COM*:0000000000000018 I2CD_Transfer
+     /tmp/ccaXUoXI.s:340    .bss:000000000000000c msgcount
+     /tmp/ccaXUoXI.s:324    .bss:0000000000000000 $d
+     /tmp/ccaXUoXI.s:328    .bss:0000000000000000 TimingDelay
+     /tmp/ccaXUoXI.s:332    .bss:0000000000000004 ledcount
+     /tmp/ccaXUoXI.s:336    .bss:0000000000000008 ledfreq
+
+UNDEFINED SYMBOLS
+RCC_AHBPeriphClockCmd
+RCC_APB1PeriphClockCmd
+RCC_APB2PeriphClockCmd
+SystemCoreClock
+GPIO_Init
+NVIC_Init
+logReport
+USART_Init
+USART_Cmd
+I2C_DeInit
+I2C_Cmd
+I2C_StructInit
+I2C_ITConfig
+I2C_Init
+I2CD_Init
+I2CD_Commit

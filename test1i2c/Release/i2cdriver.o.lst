@@ -1,0 +1,186 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"i2cdriver.c"
+  15              		.text
+  16              		.align	1
+  17              		.global	I2CD_Init
+  18              		.thumb
+  19              		.thumb_func
+  21              	I2CD_Init:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 0, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 024B     		ldr	r3, .L2
+  26 0002 0022     		movs	r2, #0
+  27 0004 1A75     		strb	r2, [r3, #20]
+  28 0006 5A60     		str	r2, [r3, #4]
+  29 0008 9A60     		str	r2, [r3, #8]
+  30 000a 7047     		bx	lr
+  31              	.L3:
+  32              		.align	2
+  33              	.L2:
+  34 000c 00000000 		.word	I2CD_Transfer
+  36              		.align	1
+  37              		.global	I2CD_Commit
+  38              		.thumb
+  39              		.thumb_func
+  41              	I2CD_Commit:
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 0, uses_anonymous_args = 0
+  44              		@ link register save eliminated.
+  45 0010 024B     		ldr	r3, .L5
+  46 0012 0348     		ldr	r0, .L5+4
+  47 0014 0121     		movs	r1, #1
+  48 0016 1975     		strb	r1, [r3, #20]
+  49 0018 FFF7FEBF 		b	I2C_GenerateSTART
+  50              	.L6:
+  51              		.align	2
+  52              	.L5:
+  53 001c 00000000 		.word	I2CD_Transfer
+  54 0020 00540040 		.word	1073763328
+  56              		.align	1
+  57              		.global	I2C1_EV_IRQHandler
+  58              		.thumb
+  59              		.thumb_func
+  61              	I2C1_EV_IRQHandler:
+  62              		@ args = 0, pretend = 0, frame = 48
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0024 70B5     		push	{r4, r5, r6, lr}
+  65 0026 334D     		ldr	r5, .L13
+  66 0028 8CB0     		sub	sp, sp, #48
+  67 002a AE8A     		ldrh	r6, [r5, #20]
+  68 002c 2C8B     		ldrh	r4, [r5, #24]
+  69 002e 0421     		movs	r1, #4
+  70 0030 B6B2     		uxth	r6, r6
+  71 0032 2720     		movs	r0, #39
+  72 0034 FFF7FEFF 		bl	logData
+  73 0038 A4B2     		uxth	r4, r4
+  74 003a 3046     		mov	r0, r6
+  75 003c FFF7FEFF 		bl	logInt16
+  76 0040 2046     		mov	r0, r4
+  77 0042 FFF7FEFF 		bl	logInt16
+  78 0046 0421     		movs	r1, #4
+  79 0048 3720     		movs	r0, #55
+  80 004a FFF7FEFF 		bl	logData
+  81 004e 2888     		ldrh	r0, [r5, #0]
+  82 0050 294C     		ldr	r4, .L13+4
+  83 0052 80B2     		uxth	r0, r0
+  84 0054 FFF7FEFF 		bl	logInt16
+  85 0058 A888     		ldrh	r0, [r5, #4]
+  86 005a 80B2     		uxth	r0, r0
+  87 005c FFF7FEFF 		bl	logInt16
+  88 0060 0221     		movs	r1, #2
+  89 0062 2820     		movs	r0, #40
+  90 0064 FFF7FEFF 		bl	logData
+  91 0068 207D     		ldrb	r0, [r4, #20]	@ zero_extendqisi2
+  92 006a FFF7FEFF 		bl	logInt16
+  93 006e F107     		lsls	r1, r6, #31
+  94 0070 27D5     		bpl	.L8
+  95 0072 2248     		ldr	r0, .L13+8
+  96 0074 FFF7FEFF 		bl	DMA_DeInit
+  97 0078 214B     		ldr	r3, .L13+12
+  98 007a 8022     		movs	r2, #128
+  99 007c 0193     		str	r3, [sp, #4]
+ 100 007e E368     		ldr	r3, [r4, #12]
+ 101 0080 0692     		str	r2, [sp, #24]
+ 102 0082 0293     		str	r3, [sp, #8]
+ 103 0084 1023     		movs	r3, #16
+ 104 0086 0393     		str	r3, [sp, #12]
+ 105 0088 6368     		ldr	r3, [r4, #4]
+ 106 008a 4FF44052 		mov	r2, #12288
+ 107 008e 0493     		str	r3, [sp, #16]
+ 108 0090 1A48     		ldr	r0, .L13+8
+ 109 0092 0023     		movs	r3, #0
+ 110 0094 01A9     		add	r1, sp, #4
+ 111 0096 0593     		str	r3, [sp, #20]
+ 112 0098 0793     		str	r3, [sp, #28]
+ 113 009a 0893     		str	r3, [sp, #32]
+ 114 009c 0993     		str	r3, [sp, #36]
+ 115 009e 0B93     		str	r3, [sp, #44]
+ 116 00a0 0A92     		str	r2, [sp, #40]
+ 117 00a2 FFF7FEFF 		bl	DMA_Init
+ 118 00a6 1548     		ldr	r0, .L13+8
+ 119 00a8 0121     		movs	r1, #1
+ 120 00aa FFF7FEFF 		bl	DMA_Cmd
+ 121 00ae 2846     		mov	r0, r5
+ 122 00b0 0121     		movs	r1, #1
+ 123 00b2 FFF7FEFF 		bl	I2C_DMACmd
+ 124 00b6 0223     		movs	r3, #2
+ 125 00b8 2375     		strb	r3, [r4, #20]
+ 126 00ba 2378     		ldrb	r3, [r4, #0]	@ zero_extendqisi2
+ 127 00bc 5B00     		lsls	r3, r3, #1
+ 128 00be 2B82     		strh	r3, [r5, #16]	@ movhi
+ 129 00c0 0EE0     		b	.L9
+ 130              	.L8:
+ 131 00c2 B207     		lsls	r2, r6, #30
+ 132 00c4 01D5     		bpl	.L10
+ 133 00c6 0323     		movs	r3, #3
+ 134 00c8 09E0     		b	.L12
+ 135              	.L10:
+ 136 00ca 3306     		lsls	r3, r6, #24
+ 137 00cc 06D5     		bpl	.L11
+ 138 00ce 0423     		movs	r3, #4
+ 139 00d0 2846     		mov	r0, r5
+ 140 00d2 0121     		movs	r1, #1
+ 141 00d4 2375     		strb	r3, [r4, #20]
+ 142 00d6 FFF7FEFF 		bl	I2C_GenerateSTOP
+ 143 00da 01E0     		b	.L9
+ 144              	.L11:
+ 145 00dc 0623     		movs	r3, #6
+ 146              	.L12:
+ 147 00de 2375     		strb	r3, [r4, #20]
+ 148              	.L9:
+ 149 00e0 2920     		movs	r0, #41
+ 150 00e2 0221     		movs	r1, #2
+ 151 00e4 FFF7FEFF 		bl	logData
+ 152 00e8 034B     		ldr	r3, .L13+4
+ 153 00ea 187D     		ldrb	r0, [r3, #20]	@ zero_extendqisi2
+ 154 00ec FFF7FEFF 		bl	logInt16
+ 155 00f0 0CB0     		add	sp, sp, #48
+ 156 00f2 70BD     		pop	{r4, r5, r6, pc}
+ 157              	.L14:
+ 158              		.align	2
+ 159              	.L13:
+ 160 00f4 00540040 		.word	1073763328
+ 161 00f8 00000000 		.word	I2CD_Transfer
+ 162 00fc 6C000240 		.word	1073873004
+ 163 0100 10540040 		.word	1073763344
+ 165              		.comm	logptr,4,4
+ 166              		.comm	logbuf,1024,1
+ 167              		.comm	I2CD_Transfer,24,4
+ 168              		.ident	"GCC: (Linaro GCC 4.7-2013.01) 4.7.3 20130102 (prerelease)"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 i2cdriver.c
+     /tmp/ccjP92vN.s:16     .text:0000000000000000 $t
+     /tmp/ccjP92vN.s:21     .text:0000000000000000 I2CD_Init
+     /tmp/ccjP92vN.s:34     .text:000000000000000c $d
+                            *COM*:0000000000000018 I2CD_Transfer
+     /tmp/ccjP92vN.s:36     .text:0000000000000010 $t
+     /tmp/ccjP92vN.s:41     .text:0000000000000010 I2CD_Commit
+     /tmp/ccjP92vN.s:53     .text:000000000000001c $d
+     /tmp/ccjP92vN.s:56     .text:0000000000000024 $t
+     /tmp/ccjP92vN.s:61     .text:0000000000000024 I2C1_EV_IRQHandler
+     /tmp/ccjP92vN.s:160    .text:00000000000000f4 $d
+                            *COM*:0000000000000004 logptr
+                            *COM*:0000000000000400 logbuf
+
+UNDEFINED SYMBOLS
+I2C_GenerateSTART
+logData
+logInt16
+DMA_DeInit
+DMA_Init
+DMA_Cmd
+I2C_DMACmd
+I2C_GenerateSTOP
