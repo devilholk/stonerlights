@@ -24,8 +24,13 @@
 #include "stm32f10x_adc.h"
 #include "stm32f10x_usart.h"
 
-#define true -1;
-#define false 0;
+#define Crowbar(x, min, max)	if (x>max) x=max; if (x<min) x=min
+
+
+#define true -1
+#define false 0
+
+#define HUE_MAX 24576
 
 typedef struct {
 	int start;
@@ -153,6 +158,11 @@ void Delay(__IO uint32_t nTime)
  * @param  None
  * @retval None
  */
+
+int sat=0;
+int light=0; 
+ int lcount=0;
+ int scount=0;
 void TimingDelay_Decrement(void)
 {
 
@@ -164,8 +174,38 @@ void TimingDelay_Decrement(void)
 		comtimeout--;
 	} else {
 
-		test++;
-		colorWheel(&test, &TIM3->CCR3, &TIM2->CCR3, &TIM2->CCR2);
+		test=(test+1)%HUE_MAX;
+//		colorHexagon(test, &TIM2->CCR3, &TIM3->CCR3, &TIM2->CCR2);
+
+		if (scount++ >5) {
+			sat=(sat+1)%8192;
+			scount=0;
+		}
+		if (lcount++ > 8) {
+			light=(light+1)%8192;
+			lcount=0;
+		}
+		
+		int vsat, vlight;
+		vsat = sat & 4096 ? 4095 - sat & 4095 : sat;
+		vlight = light & 4096 ? 4095 - light & 4095 : light;
+		
+		//colorHSL(test,vsat,vlight, &TIM2->CCR3, &TIM3->CCR3, &TIM2->CCR2);
+	
+//		colorHCY(test,vsat,vlight, &TIM2->CCR3, &TIM3->CCR3, &TIM2->CCR2);	//Ordning på badrumslampa
+		colorHCY(test,4095,2047, &TIM3->CCR3, &TIM2->CCR3, &TIM2->CCR2); //Rätt ordning
+//		colorHexagon(test, &TIM3->CCR3, &TIM2->CCR3, &TIM2->CCR2); //Rätt ordning
+
+/*	if (sizeof(sat) == 4) {
+		TIM2->CCR3=4095;
+		TIM3->CCR3=0;
+		TIM2->CCR2=0;
+	} else {
+		TIM2->CCR3=4095;
+		TIM3->CCR3=4095;
+		TIM2->CCR2=0;
+		}
+	*/		
 	}
 
 
@@ -175,29 +215,73 @@ void TimingDelay_Decrement(void)
 	}
 }
 
+inline void colorHSL(int hue, int sat, int light,int *R, int *G, int *B) {
+	int tR,tG,tB;
+	int frac = hue >> 12;
+	//Chroma
+	int C = ((4095-abs((light<<1)-4095))*sat)>>12;
+	int X= (C*(4095-abs((hue % 8192) - 4095)))>>12;
 
-inline void colorWheel(int *cycle, int *R, int *G, int *B) {
-	*cycle = *cycle < 0 ? (12287 + *cycle) % 12288 : *cycle % 12288;
-	int frac = *cycle % 4096;
-	switch ((*cycle >> 12) & 0b11) {
-	case 3:
-	case 0: //R-G
-		*R = 4095 - frac;
-		*G = frac;
-		*B = 0;
-		return;
-	case 1: //G-B
-		*R = 0;
-		*G = 4095 - frac;
-		*B = frac;
-		return;
-	case 2: //B-R
-		*R = frac;
-		*G = 0;
-		*B = 4095 - frac;
-		return;
+	//Hue
+	switch (frac) {
+		case 0:	tR = C;	tG = X;	tB = 0; break;	//R1	G+	B0
+		case 1:	tR = X;	tG = C;	tB = 0; break;	//R-	G1	B0
+		case 2:	tR = 0;	tG = C;	tB = X; break;	//R0	G1	B+
+		case 3:	tR = 0;	tG = X;	tB = C; break;	//R0	G-	B1
+		case 4:	tR = X;	tG = 0;	tB = C; break;	//R+	G0	B1
+		case 5:	tR = C;	tG = 0;	tB = X; break;	//R1	G0	B-
+	}
+
+	//Lightness	
+	int m = light - (C>>1);
+	tR+=m; tG+=m; tB+=m;
+	*R = tR; *G = tG; *B = tB;
+}
+
+inline void colorHCY(int hue, int chroma, int luma,int *R, int *G, int *B) {
+	int tR,tG,tB;
+	int frac = hue >> 12;
+	//Chroma
+	int C = chroma;
+	int X= (C*(4095-abs((hue % 8192) - 4095)))>>12;
+
+	//Hue
+	switch (frac) {
+		case 0:	tR = C;	tG = X;	tB = 0; break;	//R1	G+	B0
+		case 1:	tR = X;	tG = C;	tB = 0; break;	//R-	G1	B0
+		case 2:	tR = 0;	tG = C;	tB = X; break;	//R0	G1	B+
+		case 3:	tR = 0;	tG = X;	tB = C; break;	//R0	G-	B1
+		case 4:	tR = X;	tG = 0;	tB = C; break;	//R+	G0	B1
+		case 5:	tR = C;	tG = 0;	tB = X; break;	//R1	G0	B-
+	}
+
+	//Luma	
+	int m = luma - ((tR*1229 + tG*2417 + tB*451) >> 12);
+	tR+=m; tG+=m; tB+=m;
+
+	Crowbar(tR, 0, 4095);
+	Crowbar(tG, 0, 4095);
+	Crowbar(tB, 0, 4095);
+	
+	*R = tR; *G = tG; *B = tB;
+}
+
+
+inline void colorHexagon(int hue, int *R, int *G, int *B) {
+	int frac = hue >> 12;
+	int ci = hue & 0xFFF;
+	int cd = 4095 - ci;
+	int cs = 4095;
+	switch (frac) {
+		case 0:	*R = cs;	*G = ci;	*B = 0; break;		//R1	G+	B0
+		case 1:	*R = cd;	*G = cs;	*B = 0; break;		//R-	G1	B0
+		case 2:	*R = 0;	*G = cs;	*B = ci; break;	//R0	G1	B+
+		case 3:	*R = 0;	*G = cd;	*B = cs; break;	//R0	G-	B1
+		case 4:	*R = ci;	*G = 0;	*B = cs; break;	//R+	G0	B1
+		case 5:	*R = cs;	*G = 0;	*B = cd; break;	//R1	G0	B-
 	}
 }
+
 
 
 
@@ -225,6 +309,8 @@ int main(void) {
 	GPIO_Configuration();
     NVIC_Configuration();
 
+
+	while(1);
 
     USART_InitTypeDef USART_InitStructure;
 
