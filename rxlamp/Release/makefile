@@ -43,7 +43,7 @@ all: rxlamp.elf secondary-outputs
 rxlamp.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Summon Linux GCC C Linker'
-	arm-none-eabi-gcc -T"/home/m_lovqvist/arm/test1/stm32f_flash.ld" -nodefaultlibs -nostdlib -Wl,-Map,rxlamp.map -mcpu=cortex-m3 -mthumb -o "rxlamp.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -Xlinker --gc-sections -T"../stm32f_flash.ld" -nodefaultlibs -nostdlib -Wl,-Map,rxlamp.map -mcpu=cortex-m3 -mthumb -o "rxlamp.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

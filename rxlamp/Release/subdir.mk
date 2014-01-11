@@ -94,8 +94,7 @@ C_DEPS += \
 # Each subdirectory must supply rules for building sources it contributes
 %.o: ../%.c
 	@echo 'Building file: $<'
-	@echo 'Invoking: ARM Summon Linux GCC C Compiler'
-	arm-none-eabi-gcc -DSTM32F10X_LD_VL -DUSE_STDPERIPH_DRIVER -Os -Wall -Wa,-adhlns="$@.lst" -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -mcpu=cortex-m3 -mthumb -o "$@" "$<"
+	arm-none-eabi-gcc -std=gnu99 -DSTM32F10X_LD_VL -DUSE_STDPERIPH_DRIVER -Os -Wall -Wa,-adhlns="$@.lst" -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -mcpu=cortex-m3 -mthumb -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
